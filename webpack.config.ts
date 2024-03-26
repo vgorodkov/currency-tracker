@@ -15,7 +15,7 @@ export default (env: envVariables) => {
 
   const config: webpack.Configuration = {
     mode: env.mode ?? 'development',
-    entry: resolve(__dirname, 'src', 'index.ts'),
+    entry: resolve(__dirname, 'src', 'index.tsx'),
     module: {
       rules: [
         {
