@@ -15,7 +15,9 @@
     "plugin:@typescript-eslint/recommended",
     "airbnb",
     "airbnb-typescript",
-    "airbnb/hooks"
+    "airbnb/hooks",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "plugins": ["@typescript-eslint", "react"],
   "rules": {
