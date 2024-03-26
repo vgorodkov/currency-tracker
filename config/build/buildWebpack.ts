@@ -1,5 +1,5 @@
 import webpack from 'webpack';
-import { BuildOptions } from 'config/build/types';
+import { BuildOptions } from '@config/build/types';
 import { buildDevServer, buildLoaders, buildPlugins, buildResolvers } from '.';
 
 export const buildWebpack = (options: BuildOptions): webpack.Configuration => {

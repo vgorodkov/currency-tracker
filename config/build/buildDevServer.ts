@@ -1,5 +1,5 @@
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
-import { BuildOptions } from 'config/build/types';
+import { BuildOptions } from '@config/build/types';
 
 export const buildDevServer = (
   options: BuildOptions
