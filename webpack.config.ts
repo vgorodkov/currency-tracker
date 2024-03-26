@@ -1,7 +1,7 @@
 import { resolve } from 'path';
 import webpack from 'webpack';
-import { buildWebpack } from 'config/build/buildWebpack';
-import { BuildMode, BuildPaths } from 'config/build/types';
+import { BuildMode, BuildPaths } from '@config/build/types';
+import { buildWebpack } from './config/build/buildWebpack';
 
 type EnvVariables = {
   mode: BuildMode;
@@ -14,6 +14,7 @@ export default (env: EnvVariables) => {
     html: resolve(__dirname, 'public', 'index.html'),
     entry: resolve(__dirname, 'src', 'index.tsx'),
     src: resolve(__dirname, 'src'),
+    config: resolve(__dirname, 'config'),
   };
   const config: webpack.Configuration = buildWebpack({
     port: env.port ?? 3000,
