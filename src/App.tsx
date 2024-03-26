@@ -1,12 +1,47 @@
-import { Outlet } from 'react-router-dom';
-import { Header } from './components/Header';
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
+import { MainLayout } from '@/components/MainLayout';
+import { LazyHome, LazyTimeline, LazyBankCard, LazyContacts } from '@/pages';
 
 export function App() {
   return (
-    <>
-      <Header />
-      <Outlet />
-      <h1>Footer</h1>
-    </>
+    <Routes>
+      <Route path="/" element={<MainLayout />}>
+        <Route
+          index
+          path="/"
+          element={
+            <Suspense fallback="Loading...">
+              <LazyHome />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/timeline"
+          element={
+            <Suspense fallback="Loading...">
+              <LazyTimeline />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/bankcard"
+          element={
+            <Suspense fallback="Loading...">
+              <LazyBankCard />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/contacts"
+          element={
+            <Suspense fallback="Loading...">
+              <LazyContacts />
+            </Suspense>
+          }
+        />
+      </Route>
+    </Routes>
   );
 }
