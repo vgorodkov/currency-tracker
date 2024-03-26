@@ -1,63 +1,23 @@
 import { resolve } from 'path';
 import webpack from 'webpack';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
-
-type Mode = 'production' | 'development';
+import { buildWebpack } from './config/build/buildWebpack';
+import { BuildMode, BuildPaths } from './config/build/types';
 
 type envVariables = {
-  mode: Mode;
+  mode: BuildMode;
   port: number;
 };
 
 export default (env: envVariables) => {
-  const isDev = env.mode === 'development';
-
-  const config: webpack.Configuration = {
-    mode: env.mode ?? 'development',
+  const paths: BuildPaths = {
+    output: resolve(__dirname, 'build'),
+    html: resolve(__dirname, 'public', 'index.html'),
     entry: resolve(__dirname, 'src', 'index.tsx'),
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.s[ac]ss$/i,
-          use: [
-            !isDev ? MiniCssExtractPlugin.loader : 'style-loader',
-            'css-loader',
-            'sass-loader',
-          ],
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
-    output: {
-      path: resolve(__dirname, 'build'),
-      filename: 'bundle.[contenthash].js',
-      clean: true,
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: resolve(__dirname, 'public', 'index.html'),
-      }),
-      new MiniCssExtractPlugin({
-        filename: 'css/[name].[contenthash:8].css',
-        chunkFilename: 'css/[name].[contenthash:8].css',
-      }),
-    ],
-    devtool: isDev ? 'inline-source-map' : false,
-    devServer: isDev
-      ? {
-          port: env.port ?? 3000,
-          open: true,
-        }
-      : undefined,
   };
+  const config: webpack.Configuration = buildWebpack({
+    port: env.port ?? 3000,
+    mode: env.mode ?? 'development',
+    paths,
+  });
   return config;
 };
