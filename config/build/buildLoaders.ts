@@ -1,9 +1,14 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
-import { BuildOptions } from 'config/build/types';
+import { BuildOptions } from '@config/build/types';
 
 export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
   const isDev = options.mode === 'development';
+
+  const assetLoader = {
+    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
+  };
 
   const scssLoader = {
     test: /\.s[ac]ss$/i,
@@ -29,5 +34,5 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     exclude: /node_modules/,
   };
 
-  return [scssLoader, tsLoader];
+  return [assetLoader, scssLoader, tsLoader];
 };
