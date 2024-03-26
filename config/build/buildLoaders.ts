@@ -1,6 +1,6 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
-import { BuildOptions } from './types';
+import { BuildOptions } from 'config/build/types';
 
 export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
   const isDev = options.mode === 'development';
