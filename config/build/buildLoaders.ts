@@ -6,8 +6,14 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
   const isDev = options.mode === 'development';
 
   const assetLoader = {
-    test: /\.(png|svg|jpg|jpeg|gif)$/i,
+    test: /\.(png|jpg|jpeg|gif)$/i,
     type: 'asset/resource',
+  };
+
+  const svgLoader = {
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    use: [{ loader: '@svgr/webpack', options: { icon: true } }],
   };
 
   const scssLoader = {
@@ -34,5 +40,5 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     exclude: /node_modules/,
   };
 
-  return [assetLoader, scssLoader, tsLoader];
+  return [assetLoader, scssLoader, tsLoader, svgLoader];
 };
