@@ -4,6 +4,8 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { App } from './App';
 import { LazyTimeline } from './pages/timeline/Timeline.lazy';
 import { LazyHome } from './pages/home/Home.lazy';
+import { LazyBankCard } from './pages/bankcard/BankCard.lazy';
+import { LazyContacts } from './pages/contacts/Contacts.lazy';
 
 const rootElement = document.getElementById('root');
 
@@ -31,6 +33,22 @@ const router = createBrowserRouter([
         element: (
           <Suspense fallback="Loading...">
             <LazyTimeline />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'bankcard',
+        element: (
+          <Suspense fallback="Loading...">
+            <LazyBankCard />
+          </Suspense>
+        ),
+      },
+      {
+        path: 'contacts',
+        element: (
+          <Suspense fallback="Loading...">
+            <LazyContacts />
           </Suspense>
         ),
       },
