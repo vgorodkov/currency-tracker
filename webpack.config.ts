@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import webpack from 'webpack';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import type { Configuration as DevServerConfiguration } from 'webpack-dev-server';
 
 type Mode = 'production' | 'development';
@@ -25,7 +26,11 @@ export default (env: envVariables) => {
         },
         {
           test: /\.s[ac]ss$/i,
-          use: ['style-loader', 'css-loader', 'sass-loader'],
+          use: [
+            !isDev ? MiniCssExtractPlugin.loader : 'style-loader',
+            'css-loader',
+            'sass-loader',
+          ],
         },
       ],
     },
@@ -40,6 +45,10 @@ export default (env: envVariables) => {
     plugins: [
       new HtmlWebpackPlugin({
         template: resolve(__dirname, 'public', 'index.html'),
+      }),
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css',
       }),
     ],
     devtool: isDev ? 'inline-source-map' : false,
