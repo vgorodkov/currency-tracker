@@ -1,0 +1,45 @@
+$button-width: 64px;
+$button-height: 30px;
+$button-padding: 1px;
+$button-border: 1px;
+$button-dark: white;
+$button-light: yellow;
+
+$circle-size: 24px;
+
+.label {
+  width: $button-width;
+  height: $button-height;
+  position: relative;
+  display: block;
+  border: $button-border solid $button-dark;
+  border-radius: 200px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:after {
+    content: '';
+    width: $circle-size;
+    height: $circle-size;
+    position: absolute;
+    transition: 0.3s;
+    top: $button-padding;
+    left: $button-padding;
+    border-radius: 180px;
+    border: $button-border solid $button-dark;
+  }
+}
+
+input {
+  width: 0;
+  height: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  &:checked + .label {
+    border: $button-border solid $button-light;
+  }
+  &:checked + .label:after {
+    left: calc(#{$button-width} - #{$button-padding});
+    transform: translateX(-100%);
+    border: $button-border solid $button-light;
+  }
+}
