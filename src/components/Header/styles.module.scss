@@ -1,3 +1,5 @@
+@import '../../spacing';
+
 .header {
-  padding-top: 24px;
+  padding-top: var(--spacing-sm);
 }
