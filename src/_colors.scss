@@ -1,0 +1,17 @@
+$background: #030304;
+$card: #202025;
+$border: #474747;
+$primary: #00ce2c;
+$primary-text: #ffffff;
+$secondary-text: #d9d9d9;
+$tertiary-text: #a7b2c3;
+
+:root {
+  --background-color: #{$background};
+  --card-color: #{$card};
+  --border-color: #{$border};
+  --primary-color: #{$primary};
+  --primary-text-color: #{$primary-text};
+  --secondary-text-color: #{$secondary-text};
+  --tertiary-text-color: #{$tertiary-text};
+}
