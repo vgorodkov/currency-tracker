@@ -5,6 +5,9 @@ $button-border: 1px;
 $button-dark: white;
 $button-light: yellow;
 
+$button-xs-width: 40px;
+$button-xs-height: 22px;
+
 $circle-size: 24px;
 
 .label {
@@ -29,7 +32,7 @@ $circle-size: 24px;
   }
 }
 
-input {
+.input {
   width: 0;
   height: 0;
   visibility: hidden;
@@ -38,8 +41,26 @@ input {
     border: $button-border solid $button-light;
   }
   &:checked + .label:after {
-    left: calc(#{$button-width} - #{$button-padding});
+    left: calc(#{$button-width} - #{$button-padding * 2});
     transform: translateX(-100%);
     border: $button-border solid $button-light;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .label {
+    width: $button-xs-width;
+    height: $button-xs-height;
+    &:after {
+      width: calc($circle-size/1.5);
+      height: calc($circle-size/1.5);
+    }
+  }
+  .input {
+    &:checked + .label:after {
+      left: calc(#{$button-xs-width} - #{$button-padding * 2});
+      transform: translateX(-100%);
+      border: $button-border solid $button-light;
+    }
   }
 }
