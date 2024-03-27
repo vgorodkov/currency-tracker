@@ -1,3 +1,8 @@
+@import '../../../../fonts';
+
+$logo-size: 40px;
+$logo-size-xs: 20px;
+
 .headerNavContainer {
   display: flex;
   flex-direction: row;
@@ -11,19 +16,26 @@
   justify-content: space-around;
 }
 .headerNavElement {
-  font-weight: 300;
-  font-size: 20px;
+  @include body;
   transition: 0.3s;
   color: var(--primary-text-color);
   &:hover {
     color: var(--primary-color);
-    transition: 0.3s;
+  }
+  &:active {
+    transform: translateY(4px);
   }
 }
+
+.activeHeaderNavElement {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
 .logo {
   transition: 0.3s;
-  width: 40px;
-  height: 40px;
+  width: $logo-size;
+  height: $logo-size;
 }
 
 .headerSide {
@@ -32,12 +44,12 @@
   justify-content: center;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .headerNavElement {
-    font-size: 12px;
+    @include label;
   }
   .logo {
-    width: 20px;
-    height: 20px;
+    width: $logo-size-xs;
+    height: $logo-size-xs;
   }
 }
