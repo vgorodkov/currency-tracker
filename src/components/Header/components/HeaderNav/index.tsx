@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import Logo from '@/assets/icons/logo.svg';
 import { ToggleThemeBtn } from '@/components/ToggleThemeBtn';
 import styles from './styles.module.scss';
@@ -18,13 +18,17 @@ export function HeaderNav() {
       </div>
       <nav className={styles.headerNav}>
         {ROUTES.map((item) => (
-          <Link
+          <NavLink
             key={item.name}
-            className={styles.headerNavElement}
+            className={({ isActive }) =>
+              isActive
+                ? `${styles.activeHeaderNavElement} ${styles.headerNavElement}`
+                : styles.headerNavElement
+            }
             to={item.path}
           >
             {item.name}
-          </Link>
+          </NavLink>
         ))}
       </nav>
       <div className={styles.headerSide}>
