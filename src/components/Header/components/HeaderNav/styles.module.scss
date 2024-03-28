@@ -1,0 +1,55 @@
+@import '../../../../fonts';
+
+$logo-size: 40px;
+$logo-size-xs: 20px;
+
+.headerNavContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.headerNav {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 0.4;
+  justify-content: space-around;
+}
+.headerNavElement {
+  @include body;
+  transition: 0.3s;
+  color: var(--primary-text-color);
+  &:hover {
+    color: var(--primary-color);
+  }
+  &:active {
+    transform: translateY(4px);
+  }
+}
+
+.activeHeaderNavElement {
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.logo {
+  transition: 0.3s;
+  width: $logo-size;
+  height: $logo-size;
+}
+
+.headerSide {
+  display: flex;
+  flex-grow: 0.2;
+  justify-content: center;
+}
+
+@media screen and (max-width: 600px) {
+  .headerNavElement {
+    @include label;
+  }
+  .logo {
+    width: $logo-size-xs;
+    height: $logo-size-xs;
+  }
+}

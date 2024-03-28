@@ -1,0 +1,15 @@
+$extra-large: 64px;
+$large: 48px;
+$medium: 32px;
+$semi-medium: 24px;
+$small: 16px;
+$extra-small: 8px;
+
+:root {
+  --spacing-xl: #{$extra-large};
+  --spacing-l: #{$large};
+  --spacing-m: #{$medium};
+  --spacing-sm: #{$semi-medium};
+  --spacing-s: #{$small};
+  --spacing-xs: #{$extra-small};
+}

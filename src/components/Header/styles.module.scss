@@ -1,11 +1,5 @@
-.topnav {
-  display: flex;
-  flex-direction: row;
-  background-color: lightblue;
-  justify-content: center;
-  gap: 128px;
-}
-.navElement {
-  text-decoration: none;
-  color: white;
+@import '../../spacing';
+
+.header {
+  padding-top: var(--spacing-sm);
 }
