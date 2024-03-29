@@ -10,12 +10,10 @@ const ROUTES = [
   { path: '/contacts', name: 'Contacts' },
 ];
 
-export function HeaderNav() {
+export function NavBar() {
   return (
-    <div className={styles.headerNavContainer}>
-      <div className={styles.headerSide}>
-        <Logo className={styles.logo} />
-      </div>
+    <header className={styles.headerContainer}>
+      <Logo className={styles.logo} />
       <nav className={styles.headerNav}>
         {ROUTES.map((item) => (
           <NavLink
@@ -31,9 +29,7 @@ export function HeaderNav() {
           </NavLink>
         ))}
       </nav>
-      <div className={styles.headerSide}>
-        <ToggleThemeBtn />
-      </div>
-    </div>
+      <ToggleThemeBtn />
+    </header>
   );
 }

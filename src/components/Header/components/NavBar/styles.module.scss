@@ -1,19 +1,20 @@
 @import '../../../../fonts';
+@import '../../../../breakpoints';
 
 $logo-size: 40px;
 $logo-size-xs: 20px;
 
-.headerNavContainer {
+.headerContainer {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 .headerNav {
   display: flex;
   flex-direction: row;
-  flex-grow: 0.4;
-  justify-content: space-around;
+  flex-grow: 0.8;
+  justify-content: space-evenly;
 }
 .headerNavElement {
   @include body;
@@ -38,13 +39,7 @@ $logo-size-xs: 20px;
   height: $logo-size;
 }
 
-.headerSide {
-  display: flex;
-  flex-grow: 0.2;
-  justify-content: center;
-}
-
-@media screen and (max-width: 600px) {
+@include breakpoint-s {
   .headerNavElement {
     @include label;
   }
