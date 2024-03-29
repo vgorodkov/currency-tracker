@@ -1,12 +1,11 @@
-import styles from './styles.module.scss';
-import { HeaderHero } from '@/components/Header/components/HeaderHero';
-import { HeaderNav } from '@/components/Header/components/HeaderNav';
+import { Hero } from '@/components/Header/components/Hero';
+import { NavBar } from '@/components/Header/components/NavBar';
 
 export function Header() {
   return (
-    <header className={styles.header}>
-      <HeaderNav />
-      <HeaderHero />
-    </header>
+    <>
+      <NavBar />
+      <Hero />
+    </>
   );
 }
