@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'breakpoints';
 
 * {
   margin: 0;
@@ -16,7 +17,7 @@ a {
   text-decoration: none;
 }
 
-@media screen and (max-width: 960px) {
+@include breakpoint-l {
   body {
     margin: var(--spacing-sm) var(--spacing-m);
   }
