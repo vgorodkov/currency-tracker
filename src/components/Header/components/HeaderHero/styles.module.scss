@@ -19,7 +19,7 @@ $hero-size: 300px;
   justify-content: center;
   align-items: center;
   background: linear-gradient(to top right, #24794000, #121212);
-  margin: var(--spacing-sm);
+  margin: var(--spacing-l) 0;
   padding: var(--spacing-sm);
   gap: var(--spacing-l);
   .headerHeroText {
@@ -57,7 +57,6 @@ $hero-size: 300px;
     display: none;
   }
   .headerHeroContainer {
-    margin: var(--spacing-sm);
     padding: var(--spacing-s);
     gap: 0px;
     .headerHeroText {
