@@ -1,18 +1,30 @@
-import CurrencyCard from '@/components/CurrencyCard';
-import styles from './styles.module.scss';
+import { useCallback, useState } from 'react';
 
-const MOCK_DATA = Array(11)
-  .fill('')
-  .map((_, index) => index);
+import { ConverterModal } from '@/components/ConverterModal';
+import { CurrencyExchangeList } from '@/components/CurrencyExchangeList';
+import { Modal } from '@/components/Modal';
+import { CurrencyInfo } from '@/types';
 
-export default function Home() {
+const Home = () => {
+  const [isModalActive, setIsModalActive] = useState(false);
+  const [fromCurrencyInfo, setFromCurrencyInfo] = useState<CurrencyInfo | null>(null);
+
+  const closeModal = () => {
+    setIsModalActive(false);
+  };
+
+  const onCurrencyCardClick = useCallback((currencyInfo: CurrencyInfo) => {
+    setFromCurrencyInfo(currencyInfo);
+    setIsModalActive(true);
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <div className={styles.currencyList}>
-        {MOCK_DATA.map((item) => (
-          <CurrencyCard key={item} />
-        ))}
-      </div>
-    </div>
+    <main>
+      <Modal isActive={isModalActive} closeModal={closeModal}>
+        {fromCurrencyInfo && <ConverterModal fromCurrencyInfo={fromCurrencyInfo} />}
+      </Modal>
+      <CurrencyExchangeList onCurrencyCardClick={onCurrencyCardClick} />
+    </main>
   );
-}
+};
+export default Home;
