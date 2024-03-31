@@ -1,0 +1,19 @@
+@import '@/scss/fonts';
+
+p {
+  color: var(--primary-text-color);
+}
+
+.converterModal {
+  display: flex;
+  flex-direction: column;
+  min-height: 500px;
+  min-width: 500px;
+}
+
+.modalTitle {
+  @include body;
+  font-weight: 600;
+  color: var(--primary-text-color);
+  margin-bottom: var(--spacing-sm);
+}
