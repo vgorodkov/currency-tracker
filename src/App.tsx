@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { MainLayout } from '@/components/MainLayout';
-import { LazyHome, LazyTimeline, LazyBankCard, LazyContacts } from '@/pages';
+import { LazyBankCard, LazyContacts, LazyHome, LazyTimeline } from '@/pages';
 
-export function App() {
+export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
@@ -44,4 +44,4 @@ export function App() {
       </Route>
     </Routes>
   );
-}
+};
