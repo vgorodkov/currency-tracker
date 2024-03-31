@@ -1,6 +1,8 @@
 import { NavLink } from 'react-router-dom';
+
 import Logo from '@/assets/icons/logo.svg';
 import { ToggleThemeBtn } from '@/components/ToggleThemeBtn';
+
 import styles from './styles.module.scss';
 
 const ROUTES = [
@@ -10,7 +12,7 @@ const ROUTES = [
   { path: '/contacts', name: 'Contacts' },
 ];
 
-export function NavBar() {
+export const NavBar = () => {
   return (
     <header className={styles.headerContainer}>
       <Logo className={styles.logo} />
@@ -32,4 +34,4 @@ export function NavBar() {
       <ToggleThemeBtn />
     </header>
   );
-}
+};

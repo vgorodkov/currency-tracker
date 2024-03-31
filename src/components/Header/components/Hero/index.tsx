@@ -1,7 +1,8 @@
 import Logo from '@/assets/icons/logo.svg';
+
 import styles from './styles.module.scss';
 
-export function Hero() {
+export const Hero = () => {
   return (
     <div className={styles.heroContainer}>
       <div className={styles.heroText}>
@@ -14,4 +15,4 @@ export function Hero() {
       <Logo className={styles.heroLogo} />
     </div>
   );
-}
+};
