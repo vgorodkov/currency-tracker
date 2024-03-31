@@ -1,11 +1,18 @@
-@import 'colors';
-@import 'breakpoints';
+@import '@/scss/colors';
+@import '@/scss/breakpoints';
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
+  scrollbar-gutter: stable;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 body {
