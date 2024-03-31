@@ -1,0 +1,11 @@
+.converterSelectionContainer {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-sm);
+}
+
+.accentText {
+  font-weight: 600;
+}
