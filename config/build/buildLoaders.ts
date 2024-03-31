@@ -24,9 +24,7 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
         loader: 'css-loader',
         options: {
           modules: {
-            localIdentName: isDev
-              ? '[path][name]__[local]--[hash:base64:8]'
-              : '[hash:base64:8]',
+            localIdentName: isDev ? '[path][name]__[local]--[hash:base64:8]' : '[hash:base64:8]',
           },
         },
       },
@@ -40,5 +38,13 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     exclude: /node_modules/,
   };
 
-  return [assetLoader, scssLoader, tsLoader, svgLoader];
+  const babelLoader = {
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+    },
+  };
+
+  return [assetLoader, scssLoader, babelLoader, svgLoader];
 };
