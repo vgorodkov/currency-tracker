@@ -1,0 +1,41 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+.currencySection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xl);
+  .currencySectionTitle {
+    @include subheading-1;
+    color: var(--primary-text-color);
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -24px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--border-color);
+      @include breakpoint-l {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.currencyList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--spacing-sm);
+}
+
+.loaderContainer {
+  margin-top: var(--spacing-xl);
+  gap: var(--spacing-s);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
