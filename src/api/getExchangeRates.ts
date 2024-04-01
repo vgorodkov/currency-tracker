@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { currencies } from '@/constants/currencies';
 
-const API_URL = 'https://rest.coinapi.io/v1/exchangerate/USD';
+const API_URL = 'https://rest.coinapi.io/v1/assets';
 
 const axiosConfig = {
   method: 'get',
@@ -10,6 +10,7 @@ const axiosConfig = {
   url: API_URL,
   params: {
     filter_asset_id: currencies.join(';'),
+    invert: true,
   },
   headers: {
     Accept: 'application/json',
