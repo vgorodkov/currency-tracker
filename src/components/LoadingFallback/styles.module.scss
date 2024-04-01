@@ -1,0 +1,12 @@
+@import '@/scss/spacing';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-s;
+}
+
+.loadingMsg {
+  color: var(--primary-text-color);
+}
