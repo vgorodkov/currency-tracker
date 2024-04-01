@@ -5,7 +5,7 @@ $button-height: 30px;
 $button-padding: 1px;
 $button-border: 1px;
 $button-dark: white;
-$button-light: yellow;
+$button-light: black;
 
 $button-xs-width: 40px;
 $button-xs-height: 22px;
@@ -17,7 +17,7 @@ $circle-size: 24px;
   height: $button-height;
   position: relative;
   display: block;
-  border: $button-border solid $button-dark;
+  border: $button-border solid $button-light;
   border-radius: 200px;
   cursor: pointer;
   transition: 0.3s;
@@ -30,7 +30,7 @@ $circle-size: 24px;
     top: $button-padding;
     left: $button-padding;
     border-radius: 180px;
-    border: $button-border solid $button-dark;
+    border: $button-border solid $button-light;
   }
 }
 
@@ -38,14 +38,15 @@ $circle-size: 24px;
   width: 0;
   height: 0;
   visibility: hidden;
+
   transition: 0.3s;
   &:checked + .label {
-    border: $button-border solid $button-light;
+    border: $button-border solid $button-dark;
   }
   &:checked + .label:after {
     left: calc(#{$button-width} - #{$button-padding * 2});
     transform: translateX(-100%);
-    border: $button-border solid $button-light;
+    border: $button-border solid $button-dark;
   }
 }
 
@@ -63,7 +64,7 @@ $circle-size: 24px;
     &:checked + .label:after {
       left: calc(#{$button-xs-width} - #{$button-padding * 2});
       transform: translateX(-100%);
-      border: $button-border solid $button-light;
+      border: $button-border solid $button-dark;
     }
   }
 }
