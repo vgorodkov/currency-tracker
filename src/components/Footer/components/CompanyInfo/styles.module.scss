@@ -1,0 +1,28 @@
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+.companyInfo {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+  flex-basis: 30%;
+  .companyTitle {
+    display: flex;
+    align-items: center;
+    gap: $spacing-s;
+    h3 {
+      color: var(--primary-text-color);
+    }
+  }
+  p {
+    @include breakpoint-m {
+      display: none;
+    }
+    color: var(--tertiary-text-color);
+  }
+
+  .logo {
+    width: 32px;
+    height: 32px;
+  }
+}
