@@ -6,7 +6,6 @@ import styles from './styles.module.scss';
 
 interface ConverterSelectionProps {
   selectToCurrency: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-
   fromCurrency: string;
 }
 

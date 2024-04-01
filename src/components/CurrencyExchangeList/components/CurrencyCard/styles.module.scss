@@ -1,5 +1,6 @@
 @import '@/scss/fonts';
 @import '@/scss/breakpoints';
+@import '@/scss/spacing';
 
 $icon-size: 80px;
 $icon-size-m: 56px;
@@ -7,16 +8,16 @@ $icon-size-m: 56px;
 .cardContainer {
   display: flex;
   align-items: center;
-  flex-basis: calc(50% - 32px);
-  gap: var(--spacing-sm);
-  padding: var(--spacing-sm) var(--spacing-m);
+  flex-basis: calc(50% - $spacing-m);
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-m;
   border-radius: 8px;
   background-color: var(--card-color);
   border: 1px solid var(--border-color);
-  transition: 0.2s;
+  transition: all 0.5s;
   cursor: pointer;
   &:hover {
-    background-color: var(--border-color);
+    background-color: var(--active-card-color);
   }
 }
 
@@ -45,7 +46,7 @@ $icon-size-m: 56px;
   .cardContainer {
     flex-basis: 100%;
     flex-grow: 1;
-    padding: var(--spacing-s) var(--spacing-s);
+    padding: $spacing-s $spacing-s;
   }
   .icon {
     width: $icon-size-m;

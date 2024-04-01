@@ -1,6 +1,6 @@
 .converterItem {
   display: flex;
-
+  color: var(--primary-text-color);
   justify-content: space-between;
   position: relative;
   &::after {

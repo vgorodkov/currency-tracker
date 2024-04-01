@@ -1,15 +1,6 @@
-$extra-large: 64px;
-$large: 48px;
-$medium: 32px;
-$semi-medium: 24px;
-$small: 16px;
-$extra-small: 8px;
-
-:root {
-  --spacing-xl: #{$extra-large};
-  --spacing-l: #{$large};
-  --spacing-m: #{$medium};
-  --spacing-sm: #{$semi-medium};
-  --spacing-s: #{$small};
-  --spacing-xs: #{$extra-small};
-}
+$spacing-xl: 64px;
+$spacing-l: 48px;
+$spacing-m: 32px;
+$spacing-sm: 24px;
+$spacing-s: 16px;
+$spacing-xs: 8px;

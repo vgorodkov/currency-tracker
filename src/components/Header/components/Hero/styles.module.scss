@@ -1,5 +1,6 @@
 @import '@/scss/fonts';
 @import '@/scss/breakpoints';
+@import '@/scss/spacing';
 
 $hero-size: 300px;
 
@@ -18,27 +19,32 @@ $hero-size: 300px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to top right, #24794000, #121212);
-  margin: var(--spacing-l) 0;
-  padding: var(--spacing-sm);
-  gap: var(--spacing-xl);
+  background: linear-gradient(to top right, var(--hero-gradient-start), var(--hero-gradient-end));
+  margin: $spacing-l 0;
+  padding: $spacing-sm;
+  gap: $spacing-xl;
+
   .heroText {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     text-align: end;
-    h2,
-    h1,
-    h4 {
-      @include text-animation;
-    }
+
     h2 {
       @include heading-2;
-      @include text-background(#00ce2c, #aedf23, #a3dc00);
+      @include text-background(
+        var(--title-gradient-start),
+        var(--title-gradient-middle),
+        var(--title-gradient-end)
+      );
     }
     h1 {
       @include heading-1;
-      @include text-background(#00ce2c, #aedf23, #a3dc00);
+      @include text-background(
+        var(--title-gradient-start),
+        var(--title-gradient-middle),
+        var(--title-gradient-end)
+      );
     }
     h4 {
       @include subheading-2;
@@ -58,8 +64,8 @@ $hero-size: 300px;
     display: none;
   }
   .heroContainer {
-    padding: var(--spacing-s);
-    margin: var(--spacing-sm) 0;
+    padding: $spacing-s;
+    margin: $spacing-sm 0;
     .heroText {
       align-items: center;
 

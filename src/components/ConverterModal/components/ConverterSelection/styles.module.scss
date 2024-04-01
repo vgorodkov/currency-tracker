@@ -1,9 +1,12 @@
+@import '@/scss/spacing';
+
 .converterSelectionContainer {
   display: flex;
   width: 100%;
   justify-content: center;
-  gap: var(--spacing-sm);
-  margin-bottom: var(--spacing-sm);
+  color: var(--primary-text-color);
+  gap: $spacing-sm;
+  margin-bottom: $spacing-sm;
 }
 
 .accentText {
