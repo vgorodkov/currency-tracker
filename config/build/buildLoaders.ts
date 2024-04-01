@@ -12,8 +12,15 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
 
   const svgLoader = {
     test: /\.svg$/i,
+    type: 'asset',
+    resourceQuery: /url/,
+  };
+
+  const svgrLoader = {
+    test: /\.svg$/i,
     issuer: /\.[jt]sx?$/,
-    use: [{ loader: '@svgr/webpack', options: { icon: true } }],
+    resourceQuery: { not: [/url/] },
+    use: ['@svgr/webpack'],
   };
 
   const scssLoader = {
@@ -32,12 +39,6 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     ],
   };
 
-  const tsLoader = {
-    test: /\.tsx?$/,
-    use: 'ts-loader',
-    exclude: /node_modules/,
-  };
-
   const babelLoader = {
     test: /\.tsx?$/,
     exclude: /node_modules/,
@@ -46,5 +47,5 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     },
   };
 
-  return [assetLoader, scssLoader, babelLoader, svgLoader];
+  return [assetLoader, scssLoader, babelLoader, svgrLoader, svgLoader];
 };
