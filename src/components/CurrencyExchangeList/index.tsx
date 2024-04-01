@@ -1,4 +1,4 @@
-import { LoaderSpinner } from '@/components/LoaderSpinner';
+import { LoadingFallback } from '@/components/LoadingFallback';
 import { useGetExchangeRates } from '@/hooks/useGetExchangeRates';
 import { CurrencyInfo } from '@/types';
 
@@ -15,23 +15,20 @@ export const CurrencyExchangeList = ({ onCurrencyCardClick }: ExchangeRatesListP
   return (
     <section className={styles.currencySection}>
       <h1 className={styles.currencySectionTitle}>Quotes</h1>
-      {isLoading && (
-        <div className={styles.loaderContainer}>
-          <p>Quotes loading...</p>
-          <LoaderSpinner />
-        </div>
-      )}
-      {!isLoading && (
+      {!isLoading ? (
         <ul className={styles.currencyList}>
           {exchangeRates.map((item) => (
             <CurrencyCard
-              key={item.asset_id_quote}
+              key={item.asset_id}
               onCurrencyCardClick={onCurrencyCardClick}
-              rate={item.rate}
-              asset_id_quote={item.asset_id_quote}
+              rate={item.price_usd}
+              assetId={item.asset_id}
+              assetName={item.name}
             />
           ))}
         </ul>
+      ) : (
+        <LoadingFallback />
       )}
     </section>
   );

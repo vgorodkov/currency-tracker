@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
+import { LoadingFallback } from '@/components/LoadingFallback';
 import { MainLayout } from '@/components/MainLayout';
 import { LazyBankCard, LazyContacts, LazyHome, LazyTimeline } from '@/pages';
 
@@ -12,7 +13,7 @@ export const App = () => {
           index
           path="/"
           element={
-            <Suspense fallback="Loading...">
+            <Suspense fallback={<LoadingFallback />}>
               <LazyHome />
             </Suspense>
           }
@@ -20,7 +21,7 @@ export const App = () => {
         <Route
           path="/timeline"
           element={
-            <Suspense fallback="Loading...">
+            <Suspense fallback={<LoadingFallback />}>
               <LazyTimeline />
             </Suspense>
           }
@@ -28,7 +29,7 @@ export const App = () => {
         <Route
           path="/bankcard"
           element={
-            <Suspense fallback="Loading...">
+            <Suspense fallback={<LoadingFallback />}>
               <LazyBankCard />
             </Suspense>
           }
@@ -36,7 +37,7 @@ export const App = () => {
         <Route
           path="/contacts"
           element={
-            <Suspense fallback="Loading...">
+            <Suspense fallback={<LoadingFallback />}>
               <LazyContacts />
             </Suspense>
           }
