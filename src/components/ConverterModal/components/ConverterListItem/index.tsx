@@ -6,21 +6,15 @@ interface ConverterListItemProps {
   toCurrency: string;
   fromCurrency: string;
   rate: number;
-  flipRate: boolean;
 }
 
-export const ConverterListItem = ({
-  fromCurrency,
-  toCurrency,
-  rate,
-  flipRate = false,
-}: ConverterListItemProps) => {
+export const ConverterListItem = ({ fromCurrency, toCurrency, rate }: ConverterListItemProps) => {
   return (
     <li className={styles.converterItem}>
       <p>
         {fromCurrency} to {toCurrency}
       </p>
-      <p>{formatRate(rate, flipRate)}</p>
+      <p>{formatRate(rate)}</p>
     </li>
   );
 };
