@@ -1,0 +1,27 @@
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+footer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  justify-content: center;
+  align-items: center;
+  margin-top: $spacing-xl;
+
+  .copyrightText {
+    color: var(--tertiary-text-color);
+  }
+}
+
+.mainFooterContent {
+  display: flex;
+  justify-content: space-between;
+
+  @include breakpoint-m {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
+  }
+}
