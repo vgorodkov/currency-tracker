@@ -1,12 +1,12 @@
 @import '@/scss/fonts';
-
-p {
-  color: var(--primary-text-color);
-}
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
 
 .converterModal {
+  background-color: var(--card-color);
   display: flex;
   flex-direction: column;
+  gap: $spacing-s;
   min-height: 500px;
   min-width: 500px;
 }
@@ -15,5 +15,35 @@ p {
   @include body;
   font-weight: 600;
   color: var(--primary-text-color);
-  margin-bottom: var(--spacing-sm);
+  margin-bottom: $spacing-sm;
+}
+
+.convertBtn {
+  transition: 0.3s;
+  position: relative;
+
+  &:hover {
+    &:disabled {
+      &::after {
+        content: 'Select correct option';
+        position: absolute;
+        background-color: red;
+        color: white;
+        font-size: 16px;
+        padding: $spacing-xs $spacing-s;
+        border-radius: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + $spacing-s);
+        z-index: 10;
+      }
+    }
+  }
+}
+
+@include breakpoint-s {
+  .converterModal {
+    min-height: 400px;
+    min-width: 200px;
+  }
 }
