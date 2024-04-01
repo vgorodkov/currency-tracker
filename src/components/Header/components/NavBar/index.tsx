@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import Logo from '@/assets/icons/logo.svg';
+import logo from '@/assets/icons/logo.svg?url';
 import { ToggleThemeBtn } from '@/components/ToggleThemeBtn';
 
 import styles from './styles.module.scss';
@@ -15,7 +15,7 @@ const ROUTES = [
 export const NavBar = () => {
   return (
     <header className={styles.headerContainer}>
-      <Logo className={styles.logo} />
+      <img src={logo} className={styles.logo} alt="logo" />
       <nav className={styles.headerNav}>
         {ROUTES.map((item) => (
           <NavLink

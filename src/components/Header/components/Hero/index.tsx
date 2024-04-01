@@ -1,4 +1,4 @@
-import Logo from '@/assets/icons/logo.svg';
+import logo from '@/assets/icons/logo.svg?url';
 
 import styles from './styles.module.scss';
 
@@ -8,11 +8,11 @@ export const Hero = () => {
       <div className={styles.heroText}>
         <h2>Modsen Currency</h2>
         <h1>Tracker</h1>
-        <h4>
+        <h4 className={styles.appDescription}>
           Quotes for the dollar and other <br /> international currencies.
         </h4>
       </div>
-      <Logo className={styles.heroLogo} />
+      <img src={logo} className={styles.heroLogo} alt="logo" />
     </div>
   );
 };
