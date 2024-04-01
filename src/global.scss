@@ -1,5 +1,6 @@
 @import '@/scss/colors';
 @import '@/scss/breakpoints';
+@import '@/scss/spacing';
 
 * {
   margin: 0;
@@ -16,16 +17,11 @@ ul {
 }
 
 body {
-  background-color: var(--background-color);
-  margin: var(--spacing-sm) var(--spacing-xl);
+  background-color: var(--bg-color);
+  transition: background-color 0.5s ease;
+  margin: $spacing-m;
 }
 
 a {
   text-decoration: none;
-}
-
-@include breakpoint-l {
-  body {
-    margin: var(--spacing-sm) var(--spacing-m);
-  }
 }
