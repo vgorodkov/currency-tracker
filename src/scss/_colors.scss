@@ -1,17 +1,34 @@
-$background: #030304;
-$card: #202025;
-$border: #474747;
-$primary: #00ce2c;
-$primary-text: #ffffff;
-$secondary-text: #d9d9d9;
-$tertiary-text: #a7b2c3;
-
-:root {
-  --background-color: #{$background};
-  --card-color: #{$card};
-  --border-color: #{$border};
-  --primary-color: #{$primary};
-  --primary-text-color: #{$primary-text};
-  --secondary-text-color: #{$secondary-text};
-  --tertiary-text-color: #{$tertiary-text};
+[data-theme='light'] {
+  --bg-color: #fcfdf6;
+  --primary-color: #006e11;
+  --title-gradient-start: #00ce2c;
+  --title-gradient-middle: #aedf23;
+  --title-gradient-end: #a3dc00;
+  --primary-text-color: #1a1c19;
+  --secondary-text-color: #ffffff;
+  --tertiary-text-color: #6d6d6d;
+  --card-color: #dee4d8;
+  --card-text-color: #a7b2c3;
+  --footer-text-color: #898989;
+  --hero-gradient-start: #53634e;
+  --hero-gradient-end: #006e1180;
+  --border-color: #73796e;
+  --active-card-color: #c4e2ab;
+}
+[data-theme='dark'] {
+  --bg-color: #030304;
+  --primary-color: #36e440;
+  --title-gradient-start: #00ce2c;
+  --title-gradient-middle: #aedf23;
+  --title-gradient-end: #a3dc00;
+  --primary-text-color: #ffffff;
+  --secondary-text-color: #d9d9d9;
+  --tertiary-text-color: #a7b2c3;
+  --card-color: #202025;
+  --card-text-color: #a7b2c3;
+  --footer-text-color: #898989;
+  --hero-gradient-start: #24794010;
+  --hero-gradient-end: #121212;
+  --border-color: #474747;
+  --active-card-color: #474747;
 }
