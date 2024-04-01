@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import { getExchangeRates } from '@/api/getExchangeRates';
-import { ExchangeRate } from '@/types';
+import { ExchangeAsset } from '@/types';
 import { withCache } from '@/utils/withCache';
 
 const CACHE_KEY = 'exchange-rates';
 
 export const useGetExchangeRates = () => {
-  const [exchangeRates, setExchangeRates] = useState<ExchangeRate[] | null>(null);
+  const [exchangeRates, setExchangeRates] = useState<ExchangeAsset[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -16,8 +16,7 @@ export const useGetExchangeRates = () => {
       try {
         setIsLoading(true);
         const data = await withCache(getExchangeRates, CACHE_KEY);
-        const { rates } = data;
-        setExchangeRates(rates);
+        setExchangeRates(data);
         setIsLoading(false);
       } catch (error) {
         setIsError(true);
