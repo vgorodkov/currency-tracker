@@ -1,21 +1,22 @@
 import React, { memo } from 'react';
 
-import Euro from '@/assets/icons/euro.svg';
 import { CurrencyInfo } from '@/types';
 import { formatRate } from '@/utils/formatRate';
+import { icons } from '@/utils/mapIcons';
 
 import styles from './styles.module.scss';
 
 interface CurrencyCardProps {
   onCurrencyCardClick: (currencyInfo: CurrencyInfo) => void;
   rate: number;
-  asset_id_quote: string;
+  assetId: string;
+  assetName: string;
 }
 
 export const CurrencyCard = memo(
-  ({ rate, asset_id_quote, onCurrencyCardClick }: CurrencyCardProps) => {
+  ({ rate, assetId, onCurrencyCardClick, assetName }: CurrencyCardProps) => {
     const handleCurrencyCardClick = () => {
-      onCurrencyCardClick({ rate, asset_id_quote });
+      onCurrencyCardClick({ rate, asset_id: assetId });
     };
 
     const onCurrencyCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
@@ -32,9 +33,9 @@ export const CurrencyCard = memo(
         className={styles.cardContainer}
         onClick={handleCurrencyCardClick}
       >
-        <Euro className={styles.icon} />
+        <img className={styles.icon} src={icons[assetId]} alt="" />
         <div className={styles.infoContainer}>
-          <p className={styles.currencyName}>{asset_id_quote}</p>
+          <p className={styles.currencyName}>{assetName}</p>
           <p className={styles.currencyValue}>$ {formatRate(rate)}</p>
         </div>
       </div>
