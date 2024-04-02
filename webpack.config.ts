@@ -1,6 +1,7 @@
+import { BuildMode, BuildPaths } from '@config/build/types';
 import { resolve } from 'path';
 import webpack from 'webpack';
-import { BuildMode, BuildPaths } from '@config/build/types';
+
 import { buildWebpack } from './config/build/buildWebpack';
 
 type EnvVariables = {
