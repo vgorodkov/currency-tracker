@@ -1,16 +1,21 @@
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import { LoadingFallback } from '@/components/LoadingFallback';
-import { useGetExchangeRates } from '@/hooks/useGetExchangeRates';
-import { CurrencyInfo } from '@/types';
+import { fetchExchangeRates } from '@/redux/slices/exchangeRatesSlice';
+import { RootState, useAppDispatch } from '@/redux/store';
 
 import { CurrencyCard } from './components/CurrencyCard';
 import styles from './styles.module.scss';
 
-interface ExchangeRatesListProps {
-  onCurrencyCardClick: (currencyInfo: CurrencyInfo) => void;
-}
+export const CurrencyExchangeList = () => {
+  const dispatch = useAppDispatch();
 
-export const CurrencyExchangeList = ({ onCurrencyCardClick }: ExchangeRatesListProps) => {
-  const { isLoading, exchangeRates } = useGetExchangeRates();
+  const { exchangeRates, isLoading } = useSelector((state: RootState) => state.exchangeRates);
+
+  useEffect(() => {
+    dispatch(fetchExchangeRates());
+  }, [dispatch]);
 
   return (
     <section className={styles.currencySection}>
@@ -20,7 +25,6 @@ export const CurrencyExchangeList = ({ onCurrencyCardClick }: ExchangeRatesListP
           {exchangeRates.map((item) => (
             <CurrencyCard
               key={item.asset_id}
-              onCurrencyCardClick={onCurrencyCardClick}
               rate={item.price_usd}
               assetId={item.asset_id}
               assetName={item.name}
