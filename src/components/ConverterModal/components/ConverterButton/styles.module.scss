@@ -1,0 +1,23 @@
+@import '@/scss/spacing';
+.convertBtn {
+  transition: 0.3s;
+  position: relative;
+
+  &:hover {
+    &:disabled {
+      &::after {
+        content: 'Select correct option';
+        position: absolute;
+        background-color: red;
+        color: white;
+        font-size: 16px;
+        padding: $spacing-xs $spacing-s;
+        border-radius: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + $spacing-s);
+        z-index: 10;
+      }
+    }
+  }
+}
