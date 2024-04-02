@@ -1,16 +1,22 @@
-import { ConverterCurrency } from '@/types';
+import { useSelector } from 'react-redux';
+
+import { RootState } from '@/redux/store';
 
 import { ConverterListItem } from '../ConverterListItem';
 import styles from './styles.module.scss';
 
-interface ConverterListProps {
-  converterListItems: ConverterCurrency[];
-}
+export const ConverterList = () => {
+  const fromCurrencyCode = useSelector((state: RootState) => state.converter.fromCurrency.code);
+  const convertedCurrencies = useSelector(
+    (state: RootState) => state.converter.convertedCurrencies
+  );
+  const listItems = convertedCurrencies.filter(
+    (currency) => currency.fromCurrency === fromCurrencyCode
+  );
 
-export const ConverterList = ({ converterListItems }: ConverterListProps) => {
   return (
     <ul className={styles.converterList}>
-      {converterListItems.map((item) => (
+      {listItems.map((item) => (
         <ConverterListItem
           key={`${item.fromCurrency}-${item.toCurrency}`}
           fromCurrency={item.fromCurrency}
