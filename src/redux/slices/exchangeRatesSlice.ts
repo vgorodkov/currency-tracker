@@ -51,6 +51,9 @@ export const exchangeRatesSlice = createSlice({
       })
       .addCase(fetchExchangeRates.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(fetchExchangeRates.rejected, (state, action) => {
+        state.error = action.payload;
       });
   },
 });
