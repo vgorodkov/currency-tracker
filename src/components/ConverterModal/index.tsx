@@ -1,12 +1,10 @@
 import { useSelector } from 'react-redux';
 
+import { Modal } from '@/components/Modal';
 import { closeConverter } from '@/redux/slices/converterSlice';
 import { RootState, useAppDispatch } from '@/redux/store';
 
-import { Modal } from '../Modal';
-import { ConverterButton } from './components/ConverterButton';
-import { ConverterList } from './components/ConverterList';
-import { ConverterSelection } from './components/ConverterSelection';
+import { ConverterButton, ConverterList, ConverterSelection } from './components';
 import styles from './styles.module.scss';
 
 export const ConverterModal = () => {

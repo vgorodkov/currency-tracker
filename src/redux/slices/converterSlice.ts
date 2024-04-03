@@ -68,6 +68,7 @@ export const converterSlice = createSlice({
   initialState,
   reducers: {
     openConverter: (state) => {
+      state.toCurrency = '';
       state.isConverterOpen = true;
     },
     closeConverter: (state) => {
