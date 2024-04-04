@@ -13,12 +13,17 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+
+import candlestickChartReducer from './slices/candlestickChartSlice';
+
 import { converterReducer, exchangeRatesReducer, themeReducer } from './slices';
+
 
 const rootReducer = combineReducers({
   exchangeRates: exchangeRatesReducer,
   theme: themeReducer,
   converter: converterReducer,
+  candlestickChart: candlestickChartReducer,
 });
 
 const persistConfig = {

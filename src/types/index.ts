@@ -26,3 +26,20 @@ export interface ExchangeAsset {
   data_start?: string;
   data_end?: string;
 }
+
+export interface SetPriceArgs {
+  priceType: 'o' | 'c' | 'h' | 'l';
+  price: number;
+}
+
+export interface OHLC {
+  o: number;
+  h: number;
+  l: number;
+  c: number;
+}
+
+export interface CandlestickData extends OHLC {
+  x: number;
+  s: [number, number];
+}
