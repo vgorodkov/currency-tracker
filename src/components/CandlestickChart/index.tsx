@@ -25,10 +25,6 @@ class CandlestickChart extends Component<CandlestickChartProps> {
     this.renderChart();
   }
 
-  componentDidUpdate() {
-    this.renderChart();
-  }
-
   componentWillUnmount() {
     if (this.chartRef) {
       this.chartRef.destroy();
@@ -63,8 +59,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
                 }
                 return color;
               },
-              borderColor: '#FF971D',
-              borderWidth: 2,
+
               borderSkipped: false,
             },
           ],
@@ -87,10 +82,16 @@ class CandlestickChart extends Component<CandlestickChartProps> {
                 unit: 'day',
                 tooltipFormat: 'MMM, d, yyyy',
               },
+              grid: {
+                color: '#1C1C1D',
+              },
             },
             y: {
               beginAtZero: true,
               grace: 1,
+              grid: {
+                color: '#1C1C1D',
+              },
             },
           },
           plugins: {
