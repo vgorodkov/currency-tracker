@@ -1,12 +1,3 @@
-export interface CurrencyInfo {
-  rate: number;
-  asset_id: string;
-}
-
-export interface ExchangeRate extends CurrencyInfo {
-  time: string;
-}
-
 export interface ConverterCurrency {
   fromCurrency: string;
   toCurrency: string;
