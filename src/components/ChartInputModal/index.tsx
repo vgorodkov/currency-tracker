@@ -38,13 +38,13 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
 
     return (
       <Modal isActive={isInpuModalOpen} closeModal={closeModal}>
-        <div className={styles.inputsContainer}>
+        <form className={styles.inputsContainer}>
           <input type="date" value={date} onChange={(e) => onDateChange(e.target.value)} />
           <PriceInput price={ohlc.o} priceType="o" title="Open price" />
           <PriceInput price={ohlc.h} priceType="h" title="High price" />
           <PriceInput price={ohlc.l} priceType="l" title="Low price" />
           <PriceInput price={ohlc.c} priceType="c" title="Close price" />
-        </div>
+        </form>
         <button type="button" onClick={() => onSubmitBtnPress()}>
           Submit this date
         </button>
