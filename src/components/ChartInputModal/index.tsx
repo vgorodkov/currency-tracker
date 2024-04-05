@@ -1,71 +1,104 @@
+/* eslint-disable @typescript-eslint/no-shadow */
 /* eslint-disable react/prefer-stateless-function */
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
+  ChartDayData,
+  Pricetype,
   setChartData,
   setDate,
   setInputModalOpen,
   setPrice,
 } from '@/redux/slices/candlestickChartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
-import { OHLC } from '@/types';
+import { SetPriceArgs } from '@/types';
 
+import { Button } from '../Button';
 import { Modal } from '../Modal';
-import PriceInput from './components/PriceInput';
+import { PriceInputField } from './components/PriceInput';
 import styles from './styles.module.scss';
 
 interface ChartInputModalProps {
-  setChartData: () => void;
-  setDate: (date: string) => void;
-  date: number;
-  ohlc: OHLC;
+  chartDayData: ChartDayData;
   isInpuModalOpen: boolean;
   closeModal: () => void;
+  setDate: (date: string) => void;
+  setPrice: ({ priceType, price }: SetPriceArgs) => void;
+  setChartData: () => void;
+  isFirstDateSelected: boolean;
 }
 
 export class ChartInputModal extends Component<ChartInputModalProps> {
+  renderPriceInputFields() {
+    const { isFirstDateSelected, chartDayData, setPrice } = this.props;
+
+    const priceInputs = [
+      {
+        priceType: Pricetype.o,
+        title: 'Open',
+        price: chartDayData.o,
+        disabled: isFirstDateSelected,
+      },
+      { priceType: Pricetype.h, title: 'High', price: chartDayData.h, disabled: false },
+      { priceType: Pricetype.l, title: 'Low', price: chartDayData.l, disabled: false },
+      { priceType: Pricetype.c, title: 'Close', price: chartDayData.c, disabled: false },
+    ];
+
+    return priceInputs.map((input) => (
+      <PriceInputField
+        key={input.priceType}
+        setPrice={setPrice}
+        priceType={input.priceType}
+        title={input.title}
+        price={input.price}
+        disabled={input.disabled}
+      />
+    ));
+  }
+
   render() {
     const {
-      ohlc,
       isInpuModalOpen,
-      setChartData: onSubmitBtnPress,
-      date,
-      setDate: onDateChange,
       closeModal,
+      chartDayData,
+      setDate,
+      setChartData,
+      isFirstDateSelected,
     } = this.props;
 
     return (
       <Modal isActive={isInpuModalOpen} closeModal={closeModal}>
         <form className={styles.inputsContainer}>
-          <input type="date" value={date} onChange={(e) => onDateChange(e.target.value)} />
-          <PriceInput price={ohlc.o} priceType="o" title="Open price" />
-          <PriceInput price={ohlc.h} priceType="h" title="High price" />
-          <PriceInput price={ohlc.l} priceType="l" title="Low price" />
-          <PriceInput price={ohlc.c} priceType="c" title="Close price" />
+          <input
+            className={styles.dateInputField}
+            disabled={isFirstDateSelected}
+            type="date"
+            value={chartDayData.date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          {this.renderPriceInputFields()}
+          <Button title="Enter data" onClick={() => setChartData()} />
         </form>
-        <button type="button" onClick={() => onSubmitBtnPress()}>
-          Submit this date
-        </button>
       </Modal>
     );
   }
 }
 
 const mapStateToProps = (state: RootState) => ({
-  ohlc: state.candlestickChart.ohlc,
-  date: state.candlestickChart.date,
+  chartDayData: state.candlestickChart.chartDayData,
   isInpuModalOpen: state.candlestickChart.isInputModalOpen,
+  isFirstDateSelected: state.candlestickChart.chartData.length >= 1,
 });
 
 const mapDispatchToProps = (dispatch: AppDispatch) =>
   bindActionCreators(
     {
+      closeModal: () => setInputModalOpen(false),
       setDate,
       setPrice,
       setChartData,
-      closeModal: () => setInputModalOpen(false),
     },
     dispatch
   );
