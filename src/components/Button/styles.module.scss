@@ -1,7 +1,10 @@
 @import '@/scss/spacing';
 @import '@/scss/fonts';
+@import '@/scss/breakpoints';
 
 .button {
+  display: flex;
+  flex-grow: 1;
   background-color: #04aa6d;
   border: none;
   color: white;
@@ -11,9 +14,19 @@
   display: inline-block;
   @include label-large;
   border-radius: 4px;
-
+  transition: 0.2s;
+  cursor: pointer;
+  &:disabled {
+    pointer-events: none;
+    background-color: gray;
+    color: lightgray;
+  }
   &:hover {
     transition: 0.2s;
     opacity: 0.8;
+  }
+
+  @include breakpoint-s {
+    @include label;
   }
 }
