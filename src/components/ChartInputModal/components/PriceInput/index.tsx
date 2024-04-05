@@ -1,28 +1,27 @@
-/* eslint-disable react/prefer-stateless-function */
-import { bindActionCreators } from '@reduxjs/toolkit';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+/* eslint-disable react/require-default-props */
+import { PureComponent } from 'react';
 
-import { setPrice } from '@/redux/slices/candlestickChartSlice';
-import { AppDispatch } from '@/redux/store';
+import { Pricetype } from '@/redux/slices/candlestickChartSlice';
 import { SetPriceArgs } from '@/types';
 
 import styles from './styles.module.scss';
 
 interface PriceInputFieldProps {
   setPrice: ({ priceType, price }: SetPriceArgs) => void;
-  priceType: 'o' | 'c' | 'h' | 'l';
+  priceType: Pricetype;
   price: number;
   title: string;
+  disabled?: boolean;
 }
 
-export class PriceInputField extends Component<PriceInputFieldProps> {
+export class PriceInputField extends PureComponent<PriceInputFieldProps> {
   render() {
-    const { setPrice: onPriceChange, priceType, price, title } = this.props;
+    const { setPrice: onPriceChange, priceType, price, title, disabled = false } = this.props;
     return (
-      <div className={styles.inputRow}>
+      <div className={disabled ? `${styles.inputRow} ${styles.readonly}` : styles.inputRow}>
         <label htmlFor={priceType}>{title}: </label>
         <input
+          readOnly={disabled}
           id={priceType}
           type="number"
           value={price.toString()}
@@ -33,12 +32,4 @@ export class PriceInputField extends Component<PriceInputFieldProps> {
   }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatch) =>
-  bindActionCreators(
-    {
-      setPrice,
-    },
-    dispatch
-  );
-
-export default connect(null, mapDispatchToProps)(PriceInputField);
+export default PriceInputField;
