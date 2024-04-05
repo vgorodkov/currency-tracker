@@ -1,0 +1,11 @@
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
+.converterFooter {
+  display: flex;
+  justify-content: space-between;
+  gap: $spacing-sm;
+  @include breakpoint-s {
+    gap: $spacing-s;
+  }
+}
