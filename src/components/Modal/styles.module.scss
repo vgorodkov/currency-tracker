@@ -1,3 +1,6 @@
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
 .modalContainer {
   height: 100vh;
   width: 100vw;
@@ -21,14 +24,18 @@
 }
 
 .modalContent {
-  padding: 24px 32px;
-  background-color: var(--card-color);
+  padding: $spacing-m $spacing-l;
+  border-radius: $spacing-m;
+  background-color: var(--modal-color);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: 0.3s;
   transform: scale(0.5);
+  @include breakpoint-l {
+    padding: $spacing-sm $spacing-m;
+  }
 }
 
 .activeContent {

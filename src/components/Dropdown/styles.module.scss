@@ -1,6 +1,8 @@
 @import '@/scss/spacing';
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
 
-$dropdown-width: 100px;
+$dropdown-width: 108px;
 
 .dropdown {
   position: relative;
@@ -12,7 +14,7 @@ $dropdown-width: 100px;
   padding: $spacing-xs;
   color: var(--primary-text-color);
   border: 1px solid var(--border-color);
-  box-shadow: 1px 1px 10px 1px #ffffff60;
+  box-shadow: 1px 1px 10px 1px var(--box-shadow-color);
   font-weight: bold;
   display: flex;
   align-items: center;
@@ -20,21 +22,35 @@ $dropdown-width: 100px;
   gap: $spacing-m;
   cursor: pointer;
   border-radius: 4px;
+  @include breakpoint-s {
+    gap: $spacing-xs;
+    font-size: 12px;
+  }
 }
 
 .dropdownContent {
   position: absolute;
-  top: 110%;
-  left: 0;
   padding: 4px;
   color: var(--tertiary-text-color);
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
-  box-shadow: 1px 1px 10px 1px #00000060;
+  box-shadow: 1px 1px 10px 1px var(--box-shadow-color);
   border-radius: 4px;
   font-weight: 500;
   width: 95%;
   z-index: 20;
+  @include breakpoint-s {
+    gap: $spacing-xs;
+    font-size: 12px;
+  }
+}
+
+.dropdownContent[data-pos='above'] {
+  bottom: 110%;
+}
+
+.dropdownContent[data-pos='below'] {
+  top: 110%;
 }
 
 .dropdownItem {

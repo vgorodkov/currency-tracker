@@ -3,12 +3,10 @@
 @import '@/scss/spacing';
 
 .converterModal {
-  background-color: var(--card-color);
   display: flex;
   flex-direction: column;
-  gap: $spacing-s;
-  min-height: 500px;
-  min-width: 500px;
+  justify-content: space-between;
+  max-width: 700px;
 }
 
 .modalTitle {
@@ -16,11 +14,19 @@
   font-weight: 600;
   color: var(--primary-text-color);
   margin-bottom: $spacing-sm;
+  align-self: center;
+}
+
+@include breakpoint-l {
+  .converterModal {
+    height: 320px;
+    width: 320px;
+  }
 }
 
 @include breakpoint-s {
   .converterModal {
-    min-height: 400px;
-    min-width: 200px;
+    height: 300px;
+    width: 280px;
   }
 }

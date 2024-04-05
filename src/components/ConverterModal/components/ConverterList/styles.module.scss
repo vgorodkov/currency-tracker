@@ -1,8 +1,19 @@
 @import '@/scss/spacing';
+@import '@/scss/breakpoints';
 
 .converterList {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
   flex-grow: 1;
+  align-items: flex-start;
+  margin-bottom: $spacing-sm;
   gap: $spacing-s;
+}
+
+@include breakpoint-l {
+  .converterList {
+    overflow-y: scroll;
+  }
 }
