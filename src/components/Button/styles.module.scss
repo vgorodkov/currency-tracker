@@ -1,0 +1,19 @@
+@import '@/scss/spacing';
+@import '@/scss/fonts';
+
+.button {
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  padding: $spacing-xs $spacing-m;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  @include label-large;
+  border-radius: 4px;
+
+  &:hover {
+    transition: 0.2s;
+    opacity: 0.8;
+  }
+}
