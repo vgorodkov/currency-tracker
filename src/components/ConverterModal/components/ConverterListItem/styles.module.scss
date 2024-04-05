@@ -4,16 +4,16 @@
 .converterItem {
   display: flex;
   flex-basis: calc(50% - $spacing-s);
-
   position: relative;
   background-color: var(--converter-item-color);
   justify-content: space-between;
   align-items: center;
-  padding: 16px;
-  gap: 8px;
+  padding: $spacing-s;
+  gap: $spacing-xs;
   border-radius: 8px;
   box-shadow: var(--box-shadow-color) 0px 3px 8px;
   @include breakpoint-l {
+    display: flex;
     flex-grow: 1;
     font-size: 14px;
   }
@@ -41,7 +41,7 @@
 .currencyContainer {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: $spacing-xs;
   p {
     color: var(--primary-text-color);
     font-weight: 600;

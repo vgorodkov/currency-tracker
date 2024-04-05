@@ -5,6 +5,7 @@
   display: flex;
   justify-content: space-between;
   gap: $spacing-sm;
+
   @include breakpoint-s {
     gap: $spacing-s;
   }
