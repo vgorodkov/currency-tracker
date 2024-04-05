@@ -11,5 +11,3 @@ export class ChartDummy extends PureComponent {
     );
   }
 }
-
-export default ChartDummy;
