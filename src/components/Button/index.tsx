@@ -3,11 +3,12 @@ import styles from './styles.module.scss';
 interface ButtonProps {
   title: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
-export const Button = ({ title, onClick }: ButtonProps) => {
+export const Button = ({ title, onClick, disabled = false }: ButtonProps) => {
   return (
-    <button type="button" onClick={onClick} className={styles.button}>
+    <button disabled={disabled} type="button" onClick={onClick} className={styles.button}>
       {title}
     </button>
   );

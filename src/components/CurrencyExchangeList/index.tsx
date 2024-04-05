@@ -15,7 +15,8 @@ export const CurrencyExchangeList = () => {
 
   useEffect(() => {
     dispatch(fetchExchangeRates());
-  }, [dispatch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section className={styles.currencySection}>

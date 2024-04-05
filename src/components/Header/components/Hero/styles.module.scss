@@ -70,11 +70,11 @@ $hero-size: 300px;
       align-items: center;
 
       h1 {
-        @include subheading-1;
+        @include subheading-2;
         font-weight: 600;
       }
       h2 {
-        @include subheading-1;
+        @include subheading-2;
         font-weight: 600;
       }
       h4 {
