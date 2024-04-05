@@ -1,0 +1,58 @@
+@import '@/scss/spacing';
+
+$dropdown-width: 100px;
+
+.dropdown {
+  position: relative;
+  user-select: none;
+  width: $dropdown-width;
+}
+
+.dropdownBtn {
+  padding: $spacing-xs;
+  color: var(--primary-text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 1px 1px 10px 1px #ffffff60;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-m;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dropdownContent {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  padding: 4px;
+  color: var(--tertiary-text-color);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 1px 1px 10px 1px #00000060;
+  border-radius: 4px;
+  font-weight: 500;
+  width: 95%;
+  z-index: 20;
+}
+
+.dropdownItem {
+  padding: $spacing-xs;
+  transition: all 0.2s;
+
+  cursor: pointer;
+  &:hover {
+    background: var(--active-card-color);
+  }
+}
+
+.btnArrow {
+  stroke: var(--primary-text-color);
+  transition: 0.3s;
+}
+
+.btnArrowActive {
+  transition: 0.3s;
+  transform: rotateZ(180deg);
+}
