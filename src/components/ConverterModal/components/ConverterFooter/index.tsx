@@ -31,7 +31,7 @@ export const ConverterFooter = () => {
       <Button title="Convert" onClick={onConverterBtnClick} disabled={isBtnDisabled} />
       <Dropdown
         options={avaibleCurrencies}
-        selected={toCurrencyCode || 'USD'}
+        selected={toCurrencyCode}
         handleSelect={selectToCurrency}
         pos="above"
       />

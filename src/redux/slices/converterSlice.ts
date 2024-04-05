@@ -5,6 +5,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getConvertedCurrency } from '@/api/convertCurrency';
+import { BASE_CURRENCY } from '@/constants/currencies';
 import { ConverterCurrency } from '@/types';
 
 import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
@@ -68,7 +69,7 @@ export const converterSlice = createSlice({
   initialState,
   reducers: {
     openConverter: (state) => {
-      state.toCurrency = '';
+      state.toCurrency = BASE_CURRENCY;
       state.isConverterOpen = true;
     },
     closeConverter: (state) => {
