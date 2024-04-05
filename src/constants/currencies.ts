@@ -7,6 +7,8 @@ import arsSvg from '@/assets/icons/peso_argentino.svg?url';
 import cnySvg from '@/assets/icons/won.svg?url';
 import jpySvg from '@/assets/icons/yen.svg?url';
 
+export const BASE_CURRENCY = 'USD';
+
 export const currencies = ['BTC', 'ARS', 'EUR', 'CAD', 'JPY', 'AUD', 'CNY', 'GBP'];
 
 export const currenciesInfo: Record<string, { img: string; name: string }> = {

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { BASE_CURRENCY } from '@/constants/currencies';
 import { icons } from '@/constants/icons';
 import {
   openConverter,
@@ -23,7 +24,7 @@ export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) =>
   const handleCurrencyCardClick = () => {
     dispatch(openConverter());
     dispatch(setFromCurrency({ code: assetId, rate }));
-    dispatch(setConvertedCurrencies({ fromCurrency: assetId, rate, toCurrency: 'USD' }));
+    dispatch(setConvertedCurrencies({ fromCurrency: assetId, rate, toCurrency: BASE_CURRENCY }));
   };
 
   const onCurrencyCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {

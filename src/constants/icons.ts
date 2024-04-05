@@ -1,6 +1,7 @@
 import audSvg from '@/assets/icons/australian_dollar.svg?url';
 import btcSvg from '@/assets/icons/bitcoin.svg?url';
 import cadSvg from '@/assets/icons/canadian_dollar.svg?url';
+import usdSvg from '@/assets/icons/dollar.svg?url';
 import eurSvg from '@/assets/icons/euro.svg?url';
 import gbpSvg from '@/assets/icons/libra.svg?url';
 import arsSvg from '@/assets/icons/peso_argentino.svg?url';
@@ -16,4 +17,5 @@ export const icons: Record<string, string> = {
   JPY: jpySvg,
   CNY: cnySvg,
   GBP: gbpSvg,
+  USD: usdSvg,
 };
