@@ -3,6 +3,7 @@ import { Component, createRef, RefObject } from 'react';
 
 import { CandlestickData } from '@/types';
 
+import { ChartDummy } from '../ChartDummy';
 import { candlestickPlugin } from './plugins/candlestickPlugin';
 import { crosshairPlugin } from './plugins/crosshairPlugin';
 
@@ -22,6 +23,10 @@ class CandlestickChart extends Component<CandlestickChartProps> {
   }
 
   componentDidMount() {
+    this.renderChart();
+  }
+
+  componentDidUpdate(): void {
     this.renderChart();
   }
 
@@ -120,7 +125,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
   render() {
     const { candleSticksData } = this.props;
     if (candleSticksData.length < 1) {
-      return <h1 style={{ color: 'wheat' }}>Please fill data</h1>;
+      return <ChartDummy />;
     }
 
     return <canvas ref={this.canvasRef} />;

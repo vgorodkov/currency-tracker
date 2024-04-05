@@ -1,4 +1,24 @@
 .inputsContainer {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.dateInputField {
+  &:hover {
+    &:disabled {
+      &::before {
+        position: absolute;
+        content: 'You have selected start Date. Please fill values one by one';
+        top: -40px;
+        left: 0;
+        background-color: red;
+        color: white;
+        padding: 8px;
+        border-radius: 4px;
+        text-align: center;
+        display: flex;
+      }
+    }
+  }
 }

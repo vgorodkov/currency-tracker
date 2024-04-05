@@ -1,3 +1,5 @@
+import { Pricetype } from '@/redux/slices/candlestickChartSlice';
+
 export interface ConverterCurrency {
   fromCurrency: string;
   toCurrency: string;
@@ -28,7 +30,7 @@ export interface ExchangeAsset {
 }
 
 export interface SetPriceArgs {
-  priceType: 'o' | 'c' | 'h' | 'l';
+  priceType: Pricetype;
   price: number;
 }
 

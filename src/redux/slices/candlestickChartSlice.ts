@@ -2,19 +2,37 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-import { CandlestickData, OHLC, SetPriceArgs } from '@/types';
+import { currencies } from '@/constants/currencies';
+import { CandlestickData } from '@/types';
+
+export enum Pricetype {
+  o = 'o',
+  h = 'h',
+  l = 'l',
+  c = 'c',
+}
+
+export interface ChartDayData {
+  date: string;
+  o: number;
+  h: number;
+  l: number;
+  c: number;
+}
 
 interface ChartInputState {
-  date: string;
-  ohlc: OHLC;
-  chartData: CandlestickData[];
   isInputModalOpen: boolean;
+  targetCurrency: string;
+  chartData: CandlestickData[];
+  chartDayData: ChartDayData;
 }
 
 const initialState: ChartInputState = {
   isInputModalOpen: false,
-  date: new Date(Date.now()).toISOString().slice(0, 10),
-  ohlc: {
+  targetCurrency: currencies[0],
+
+  chartDayData: {
+    date: new Date(Date.now()).toISOString().slice(0, 10),
     o: 0,
     h: 0,
     l: 0,
@@ -27,38 +45,43 @@ export const candlestickChartSlice = createSlice({
   name: 'candlestickChart',
   initialState,
   reducers: {
+    setTargetCurrency: (state, action: PayloadAction<string>) => {
+      state.chartData = [];
+      state.targetCurrency = action.payload;
+    },
     setInputModalOpen: (state, action: PayloadAction<boolean>) => {
       state.isInputModalOpen = action.payload;
     },
-    setPrice: (state, action: PayloadAction<SetPriceArgs>) => {
+    setDate: (state, action) => {
+      state.chartDayData.date = action.payload;
+    },
+    setPrice: (state, action: PayloadAction<{ priceType: Pricetype; price: number }>) => {
       const { priceType, price } = action.payload;
-
-      if (priceType === 'o' && state.chartData.length >= 1) {
-        state.ohlc[priceType] = state.chartData[state.chartData.length - 1]?.c;
+      if (priceType === Pricetype.o && state.chartData.length >= 1) {
+        const prevDayClosePrise = state.chartData[state.chartData.length - 1].c;
+        state.chartDayData.o = prevDayClosePrise;
         return;
       }
-      state.ohlc[priceType] = Math.max(0, price);
-    },
-
-    setDate: (state, action) => {
-      state.date = action.payload;
+      state.chartDayData[priceType] = Math.max(0, price);
     },
     setChartData: (state) => {
-      const { o, c, h, l } = state.ohlc;
-      const timestamp = new Date(state.date).getTime();
-      const newChartDataIem: CandlestickData = {
+      const { c, o, h, l, date } = state.chartDayData;
+      const timestamp = new Date(date).getTime();
+
+      const newChartDataItem: CandlestickData = {
         x: timestamp,
         o,
-        c,
         h,
         l,
+        c,
         s: [o, c],
       };
-      state.chartData.push(newChartDataIem);
-      const date = new Date(state.date);
-      date.setDate(date.getDate() + 1);
-      state.date = date.toISOString().slice(0, 10);
-      state.ohlc = {
+
+      state.chartData.push(newChartDataItem);
+      const newDate = new Date(date);
+      newDate.setDate(newDate.getDate() + 1);
+      state.chartDayData = {
+        date: newDate.toISOString().slice(0, 10),
         o: state.chartData[state.chartData.length - 1].c,
         c: 0,
         l: 0,
@@ -68,5 +91,7 @@ export const candlestickChartSlice = createSlice({
   },
 });
 
-export const { setDate, setPrice, setChartData, setInputModalOpen } = candlestickChartSlice.actions;
+export const { setTargetCurrency, setInputModalOpen, setDate, setPrice, setChartData } =
+  candlestickChartSlice.actions;
+
 export default candlestickChartSlice.reducer;
