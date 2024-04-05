@@ -9,10 +9,13 @@ interface DropdownProps {
   selected: string;
   handleSelect: (toCurrency: string) => void;
   options: string[];
+  pos?: 'above' | 'below';
 }
 
-export const Dropdown = ({ selected, handleSelect, options }: DropdownProps) => {
+export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: DropdownProps) => {
   const [isActive, setIsActive] = useState(false);
+
+  const isAbove = pos === 'above';
 
   const onDropdownBtnClick = () => {
     setIsActive(!isActive);
@@ -27,7 +30,7 @@ export const Dropdown = ({ selected, handleSelect, options }: DropdownProps) => 
         />
       </div>
       {isActive && (
-        <div className={styles.dropdownContent}>
+        <div className={styles.dropdownContent} data-pos={isAbove ? 'above' : 'below'}>
           {options.map((item) => (
             <div
               role="button"
