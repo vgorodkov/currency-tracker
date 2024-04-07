@@ -1,0 +1,55 @@
+@import '@/scss/fonts';
+
+.searchContainer {
+  position: relative;
+  input {
+    background-color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 24px 16px;
+    height: 40px;
+    outline: none;
+    @include label-large;
+  }
+}
+
+.searchInputContainer {
+  display: flex;
+}
+
+.searchInputIconContainer {
+  height: 100%;
+  right: 16px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dataResult {
+  z-index: 1000;
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 5px;
+  background-color: white;
+  box-shadow: #00000035 0px 5px 15px;
+  overflow: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .dataItem {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    &:hover {
+      background-color: lightgray;
+    }
+  }
+}
