@@ -1,0 +1,41 @@
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
+.converterCurrencyRow {
+  display: flex;
+  position: relative;
+  background-color: var(--converter-item-color);
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-s;
+  gap: $spacing-sm;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-color) 0px 3px 8px;
+  @include breakpoint-l {
+    font-size: 14px;
+  }
+
+  p {
+    font-weight: 700;
+    color: var(--primary-text-color);
+  }
+}
+
+.fromToCurrencies {
+  display: flex;
+  gap: $spacing-xs;
+  align-items: center;
+  @include breakpoint-s {
+    font-size: 12px;
+    gap: $spacing-xs;
+  }
+  p {
+    font-size: 14px;
+    color: var(--tertiary-text-color);
+  }
+}
+
+.priceContainer {
+  display: flex;
+  justify-content: center;
+}
