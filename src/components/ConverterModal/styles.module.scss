@@ -5,28 +5,12 @@
 .converterModal {
   display: flex;
   flex-direction: column;
-
-  width: 900px;
+  gap: $spacing-m;
 }
 
 .modalTitle {
   @include body;
   font-weight: 600;
   color: var(--primary-text-color);
-  margin-bottom: $spacing-sm;
   align-self: center;
-}
-
-@include breakpoint-l {
-  .converterModal {
-    height: 320px;
-    width: 320px;
-  }
-}
-
-@include breakpoint-s {
-  .converterModal {
-    height: 300px;
-    width: 280px;
-  }
 }
