@@ -1,0 +1,24 @@
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
+.converterCurrencyItem {
+  display: flex;
+  align-items: center;
+  gap: $spacing-xs;
+  .converterCurrencyName {
+    color: var(--tertiary-text-color);
+    font-weight: 600;
+    font-size: 16px;
+    @include breakpoint-l {
+      font-size: 14px;
+    }
+  }
+}
+.converterCurrencyIcon {
+  width: 40px;
+  height: 40px;
+  @include breakpoint-l {
+    width: 20px;
+    height: 20px;
+  }
+}
