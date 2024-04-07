@@ -9,6 +9,8 @@ import CandlestickChart from '@/components/CandlestickChart';
 import ChartCurrencyInfo from '@/components/ChartCurrencyInfo';
 import { ChartCurrencySelection } from '@/components/ChartCurrencySelection';
 import ChartInputModal from '@/components/ChartInputModal';
+import { ChartNotification } from '@/components/ChartNotification';
+import observable from '@/observable';
 import { setInputModalOpen, setTargetCurrency } from '@/redux/slices/candlestickChartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
 import { CandlestickData } from '@/types';
@@ -23,11 +25,21 @@ interface TimelineProps {
 }
 
 class Timeline extends PureComponent<TimelineProps> {
+  componentDidMount(): void {}
+
+  componentDidUpdate() {
+    const { chartData } = this.props;
+    if (chartData.length === 10) {
+      observable.notify();
+    }
+  }
+
   render() {
     const { openModal, setTargetCurrency, targetCurrency, chartData } = this.props;
 
     return (
       <div className={styles.container}>
+        <ChartNotification />
         <ChartCurrencySelection
           targetCurrency={targetCurrency}
           openModal={openModal}
