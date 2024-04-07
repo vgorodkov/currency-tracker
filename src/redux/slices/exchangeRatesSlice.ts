@@ -6,17 +6,12 @@ import { ExchangeAsset } from '@/types';
 
 import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
 
-export interface ExchangeRatesState {
-  exchangeRates: ExchangeAsset[] | null;
-  isLoading: boolean;
-  error: string | null;
-}
-
 export const fetchExchangeRates = createAppAsyncThunk(
   'exchangeRates/fetchExchangeRates',
   async (_, { rejectWithValue }) => {
     try {
       const response = await getExchangeRates();
+
       return response.data;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -25,6 +20,10 @@ export const fetchExchangeRates = createAppAsyncThunk(
   {
     condition: (_, { getState }) => {
       const state = getState();
+      if (state.exchangeRates.cachedDate < new Date(Date.now()).getDate()) {
+        return true;
+      }
+
       if (state.exchangeRates.exchangeRates) {
         return false;
       }
@@ -33,19 +32,32 @@ export const fetchExchangeRates = createAppAsyncThunk(
   }
 );
 
+export interface ExchangeRatesState {
+  exchangeRates: ExchangeAsset[] | null;
+  isLoading: boolean;
+  error: string | null;
+  cachedDate: number | null;
+}
+
 const initialState: ExchangeRatesState = {
   exchangeRates: null,
-  isLoading: false,
+  isLoading: true,
   error: null,
+  cachedDate: null,
 };
 
 export const exchangeRatesSlice = createSlice({
   name: 'exchangeRates',
   initialState,
-  reducers: {},
+  reducers: {
+    setCachedDate: (state, action) => {
+      state.cachedDate = action.payload;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchExchangeRates.fulfilled, (state, action) => {
+        state.cachedDate = new Date(Date.now()).getDate();
         state.exchangeRates = action.payload;
         state.isLoading = false;
       })
