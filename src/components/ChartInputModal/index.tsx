@@ -1,19 +1,17 @@
 /* eslint-disable @typescript-eslint/no-shadow */
-/* eslint-disable react/prefer-stateless-function */
+
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import {
-  ChartDayData,
-  Pricetype,
   setChartData,
   setDate,
   setInputModalOpen,
   setPrice,
 } from '@/redux/slices/candlestickChartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
-import { SetPriceArgs } from '@/types';
+import { ChartDayData, Pricetype, SetPriceArgs } from '@/types';
 
 import { Button } from '../Button';
 import { Modal } from '../Modal';
