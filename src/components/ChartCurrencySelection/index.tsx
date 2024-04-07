@@ -18,7 +18,9 @@ export class ChartCurrencySelection extends PureComponent<ChartCurrencySelection
     return (
       <div className={styles.chartCurrencySelection}>
         <Dropdown options={currencies} selected={targetCurrency} handleSelect={setTargetCurrency} />
-        <Button title="Enter data" onClick={openModal} />
+        <div>
+          <Button title="Enter data" onClick={openModal} />
+        </div>
       </div>
     );
   }
