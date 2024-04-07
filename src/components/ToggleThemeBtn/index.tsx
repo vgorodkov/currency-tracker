@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { setTheme } from '@/redux/slices/themeSlice';
@@ -15,12 +14,9 @@ export const ToggleThemeBtn = () => {
 
   const toggleTheme = () => {
     const newTheme = theme === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
     dispatch(setTheme(newTheme));
   };
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
 
   return (
     <>
