@@ -3,22 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { currencies } from '@/constants/currencies';
-import { CandlestickData } from '@/types';
-
-export enum Pricetype {
-  o = 'o',
-  h = 'h',
-  l = 'l',
-  c = 'c',
-}
-
-export interface ChartDayData {
-  date: string;
-  o: number;
-  h: number;
-  l: number;
-  c: number;
-}
+import { CandlestickData, ChartDayData, Pricetype } from '@/types';
 
 interface ChartInputState {
   isInputModalOpen: boolean;
@@ -53,7 +38,9 @@ export const candlestickChartSlice = createSlice({
       state.isInputModalOpen = action.payload;
     },
     setDate: (state, action) => {
-      state.chartDayData.date = action.payload;
+      if (action.payload) {
+        state.chartDayData.date = action.payload;
+      }
     },
     setPrice: (state, action: PayloadAction<{ priceType: Pricetype; price: number }>) => {
       const { priceType, price } = action.payload;
