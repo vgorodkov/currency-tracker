@@ -39,6 +39,11 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     ],
   };
 
+  const cssLoader = {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader'],
+  };
+
   const babelLoader = {
     test: /\.tsx?$/,
     exclude: /node_modules/,
@@ -47,5 +52,5 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     },
   };
 
-  return [assetLoader, scssLoader, babelLoader, svgrLoader, svgLoader];
+  return [assetLoader, scssLoader, babelLoader, svgrLoader, svgLoader, cssLoader];
 };
