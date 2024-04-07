@@ -1,0 +1,13 @@
+.chartNotification {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  z-index: 100;
+  padding: 16px;
+  background-color: red;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-radius: 16px;
+}
