@@ -1,12 +1,16 @@
+@import '@/scss/spacing';
+
 .inputsContainer {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: $spacing-s;
+  width: 200px;
 }
 
 .dateInputField {
   &:hover {
     &:disabled {
+      cursor: not-allowed;
       &::before {
         position: absolute;
         content: 'You have selected start Date. Please fill values one by one';
@@ -14,7 +18,7 @@
         left: 0;
         background-color: red;
         color: white;
-        padding: 8px;
+        padding: $spacing-xs;
         border-radius: 4px;
         text-align: center;
         display: flex;

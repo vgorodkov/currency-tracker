@@ -25,9 +25,11 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
     <div className={styles.dropdown}>
       <div role="button" tabIndex={0} className={styles.dropdownBtn} onClick={onDropdownBtnClick}>
         {selected === '' ? options[0] : selected}
-        <Arrow
-          className={isActive ? `${styles.btnArrow} ${styles.btnArrowActive}` : styles.btnArrow}
-        />
+        <div className={styles.btnArrowContainer}>
+          <Arrow
+            className={isActive ? `${styles.btnArrow} ${styles.btnArrowActive}` : styles.btnArrow}
+          />
+        </div>
       </div>
       {isActive && (
         <div className={styles.dropdownContent} data-pos={isAbove ? 'above' : 'below'}>

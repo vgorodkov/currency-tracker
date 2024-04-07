@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { BASE_CURRENCY } from '@/constants/currencies';
+import { currencies } from '@/constants/currencies';
 import { icons } from '@/constants/icons';
 import {
   openConverter,
-  setConvertedCurrencies,
   setFromCurrency,
+  setToCurrencyCode,
+  setToCurrencyRate,
 } from '@/redux/slices/converterSlice';
 import { useAppDispatch } from '@/redux/store';
 import { formatRate } from '@/utils/formatRate';
@@ -21,10 +22,13 @@ interface CurrencyCardProps {
 export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) => {
   const dispatch = useAppDispatch();
 
+  const avaibleCurrencies = currencies.filter((currency) => currency !== assetId);
+
   const handleCurrencyCardClick = () => {
-    dispatch(openConverter());
+    dispatch(setToCurrencyCode(avaibleCurrencies[0]));
+    dispatch(setToCurrencyRate(-1));
     dispatch(setFromCurrency({ code: assetId, rate }));
-    dispatch(setConvertedCurrencies({ fromCurrency: assetId, rate, toCurrency: BASE_CURRENCY }));
+    dispatch(openConverter());
   };
 
   const onCurrencyCardKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {

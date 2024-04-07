@@ -1,6 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
-import { Configuration } from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import { BuildOptions } from '@config/build/types';
 import Dotenv from 'dotenv-webpack';
 
@@ -16,6 +16,7 @@ export const buildPlugins = ({ mode, paths }: BuildOptions): Configuration['plug
   ];
 
   if (isDev) {
+    plugins.push(new webpack.HotModuleReplacementPlugin());
   }
 
   if (isProd) {

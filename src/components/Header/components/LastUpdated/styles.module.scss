@@ -1,0 +1,24 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+.lastUpdatedContainer {
+  display: flex;
+  @include body;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-s;
+  color: var(--primary-text-color);
+  margin-bottom: 64px;
+
+  @include breakpoint-m {
+    @include label;
+  }
+}
+
+.statusSvg {
+  @include breakpoint-m {
+    width: 28px;
+    height: 28px;
+  }
+}
