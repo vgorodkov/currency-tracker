@@ -63,6 +63,13 @@ $dropdown-width: 108px;
   }
 }
 
+.btnArrowContainer {
+  display: flex;
+  background-color: var(--btn-arrow-color);
+  padding: 2px;
+  border-radius: 8px;
+}
+
 .btnArrow {
   stroke: var(--primary-text-color);
   transition: 0.3s;

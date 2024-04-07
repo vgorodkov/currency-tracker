@@ -1,4 +1,5 @@
 @import '@/scss/colors';
+@import '@/scss/breakpoints';
 
 .loader {
   border: 4px solid #f3f3f3;
@@ -7,6 +8,10 @@
   width: 32px;
   height: 32px;
   animation: spin 2s linear infinite;
+  @include breakpoint-m {
+    width: 24px;
+    height: 24px;
+  }
 }
 
 @keyframes spin {
