@@ -1,5 +1,3 @@
-import { Pricetype } from '@/redux/slices/candlestickChartSlice';
-
 export interface ConverterCurrency {
   fromCurrency: string;
   toCurrency: string;
@@ -29,6 +27,13 @@ export interface ExchangeAsset {
   data_end?: string;
 }
 
+export enum Pricetype {
+  o = 'o',
+  h = 'h',
+  l = 'l',
+  c = 'c',
+}
+
 export interface SetPriceArgs {
   priceType: Pricetype;
   price: number;
@@ -44,4 +49,8 @@ export interface OHLC {
 export interface CandlestickData extends OHLC {
   x: number;
   s: [number, number];
+}
+
+export interface ChartDayData extends OHLC {
+  date: string;
 }

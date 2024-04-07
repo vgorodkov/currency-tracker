@@ -1,8 +1,6 @@
-/* eslint-disable react/require-default-props */
 import { PureComponent } from 'react';
 
-import { Pricetype } from '@/redux/slices/candlestickChartSlice';
-import { SetPriceArgs } from '@/types';
+import { Pricetype, SetPriceArgs } from '@/types';
 
 import styles from './styles.module.scss';
 
