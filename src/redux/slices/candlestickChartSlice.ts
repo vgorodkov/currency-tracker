@@ -5,6 +5,10 @@ import { createSlice } from '@reduxjs/toolkit';
 import { currencies } from '@/constants/currencies';
 import { CandlestickData, ChartDayData, Pricetype } from '@/types';
 
+const formatDate = (date: Date) => {
+  return date.toISOString().slice(0, 10);
+};
+
 interface ChartInputState {
   isInputModalOpen: boolean;
   targetCurrency: string;
@@ -17,7 +21,7 @@ const initialState: ChartInputState = {
   targetCurrency: currencies[0],
 
   chartDayData: {
-    date: new Date(Date.now()).toISOString().slice(0, 10),
+    date: formatDate(new Date(Date.now())),
     o: 0,
     h: 0,
     l: 0,
@@ -44,6 +48,12 @@ export const candlestickChartSlice = createSlice({
     },
     setPrice: (state, action: PayloadAction<{ priceType: Pricetype; price: number }>) => {
       const { priceType, price } = action.payload;
+
+      if (Number.isNaN(price)) {
+        state.chartDayData[priceType] = 0;
+        return;
+      }
+
       if (priceType === Pricetype.o && state.chartData.length >= 1) {
         const prevDayClosePrise = state.chartData[state.chartData.length - 1].c;
         state.chartDayData.o = prevDayClosePrise;
@@ -68,7 +78,7 @@ export const candlestickChartSlice = createSlice({
       const newDate = new Date(date);
       newDate.setDate(newDate.getDate() + 1);
       state.chartDayData = {
-        date: newDate.toISOString().slice(0, 10),
+        date: formatDate(newDate),
         o: state.chartData[state.chartData.length - 1].c,
         c: 0,
         l: 0,

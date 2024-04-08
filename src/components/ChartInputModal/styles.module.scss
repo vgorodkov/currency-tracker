@@ -4,25 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-s;
-  width: 200px;
-}
-
-.dateInputField {
-  &:hover {
-    &:disabled {
-      cursor: not-allowed;
-      &::before {
-        position: absolute;
-        content: 'You have selected start Date. Please fill values one by one';
-        top: -40px;
-        left: 0;
-        background-color: red;
-        color: white;
-        padding: $spacing-xs;
-        border-radius: 4px;
-        text-align: center;
-        display: flex;
-      }
-    }
-  }
+  margin-bottom: $spacing-m;
+  min-width: 300px;
+  width: 100%;
 }

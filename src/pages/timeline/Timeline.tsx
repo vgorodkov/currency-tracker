@@ -1,26 +1,20 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-import 'chartjs-adapter-date-fns';
-
-import { bindActionCreators } from '@reduxjs/toolkit';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import CandlestickChart from '@/components/CandlestickChart';
 import ChartCurrencyInfo from '@/components/ChartCurrencyInfo';
-import { ChartCurrencySelection } from '@/components/ChartCurrencySelection';
+import ChartCurrencySelection from '@/components/ChartCurrencySelection';
 import ChartInputModal from '@/components/ChartInputModal';
 import { ChartNotification } from '@/components/ChartNotification';
 import observable from '@/observable';
-import { setInputModalOpen, setTargetCurrency } from '@/redux/slices/candlestickChartSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import { RootState } from '@/redux/store';
 import { CandlestickData } from '@/types';
 
 import styles from './styles.module.scss';
 
+const MONTH_LENGTH = 30;
+
 interface TimelineProps {
-  openModal: () => void;
-  setTargetCurrency: (currency: string) => void;
-  targetCurrency: string;
   chartData: CandlestickData[];
 }
 
@@ -29,23 +23,19 @@ class Timeline extends PureComponent<TimelineProps> {
 
   componentDidUpdate() {
     const { chartData } = this.props;
-    if (chartData.length === 10) {
+    if (chartData.length === MONTH_LENGTH) {
       observable.notify();
     }
   }
 
   render() {
-    const { openModal, setTargetCurrency, targetCurrency, chartData } = this.props;
+    const { chartData } = this.props;
 
     return (
       <div className={styles.container}>
         <ChartNotification />
-        <ChartCurrencySelection
-          targetCurrency={targetCurrency}
-          openModal={openModal}
-          setTargetCurrency={setTargetCurrency}
-        />
-        <ChartCurrencyInfo targetCurrency={targetCurrency} />
+        <ChartCurrencySelection />
+        <ChartCurrencyInfo />
         <CandlestickChart candleSticksData={chartData} />
         <ChartInputModal />
       </div>
@@ -54,16 +44,6 @@ class Timeline extends PureComponent<TimelineProps> {
 }
 const mapStateToProps = (state: RootState) => ({
   chartData: state.candlestickChart.chartData,
-  targetCurrency: state.candlestickChart.targetCurrency,
 });
 
-const mapDispatchToProps = (dispatch: AppDispatch) =>
-  bindActionCreators(
-    {
-      openModal: () => setInputModalOpen(true),
-      setTargetCurrency,
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(Timeline);
+export default connect(mapStateToProps)(Timeline);

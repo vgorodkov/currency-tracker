@@ -24,8 +24,8 @@
 }
 
 .modalContent {
-  padding: $spacing-m $spacing-l;
-  border-radius: $spacing-m;
+  padding: $spacing-sm $spacing-l;
+  border-radius: 8px;
   background-color: var(--modal-color);
   display: flex;
   flex-direction: column;

@@ -1,9 +1,12 @@
+import 'chartjs-adapter-date-fns';
+
 import Chart from 'chart.js/auto';
 import { Component, createRef, RefObject } from 'react';
 
 import { CandlestickData } from '@/types';
 
 import { ChartDummy } from '../ChartDummy';
+import { chartOptions } from './chartOptions';
 import { candlestickPlugin } from './plugins/candlestickPlugin';
 import { crosshairPlugin } from './plugins/crosshairPlugin';
 
@@ -14,7 +17,7 @@ interface CandlestickChartProps {
 class CandlestickChart extends Component<CandlestickChartProps> {
   private canvasRef: RefObject<HTMLCanvasElement>;
 
-  private chartRef: Chart | null;
+  private chartRef: Chart<'bar'> | null;
 
   constructor(props: CandlestickChartProps) {
     super(props);
@@ -26,7 +29,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
     this.renderChart();
   }
 
-  componentDidUpdate(): void {
+  componentDidUpdate() {
     this.renderChart();
   }
 
@@ -69,54 +72,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
             },
           ],
         },
-        options: {
-          layout: {
-            padding: {
-              left: 24,
-              bottom: 24,
-            },
-          },
-          parsing: {
-            xAxisKey: 'x',
-            yAxisKey: 's',
-          },
-          scales: {
-            x: {
-              type: 'timeseries',
-              time: {
-                unit: 'day',
-                tooltipFormat: 'MMM, d, yyyy',
-              },
-              grid: {
-                color: '#1C1C1D',
-              },
-            },
-            y: {
-              beginAtZero: true,
-              grace: 1,
-              grid: {
-                color: '#1C1C1D',
-              },
-            },
-          },
-          plugins: {
-            legend: {
-              display: false,
-            },
-            tooltip: {
-              callbacks: {
-                beforeBody: (ctx) => {
-                  const { o, h, l, c } = ctx[0].raw;
-                  const bodyArr = [`O: ${o}`, `H: ${h}`, `L: ${l}`, `C: ${c}`];
-                  return bodyArr;
-                },
-                label: () => {
-                  return '';
-                },
-              },
-            },
-          },
-        },
+        options: chartOptions,
         plugins: [candlestickPlugin, crosshairPlugin],
       });
     }
@@ -124,6 +80,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
 
   render() {
     const { candleSticksData } = this.props;
+
     if (candleSticksData.length < 1) {
       return <ChartDummy />;
     }

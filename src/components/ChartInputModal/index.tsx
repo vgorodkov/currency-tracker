@@ -15,8 +15,12 @@ import { ChartDayData, Pricetype, SetPriceArgs } from '@/types';
 
 import { Button } from '../Button';
 import { Modal } from '../Modal';
+import { DateInput } from './components/DateInput';
 import { PriceInputField } from './components/PriceInput';
 import styles from './styles.module.scss';
+
+const RULES =
+  'Price values should be greater than 0. Open and Close cannot be equal. High must be greater than Low';
 
 interface ChartInputModalProps {
   chartDayData: ChartDayData;
@@ -29,7 +33,20 @@ interface ChartInputModalProps {
 }
 
 export class ChartInputModal extends Component<ChartInputModalProps> {
-  renderPriceInputFields() {
+  arePricesValid = (): boolean => {
+    const { chartDayData } = this.props;
+    const { o, c, h, l } = chartDayData;
+
+    const areGreaterThanZero = o > 0 && c > 0 && h > 0 && l > 0;
+
+    const isCloseValid = c !== o;
+
+    const isHighGreater = h > l;
+
+    return areGreaterThanZero && isCloseValid && isHighGreater;
+  };
+
+  renderPriceInputFields = () => {
     const { isFirstDateSelected, chartDayData, setPrice } = this.props;
 
     const priceInputs = [
@@ -54,7 +71,7 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
         disabled={input.disabled}
       />
     ));
-  }
+  };
 
   render() {
     const {
@@ -69,16 +86,19 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
     return (
       <Modal isActive={isInpuModalOpen} closeModal={closeModal}>
         <form className={styles.inputsContainer}>
-          <input
-            className={styles.dateInputField}
-            disabled={isFirstDateSelected}
-            type="date"
-            value={chartDayData.date}
-            onChange={(e) => setDate(e.target.value)}
+          <DateInput
+            isFirstDateSelected={isFirstDateSelected}
+            chartDayData={chartDayData}
+            setDate={setDate}
           />
           {this.renderPriceInputFields()}
-          <Button title="Enter data" onClick={() => setChartData()} />
         </form>
+        <Button
+          tooltipText={RULES}
+          disabled={!this.arePricesValid()}
+          title="Enter data"
+          onClick={() => setChartData()}
+        />
       </Modal>
     );
   }

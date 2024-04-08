@@ -1,0 +1,23 @@
+@import '@/scss/spacing';
+
+.dateInputWrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.dateInputField {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: $spacing-xs 0 $spacing-xs $spacing-xs;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  font-weight: 600;
+  &:focus {
+    border-color: #007bff;
+  }
+  &:read-only {
+    opacity: 0.7;
+  }
+}

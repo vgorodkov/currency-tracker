@@ -1,20 +1,26 @@
+/* eslint-disable @typescript-eslint/no-shadow */
+import { bindActionCreators } from '@reduxjs/toolkit';
 import { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 import { currencies } from '@/constants/currencies';
+import { setInputModalOpen, setTargetCurrency } from '@/redux/slices/candlestickChartSlice';
+import { AppDispatch, RootState } from '@/redux/store';
 
 import styles from './styles.module.scss';
 
 interface ChartCurrencySelectionProps {
+  targetCurrency: string;
   openModal: () => void;
   setTargetCurrency: (currency: string) => void;
-  targetCurrency: string;
 }
 
-export class ChartCurrencySelection extends PureComponent<ChartCurrencySelectionProps> {
+class ChartCurrencySelection extends PureComponent<ChartCurrencySelectionProps> {
   render() {
-    const { openModal, setTargetCurrency, targetCurrency } = this.props;
+    const { targetCurrency, openModal, setTargetCurrency } = this.props;
+
     return (
       <div className={styles.chartCurrencySelection}>
         <Dropdown options={currencies} selected={targetCurrency} handleSelect={setTargetCurrency} />
@@ -25,3 +31,18 @@ export class ChartCurrencySelection extends PureComponent<ChartCurrencySelection
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: AppDispatch) =>
+  bindActionCreators(
+    {
+      openModal: () => setInputModalOpen(true),
+      setTargetCurrency: (currency) => setTargetCurrency(currency),
+    },
+    dispatch
+  );
+
+const mapStateToProps = (state: RootState) => ({
+  targetCurrency: state.candlestickChart.targetCurrency,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChartCurrencySelection);
