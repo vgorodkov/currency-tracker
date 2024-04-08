@@ -3,8 +3,21 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 const getInitialTheme = () => {
+  if (typeof window === 'undefined') {
+    return 'light';
+  }
   const userMedia = window.matchMedia('(prefers-color-scheme: light)');
-  if (userMedia.matches) return 'light';
+  const storedTheme = localStorage.getItem('theme');
+
+  if (storedTheme && (storedTheme === 'light' || storedTheme === 'dark')) {
+    return storedTheme;
+  }
+
+  if (userMedia.matches) {
+    return 'light';
+  }
+
+  localStorage.setItem('theme', 'dark');
   return 'dark';
 };
 
@@ -22,6 +35,7 @@ export const themeSlice = createSlice({
   reducers: {
     setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {
       state.theme = action.payload;
+      localStorage.setItem('theme', action.payload);
     },
   },
 });

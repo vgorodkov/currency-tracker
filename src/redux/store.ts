@@ -30,7 +30,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['exchangeRates', 'theme', 'converter'],
+  whitelist: ['exchangeRates', 'converter'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

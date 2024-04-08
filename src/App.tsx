@@ -7,9 +7,8 @@ import { LazyBankCard, LazyContacts, LazyHome, LazyTimeline } from '@/pages';
 
 export const App = () => {
   useInsertionEffect(() => {
-    const persisted = JSON.parse(localStorage.getItem('persist:root'));
-    if (persisted) {
-      const { theme } = JSON.parse(persisted?.theme);
+    const theme = localStorage.getItem('theme');
+    if (theme) {
       document.documentElement.setAttribute('data-theme', theme);
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
