@@ -12,7 +12,7 @@ export const buildPlugins = ({ mode, paths }: BuildOptions): Configuration['plug
     new HtmlWebpackPlugin({
       template: paths.html,
     }),
-    new Dotenv(),
+    new Dotenv({ systemvars: true }),
   ];
 
   if (isDev) {
