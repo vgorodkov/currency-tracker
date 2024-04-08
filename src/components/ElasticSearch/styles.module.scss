@@ -3,7 +3,9 @@
 .searchContainer {
   position: relative;
   input {
-    background-color: white;
+    box-shadow: var(--box-shadow-color) 0px 5px 15px;
+    background-color: var(--search-color);
+    color: var(--primary-text-color);
     border: 0;
     border-radius: 8px;
     padding: 24px 16px;
@@ -34,8 +36,9 @@
   flex-direction: column;
   gap: 8px;
   margin-top: 5px;
-  background-color: white;
-  box-shadow: #00000035 0px 5px 15px;
+  background-color: var(--search-color);
+  color: var(--tertiary-text-color);
+  box-shadow: var(--box-shadow-color) 0px 5px 15px;
   overflow: hidden;
   overflow-y: auto;
 
@@ -49,7 +52,7 @@
     align-items: center;
     padding: 8px;
     &:hover {
-      background-color: lightgray;
+      background-color: var(--active-card-color);
     }
   }
 }
