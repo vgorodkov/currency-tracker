@@ -11,7 +11,7 @@ interface Option {
 }
 
 interface ElasticSearchProps {
-  label: string;
+  label: keyof Option;
   selectedVal: string;
   handleChange: (val: string) => void;
   options: Option[];
@@ -25,18 +25,17 @@ export const ElasticSearch = ({
 }: ElasticSearchProps) => {
   const [query, setQuery] = useState('');
   const [isOpen, setIsOpen] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const inputRef = useRef(null);
-
-  const selectOption = (option) => {
+  const selectOption = (option: Option): void => {
     setQuery(() => '');
-    handleChange(option[label]);
+    handleChange(option[label].toString());
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  function toggle(e) {
+  const toggle = (e: MouseEvent) => {
     setIsOpen(e && e.target === inputRef.current);
-  }
+  };
 
   const getDisplayValue = () => {
     if (query) return query;
@@ -45,9 +44,9 @@ export const ElasticSearch = ({
     return '';
   };
 
-  const filterOptions = () => {
-    return options.filter(
-      (option) => option[label].toLowerCase().indexOf(query.toLowerCase()) > -1
+  const filterOptions = (): Option[] => {
+    return options.filter((option) =>
+      option[label].toString().toLowerCase().includes(query.toLowerCase())
     );
   };
 
