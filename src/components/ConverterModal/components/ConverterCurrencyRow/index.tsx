@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
 import { LoaderSpinner } from '@/components/LoaderSpinner';
-import { icons } from '@/constants/icons';
+import { currenciesInfo } from '@/constants/currencies';
 import { RootState } from '@/redux/store';
 import { ConverterCurrency } from '@/types';
 import { formatRate } from '@/utils/formatRate';
@@ -26,9 +26,9 @@ export const ConverterCurrencyRow = ({
   return (
     <li className={styles.converterCurrencyRow}>
       <div className={styles.fromToCurrencies}>
-        <ConverterCurrencyItem iconPath={icons[fromCurrency]} name={fromCurrency} />
+        <ConverterCurrencyItem iconPath={currenciesInfo[fromCurrency].img} name={fromCurrency} />
         <p>&#8594;</p>
-        <ConverterCurrencyItem iconPath={icons[toCurrency]} name={toCurrency} />
+        <ConverterCurrencyItem iconPath={currenciesInfo[toCurrency].img} name={toCurrency} />
       </div>
       <div className={styles.priceContainer}>
         {showLoader ? <LoaderSpinner /> : <p>{formatRate(rate)}</p>}
