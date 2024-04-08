@@ -1,3 +1,5 @@
+import 'chartjs-adapter-date-fns';
+
 import { ChartOptions } from 'chart.js';
 
 export const chartOptions: ChartOptions<'bar'> = {

@@ -1,6 +1,4 @@
-import 'chartjs-adapter-date-fns';
-
-import Chart from 'chart.js/auto';
+import { Chart } from 'chart.js/auto';
 import { Component, createRef, RefObject } from 'react';
 
 import { CandlestickData } from '@/types';
