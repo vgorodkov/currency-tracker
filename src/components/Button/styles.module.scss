@@ -2,6 +2,10 @@
 @import '@/scss/fonts';
 @import '@/scss/breakpoints';
 
+.buttonWrapper {
+  position: relative;
+}
+
 .button {
   display: flex;
   flex-grow: 1;
