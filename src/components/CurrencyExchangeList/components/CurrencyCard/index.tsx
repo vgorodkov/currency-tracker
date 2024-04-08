@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { currencies } from '@/constants/currencies';
-import { icons } from '@/constants/icons';
+import { currencies, currenciesInfo } from '@/constants/currencies';
 import {
   openConverter,
   setFromCurrency,
@@ -45,7 +44,7 @@ export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) =>
       className={styles.cardContainer}
       onClick={handleCurrencyCardClick}
     >
-      <img className={styles.icon} src={icons[assetId]} alt={assetId} />
+      <img className={styles.icon} src={currenciesInfo[assetId].img} alt={assetId} />
       <div className={styles.infoContainer}>
         <p className={styles.currencyName}>{assetName}</p>
         <p className={styles.currencyValue}>$ {formatRate(rate)}</p>

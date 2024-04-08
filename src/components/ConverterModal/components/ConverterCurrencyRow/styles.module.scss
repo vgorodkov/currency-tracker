@@ -23,12 +23,17 @@
 
 .fromToCurrencies {
   display: flex;
+
+  min-width: 200px;
   gap: $spacing-xs;
   align-items: center;
+
   @include breakpoint-s {
     font-size: 12px;
     gap: $spacing-xs;
+    min-width: 120px;
   }
+
   p {
     font-size: 14px;
     color: var(--tertiary-text-color);
@@ -36,6 +41,13 @@
 }
 
 .priceContainer {
+  min-width: 100px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+
+  @include breakpoint-s {
+    font-size: 12px;
+    gap: $spacing-xs;
+    min-width: 80px;
+  }
 }

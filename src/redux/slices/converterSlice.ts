@@ -5,6 +5,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { getConvertedCurrency } from '@/api/convertCurrency';
+import { getDate } from '@/utils/getDate';
 
 import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
 
@@ -13,16 +14,36 @@ interface Currency {
   rate: number;
 }
 
+interface ConvertedCurrency extends Currency {
+  cachedDate: number | null;
+}
+
 export const convertCurrency = createAppAsyncThunk(
   'converter/convertCurrency',
-  async (_, { rejectWithValue, getState, dispatch }) => {
+  async (_, { rejectWithValue, getState }) => {
     try {
-      const to = getState().converter.toCurrency.code;
-      const from = getState().converter.fromCurrency.code;
-      const response = await getConvertedCurrency(from, to);
-      const { rate } = response.data;
-      dispatch(setToCurrencyRate(rate));
-      return response.data;
+      const { toCurrency: to, fromCurrency: from, converted: convertedList } = getState().converter;
+
+      const convertedItem = convertedList.find((item) => item.code === `${from.code}-${to.code}`);
+
+      if (convertedItem) {
+        if (convertedItem.cachedDate >= getDate()) {
+          return {
+            fromCode: from.code,
+            toCode: to.code,
+            rate: convertedItem.rate,
+          };
+        }
+      }
+
+      const response = await getConvertedCurrency(from.code, to.code);
+      const { rate, asset_id_base: fromCode, asset_id_quote: toCode } = response.data;
+
+      return {
+        fromCode,
+        toCode,
+        rate,
+      };
     } catch (err) {
       return rejectWithValue(err.message);
     }
@@ -33,8 +54,9 @@ export interface ConverterState {
   isConverterOpen: boolean;
   toCurrency: Currency;
   fromCurrency: Currency | null;
-  fromRate: number;
   isLoading: boolean;
+  converted: ConvertedCurrency[];
+  error: string | null;
 }
 
 const initialState: ConverterState = {
@@ -44,8 +66,9 @@ const initialState: ConverterState = {
     rate: -1,
   },
   fromCurrency: null,
-  fromRate: 0,
   isLoading: false,
+  converted: [],
+  error: null,
 };
 
 export const converterSlice = createSlice({
@@ -62,20 +85,35 @@ export const converterSlice = createSlice({
       const { code, rate } = action.payload;
       state.fromCurrency = { code, rate };
     },
-    setToCurrencyCode: (state, action) => {
+    setToCurrencyCode: (state, action: PayloadAction<string>) => {
       state.toCurrency.code = action.payload;
     },
-    setToCurrencyRate: (state, action) => {
+    setToCurrencyRate: (state, action: PayloadAction<number>) => {
       state.toCurrency.rate = action.payload;
     },
   },
   extraReducers(builder) {
     builder
-      .addCase(convertCurrency.fulfilled, (state) => {
+      .addCase(convertCurrency.fulfilled, (state, action) => {
+        const { rate, fromCode, toCode } = action.payload;
+
+        state.toCurrency.rate = rate;
+
+        const newConverted: ConvertedCurrency = {
+          code: `${fromCode}-${toCode}`,
+          rate,
+          cachedDate: getDate(),
+        };
+        state.converted.push(newConverted);
+
         state.isLoading = false;
       })
       .addCase(convertCurrency.pending, (state) => {
         state.isLoading = true;
+      })
+      .addCase(convertCurrency.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       });
   },
 });

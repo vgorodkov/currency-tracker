@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 
+import { BASE_CURRENCY } from '@/constants/currencies';
 import { RootState } from '@/redux/store';
 
 import { ConverterCurrencyRow } from '../ConverterCurrencyRow';
@@ -12,7 +13,7 @@ export const ConverterCurrencies = () => {
     <div className={styles.converterCurrencies}>
       <ConverterCurrencyRow
         fromCurrency={fromCurrency.code}
-        toCurrency="USD"
+        toCurrency={BASE_CURRENCY}
         rate={fromCurrency.rate}
       />
       <ConverterCurrencyRow
