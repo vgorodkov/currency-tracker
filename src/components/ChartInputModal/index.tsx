@@ -15,6 +15,7 @@ import { ChartDayData, Pricetype, SetPriceArgs } from '@/types';
 
 import { Button } from '../Button';
 import { Modal } from '../Modal';
+import { Tooltip } from '../Tooltip';
 import { DateInput } from './components/DateInput';
 import { PriceInputField } from './components/PriceInput';
 import styles from './styles.module.scss';
@@ -93,12 +94,9 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
           />
           {this.renderPriceInputFields()}
         </form>
-        <Button
-          tooltipText={RULES}
-          disabled={!this.arePricesValid()}
-          title="Enter data"
-          onClick={() => setChartData()}
-        />
+        <Tooltip content={RULES} shouldShow={!this.arePricesValid()}>
+          <Button disabled={!this.arePricesValid()} title="Enter data" onClick={setChartData} />
+        </Tooltip>
       </Modal>
     );
   }

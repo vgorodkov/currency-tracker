@@ -13,18 +13,7 @@ interface PriceInputFieldProps {
   disabled?: boolean;
 }
 
-interface PriceInputFieldState {
-  isTooltipVisible: boolean;
-}
-
-export class PriceInputField extends PureComponent<PriceInputFieldProps, PriceInputFieldState> {
-  constructor(props: PriceInputFieldProps) {
-    super(props);
-    this.state = {
-      isTooltipVisible: false,
-    };
-  }
-
+export class PriceInputField extends PureComponent<PriceInputFieldProps> {
   onPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { priceType, setPrice } = this.props;
     const value = e.target.valueAsNumber;
@@ -32,36 +21,24 @@ export class PriceInputField extends PureComponent<PriceInputFieldProps, PriceIn
     setPrice({ priceType, price: value });
   };
 
-  handleMouseEnter = () => {
-    const { disabled } = this.props;
-    if (disabled) {
-      this.setState({ isTooltipVisible: true });
-    }
-  };
-
-  handleMouseLeave = () => {
-    this.setState({ isTooltipVisible: false });
-  };
-
   render() {
     const { priceType, price, title, disabled = false } = this.props;
-    const { isTooltipVisible } = this.state;
 
     return (
       <div className={disabled ? `${styles.inputRow} ${styles.readonly}` : styles.inputRow}>
         <label htmlFor={priceType}>{title}: </label>
-        <input
-          readOnly={disabled}
-          id={priceType}
-          type="number"
-          value={price.toString()}
-          onChange={this.onPriceChange}
-          onMouseEnter={this.handleMouseEnter}
-          onMouseLeave={this.handleMouseLeave}
-        />
-        {disabled && isTooltipVisible && (
-          <Tooltip content="Open value is always based on close value from previous day" />
-        )}
+        <Tooltip
+          shouldShow={disabled}
+          content="Open value is always based on close value from previous day"
+        >
+          <input
+            readOnly={disabled}
+            id={priceType}
+            type="number"
+            value={price.toString()}
+            onChange={this.onPriceChange}
+          />
+        </Tooltip>
       </div>
     );
   }
