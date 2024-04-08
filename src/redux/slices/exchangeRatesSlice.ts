@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { getExchangeRates } from '@/api/getExchangeRates';
 import { ExchangeAsset } from '@/types';
+import { getDate } from '@/utils/getDate';
 
 import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
 
@@ -11,7 +12,6 @@ export const fetchExchangeRates = createAppAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const response = await getExchangeRates();
-
       return response.data;
     } catch (err) {
       return rejectWithValue(err.message);
@@ -20,13 +20,15 @@ export const fetchExchangeRates = createAppAsyncThunk(
   {
     condition: (_, { getState }) => {
       const state = getState();
-      if (state.exchangeRates.cachedDate < new Date(Date.now()).getDate()) {
+
+      if (state.exchangeRates.cachedDate < getDate()) {
         return true;
       }
 
       if (state.exchangeRates.exchangeRates) {
         return false;
       }
+
       return true;
     },
   }
@@ -57,7 +59,7 @@ export const exchangeRatesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchExchangeRates.fulfilled, (state, action) => {
-        state.cachedDate = new Date(Date.now()).getDate();
+        state.cachedDate = getDate();
         state.exchangeRates = action.payload;
         state.isLoading = false;
       })
