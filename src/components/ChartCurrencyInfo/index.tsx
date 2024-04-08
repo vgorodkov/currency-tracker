@@ -1,6 +1,8 @@
 import { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import { currenciesInfo } from '@/constants/currencies';
+import { RootState } from '@/redux/store';
 
 import styles from './styles.module.scss';
 
@@ -8,7 +10,7 @@ interface ChartCurrencyInfoProps {
   targetCurrency: string;
 }
 
-export class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
+class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
   render() {
     const { targetCurrency } = this.props;
     return (
@@ -16,7 +18,7 @@ export class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
         <img
           className={styles.chartCurrencyInfoImg}
           src={currenciesInfo[targetCurrency].img}
-          alt="currencyImg"
+          alt={targetCurrency}
         />
         <div className={styles.chartCurrencyInfo}>
           <h2>{currenciesInfo[targetCurrency].name}</h2>
@@ -27,4 +29,8 @@ export class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
   }
 }
 
-export default ChartCurrencyInfo;
+const mapStateToProps = (state: RootState) => ({
+  targetCurrency: state.candlestickChart.targetCurrency,
+});
+
+export default connect(mapStateToProps)(ChartCurrencyInfo);
