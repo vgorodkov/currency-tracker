@@ -1,5 +1,7 @@
+import 'mapbox-gl/dist/mapbox-gl.css';
+
 import mapboxgl from 'mapbox-gl';
-import { useEffect, useRef } from 'react';
+import React, { Component } from 'react';
 
 import { getAtmsGeoByCurrency } from '@/api/getAtmsGeoByCurrency';
 
@@ -16,42 +18,58 @@ interface MapProps {
   currency: string;
 }
 
-export const Map = ({ startPos, zoom, currency }: MapProps) => {
-  const mapContainer = useRef(null);
-  const map = useRef(null);
-  const mapMarkers = useRef([]);
+export class Map extends Component<MapProps> {
+  private mapContainer: React.RefObject<HTMLDivElement>;
 
-  useEffect(() => {
-    const addMarkers = async () => {
-      if (mapMarkers.current.length >= 1) {
-        mapMarkers.current.forEach((marker) => marker.remove());
-        mapMarkers.current = [];
-      }
-      const geoCoords = await getAtmsGeoByCurrency(currency, 50);
-      geoCoords.forEach((item) => {
-        const marker = new mapboxgl.Marker()
-          .setLngLat([item.longitude, item.latitude])
-          .addTo(map.current);
-        mapMarkers.current.push(marker);
+  private map: mapboxgl.Map | null;
+
+  private mapMarkers: mapboxgl.Marker[];
+
+  constructor(props: MapProps) {
+    super(props);
+    this.mapContainer = React.createRef();
+    this.map = null;
+    this.mapMarkers = [];
+  }
+
+  componentDidMount() {
+    const { startPos, zoom } = this.props;
+    if (!this.map) {
+      this.map = new mapboxgl.Map({
+        container: this.mapContainer.current!,
+        style: 'mapbox://styles/mapbox/streets-v12',
+        center: [startPos.lng, startPos.lat],
+        zoom,
       });
-    };
-    if (currency) {
-      addMarkers();
+      this.addMarkers();
     }
-  }, [currency]);
+  }
 
-  useEffect(() => {
-    if (map.current) return;
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
-      center: [startPos.lng, startPos.lat],
-      zoom,
+  componentDidUpdate(prevProps: MapProps) {
+    const { currency } = this.props;
+
+    if (currency && prevProps.currency !== currency) {
+      this.addMarkers();
+    }
+  }
+
+  async addMarkers() {
+    const { currency } = this.props;
+
+    if (this.mapMarkers.length >= 1) {
+      this.mapMarkers.forEach((marker) => marker.remove());
+      this.mapMarkers = [];
+    }
+    const geoCoords = await getAtmsGeoByCurrency(currency, 50);
+    geoCoords.forEach((item) => {
+      const marker = new mapboxgl.Marker()
+        .setLngLat([item.longitude, item.latitude])
+        .addTo(this.map!);
+      this.mapMarkers.push(marker);
     });
-  });
-  return (
-    <div>
-      <div ref={mapContainer} className={styles.mapContainer} />
-    </div>
-  );
-};
+  }
+
+  render() {
+    return <div ref={this.mapContainer} className={styles.mapContainer} />;
+  }
+}
