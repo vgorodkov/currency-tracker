@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
+import closeSvg from '@/assets/icons/close.svg?url';
 import observable from '@/observable';
 
-import { Button } from '../Button';
 import styles from './styles.module.scss';
 
 interface ChartNotificationProps {}
@@ -29,6 +29,10 @@ export class ChartNotification extends Component<ChartNotificationProps, ChartNo
     observable.unsubscribe();
   }
 
+  onCloseIconClick = () => {
+    this.setState({ isActive: false });
+  };
+
   render() {
     const { isActive } = this.state;
     if (!isActive) {
@@ -36,8 +40,10 @@ export class ChartNotification extends Component<ChartNotificationProps, ChartNo
     }
     return (
       <div className={styles.chartNotification}>
+        <button type="button" onClick={this.onCloseIconClick}>
+          <img className={styles.closeIcon} src={closeSvg} alt="close" />
+        </button>
         <p>The chart was successfully built for month</p>
-        <Button title="close" onClick={() => this.setState({ isActive: false })} />
       </div>
     );
   }
