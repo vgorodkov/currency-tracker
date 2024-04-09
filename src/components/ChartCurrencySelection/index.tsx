@@ -3,8 +3,7 @@ import { bindActionCreators } from '@reduxjs/toolkit';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
-import { Button } from '@/components/UI/Button';
-import { Dropdown } from '@/components/UI/Dropdown';
+import { Button, Dropdown } from '@/components/UI/';
 import { currencies } from '@/constants/currencies';
 import { setInputModalOpen, setTargetCurrency } from '@/redux/slices/candlestickChartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
