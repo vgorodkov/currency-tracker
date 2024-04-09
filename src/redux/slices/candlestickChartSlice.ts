@@ -35,6 +35,10 @@ export const candlestickChartSlice = createSlice({
   initialState,
   reducers: {
     setTargetCurrency: (state, action: PayloadAction<string>) => {
+      if (action.payload === state.targetCurrency) {
+        return;
+      }
+
       state.chartData = [];
       state.targetCurrency = action.payload;
     },
