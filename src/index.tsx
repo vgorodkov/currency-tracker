@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { App } from '@/App';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
+import { LoadingFallback } from '@/components/LoadingFallback';
 import { persistor, store } from '@/redux/store';
 
 const rootElement = document.getElementById('root');
@@ -22,7 +23,7 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
+        <PersistGate persistor={persistor} loading={<LoadingFallback />}>
           <ErrorBoundary>
             <App />
           </ErrorBoundary>
