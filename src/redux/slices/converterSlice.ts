@@ -22,7 +22,7 @@ export const convertCurrency = createAppAsyncThunk(
   'converter/convertCurrency',
   async (_, { rejectWithValue, getState, dispatch }) => {
     try {
-      dispatch(revalidatedConverted());
+      dispatch(revalidateConverted());
 
       const { toCurrency: to, fromCurrency: from, converted: convertedList } = getState().converter;
 
@@ -93,7 +93,7 @@ export const converterSlice = createSlice({
     setToCurrencyRate: (state, action: PayloadAction<number>) => {
       state.toCurrency.rate = action.payload;
     },
-    revalidatedConverted: (state) => {
+    revalidateConverted: (state) => {
       state.converted = state.converted.filter((item) => item.cachedDate >= getDate());
     },
   },
@@ -129,6 +129,6 @@ export const {
   setFromCurrency,
   setToCurrencyCode,
   setToCurrencyRate,
-  revalidatedConverted,
+  revalidateConverted,
 } = converterSlice.actions;
 export default converterSlice.reducer;
