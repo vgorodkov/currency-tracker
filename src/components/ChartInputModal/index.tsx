@@ -12,7 +12,7 @@ import {
   setPrice,
 } from '@/redux/slices/candlestickChartSlice';
 import { AppDispatch, RootState } from '@/redux/store';
-import { ChartDayData, Pricetype, SetPriceArgs } from '@/types';
+import { ChartDayData, Pricetype, SetPriceArgs } from '@/types/candlestickChart';
 
 import { DateInput } from './components/DateInput';
 import { PriceInputField } from './components/PriceInput';
@@ -34,13 +34,13 @@ interface ChartInputModalProps {
 export class ChartInputModal extends Component<ChartInputModalProps> {
   arePricesValid = (): boolean => {
     const { chartDayData } = this.props;
-    const { o, c, h, l } = chartDayData;
+    const { openPrice, closePrice, highPrice, lowPrice } = chartDayData;
 
-    const areGreaterThanZero = o > 0 && c > 0 && h > 0 && l > 0;
+    const areGreaterThanZero = openPrice > 0 && closePrice > 0 && highPrice > 0 && lowPrice > 0;
 
-    const isCloseValid = c !== o;
+    const isCloseValid = closePrice !== openPrice;
 
-    const isHighGreater = h > l;
+    const isHighGreater = highPrice > lowPrice;
 
     return areGreaterThanZero && isCloseValid && isHighGreater;
   };
@@ -50,14 +50,19 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
 
     const priceInputs = [
       {
-        priceType: Pricetype.o,
+        priceType: Pricetype.OPEN,
         title: 'Open',
-        price: chartDayData.o,
+        price: chartDayData.openPrice,
         disabled: isFirstDateSelected,
       },
-      { priceType: Pricetype.h, title: 'High', price: chartDayData.h, disabled: false },
-      { priceType: Pricetype.l, title: 'Low', price: chartDayData.l, disabled: false },
-      { priceType: Pricetype.c, title: 'Close', price: chartDayData.c, disabled: false },
+      { priceType: Pricetype.HIGH, title: 'High', price: chartDayData.highPrice, disabled: false },
+      { priceType: Pricetype.LOW, title: 'Low', price: chartDayData.lowPrice, disabled: false },
+      {
+        priceType: Pricetype.CLOSE,
+        title: 'Close',
+        price: chartDayData.closePrice,
+        disabled: false,
+      },
     ];
 
     return priceInputs.map((input) => (

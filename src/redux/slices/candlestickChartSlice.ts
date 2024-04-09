@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
 import { currencies } from '@/constants/currencies';
-import { CandlestickData, ChartDayData, Pricetype } from '@/types';
+import { CandlestickData, ChartDayData, Pricetype } from '@/types/candlestickChart';
 
 const formatDate = (date: Date) => {
   return date.toISOString().slice(0, 10);
@@ -22,10 +22,10 @@ const initialState: ChartInputState = {
 
   chartDayData: {
     date: formatDate(new Date(Date.now())),
-    o: 0,
-    h: 0,
-    l: 0,
-    c: 0,
+    openPrice: 0,
+    highPrice: 0,
+    lowPrice: 0,
+    closePrice: 0,
   },
   chartData: [],
 };
@@ -58,24 +58,24 @@ export const candlestickChartSlice = createSlice({
         return;
       }
 
-      if (priceType === Pricetype.o && state.chartData.length >= 1) {
-        const prevDayClosePrise = state.chartData[state.chartData.length - 1].c;
-        state.chartDayData.o = prevDayClosePrise;
+      if (priceType === Pricetype.OPEN && state.chartData.length >= 1) {
+        const prevDayClosePrise = state.chartData[state.chartData.length - 1].closePrice;
+        state.chartDayData.openPrice = prevDayClosePrise;
         return;
       }
       state.chartDayData[priceType] = Math.max(0, price);
     },
     setChartData: (state) => {
-      const { c, o, h, l, date } = state.chartDayData;
+      const { closePrice, openPrice, highPrice, lowPrice, date } = state.chartDayData;
       const timestamp = new Date(date).getTime();
 
       const newChartDataItem: CandlestickData = {
-        x: timestamp,
-        o,
-        h,
-        l,
-        c,
-        s: [o, c],
+        timestamp,
+        openPrice,
+        highPrice,
+        lowPrice,
+        closePrice,
+        settlementPrice: [openPrice, closePrice],
       };
 
       state.chartData.push(newChartDataItem);
@@ -83,10 +83,10 @@ export const candlestickChartSlice = createSlice({
       newDate.setDate(newDate.getDate() + 1);
       state.chartDayData = {
         date: formatDate(newDate),
-        o: state.chartData[state.chartData.length - 1].c,
-        c: 0,
-        l: 0,
-        h: 0,
+        openPrice: state.chartData[state.chartData.length - 1].closePrice,
+        closePrice: 0,
+        lowPrice: 0,
+        highPrice: 0,
       };
     },
   },
