@@ -1,4 +1,4 @@
-import { LoaderSpinner } from '@/components/LoaderSpinner';
+import { LoaderSpinner } from '@/components/UI/LoaderSpinner';
 
 import styles from './styles.module.scss';
 

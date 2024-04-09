@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { Modal } from '@/components/Modal';
+import { Modal } from '@/components/UI/Modal';
 import { closeConverter } from '@/redux/slices/converterSlice';
 import { RootState, useAppDispatch } from '@/redux/store';
 

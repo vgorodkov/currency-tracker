@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 
-import { LoaderSpinner } from '@/components/LoaderSpinner';
+import { LoaderSpinner } from '@/components/UI/LoaderSpinner';
 import { currenciesInfo } from '@/constants/currencies';
 import { RootState } from '@/redux/store';
 import { ConverterCurrency } from '@/types';

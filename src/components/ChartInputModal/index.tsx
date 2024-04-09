@@ -13,9 +13,9 @@ import {
 import { AppDispatch, RootState } from '@/redux/store';
 import { ChartDayData, Pricetype, SetPriceArgs } from '@/types';
 
-import { Button } from '../Button';
-import { Modal } from '../Modal';
-import { Tooltip } from '../Tooltip';
+import { Button } from '../UI/Button';
+import { Modal } from '../UI/Modal';
+import { Tooltip } from '../UI/Tooltip';
 import { DateInput } from './components/DateInput';
 import { PriceInputField } from './components/PriceInput';
 import styles from './styles.module.scss';

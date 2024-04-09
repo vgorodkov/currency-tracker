@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 
-import { Button } from '@/components/Button';
-import { Dropdown } from '@/components/Dropdown';
+import { Button } from '@/components/UI/Button';
+import { Dropdown } from '@/components/UI/Dropdown';
 import { currencies } from '@/constants/currencies';
 import {
   convertCurrency,

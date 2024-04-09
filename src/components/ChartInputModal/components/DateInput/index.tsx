@@ -1,6 +1,6 @@
 import { ChangeEvent, PureComponent } from 'react';
 
-import { Tooltip } from '@/components/Tooltip';
+import { Tooltip } from '@/components/UI/Tooltip';
 
 import styles from './styles.module.scss';
 
