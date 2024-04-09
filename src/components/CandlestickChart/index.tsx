@@ -1,9 +1,9 @@
 import { Chart } from 'chart.js/auto';
 import { Component, createRef, RefObject } from 'react';
 
+import { ChartDummy } from '@/components/ChartDummy';
 import { CandlestickData } from '@/types';
 
-import { ChartDummy } from '../ChartDummy';
 import { chartOptions } from './chartOptions';
 import { candlestickPlugin } from './plugins/candlestickPlugin';
 import { crosshairPlugin } from './plugins/crosshairPlugin';
@@ -13,7 +13,7 @@ interface CandlestickChartProps {
 }
 
 class CandlestickChart extends Component<CandlestickChartProps> {
-  private canvasRef: RefObject<HTMLCanvasElement>;
+  private canvasRef: RefObject<HTMLCanvasElement | null>;
 
   private chartRef: Chart<'bar'> | null;
 
@@ -27,13 +27,17 @@ class CandlestickChart extends Component<CandlestickChartProps> {
     this.renderChart();
   }
 
-  componentDidUpdate() {
-    this.renderChart();
+  componentDidUpdate(prevProps: CandlestickChartProps) {
+    const { candleSticksData } = this.props;
+    if (candleSticksData !== prevProps.candleSticksData) {
+      this.renderChart();
+    }
   }
 
   componentWillUnmount() {
     if (this.chartRef) {
       this.chartRef.destroy();
+      this.chartRef = null;
     }
   }
 
@@ -42,6 +46,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
 
     if (this.chartRef) {
       this.chartRef.destroy();
+      this.chartRef = null;
     }
 
     const canvasCtx = this.canvasRef.current?.getContext('2d');

@@ -5,6 +5,8 @@ import { Pricetype, SetPriceArgs } from '@/types';
 
 import styles from './styles.module.scss';
 
+const RULE = 'Open value is always based on close value from previous day';
+
 interface PriceInputFieldProps {
   setPrice: ({ priceType, price }: SetPriceArgs) => void;
   priceType: Pricetype;
@@ -27,10 +29,7 @@ export class PriceInputField extends PureComponent<PriceInputFieldProps> {
     return (
       <div className={disabled ? `${styles.inputRow} ${styles.readonly}` : styles.inputRow}>
         <label htmlFor={priceType}>{title}: </label>
-        <Tooltip
-          shouldShow={disabled}
-          content="Open value is always based on close value from previous day"
-        >
+        <Tooltip shouldShow={disabled} content={RULE}>
           <input
             readOnly={disabled}
             id={priceType}

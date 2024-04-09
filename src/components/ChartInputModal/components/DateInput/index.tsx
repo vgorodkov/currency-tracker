@@ -4,6 +4,8 @@ import { Tooltip } from '@/components/UI/Tooltip';
 
 import styles from './styles.module.scss';
 
+const RULE = 'Once you have selected date, please fill in data one by one';
+
 interface DateInputProps {
   isFirstDateSelected: boolean;
   chartDayData: { date: string };
@@ -19,10 +21,7 @@ export class DateInput extends PureComponent<DateInputProps, DateInputState> {
     const { isFirstDateSelected, chartDayData, setDate } = this.props;
 
     return (
-      <Tooltip
-        content="Once you have selected date, please fill in data one by one"
-        shouldShow={isFirstDateSelected}
-      >
+      <Tooltip content={RULE} shouldShow={isFirstDateSelected}>
         <div className={styles.dateInputWrapper}>
           <input
             className={styles.dateInputField}

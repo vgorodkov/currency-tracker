@@ -1,26 +1,24 @@
-import { Suspense, useInsertionEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import { LoadingFallback } from '@/components/LoadingFallback';
 import { MainLayout } from '@/components/MainLayout';
+import { RoutePath } from '@/constants/routes';
+import { THEME_DATA_ATTR, THEME_KEY, ThemeVariant } from '@/constants/theme';
 import { LazyBankCard, LazyContacts, LazyHome, LazyTimeline } from '@/pages';
 
 export const App = () => {
-  useInsertionEffect(() => {
-    const theme = localStorage.getItem('theme');
-    if (theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-    } else {
-      document.documentElement.setAttribute('data-theme', 'light');
-    }
-  });
+  useEffect(() => {
+    const theme = localStorage.getItem(THEME_KEY) || ThemeVariant.LIGHT;
+    document.documentElement.setAttribute(THEME_DATA_ATTR, theme);
+  }, []);
 
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />}>
+      <Route path={RoutePath.HOME} element={<MainLayout />}>
         <Route
           index
-          path="/"
+          path={RoutePath.HOME}
           element={
             <Suspense fallback={<LoadingFallback />}>
               <LazyHome />
@@ -28,7 +26,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/timeline"
+          path={RoutePath.TIMELINE}
           element={
             <Suspense fallback={<LoadingFallback />}>
               <LazyTimeline />
@@ -36,7 +34,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/bankcard"
+          path={RoutePath.BANKCARD}
           element={
             <Suspense fallback={<LoadingFallback />}>
               <LazyBankCard />
@@ -44,7 +42,7 @@ export const App = () => {
           }
         />
         <Route
-          path="/contacts"
+          path={RoutePath.CONTACTS}
           element={
             <Suspense fallback={<LoadingFallback />}>
               <LazyContacts />

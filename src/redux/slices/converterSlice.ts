@@ -20,8 +20,10 @@ interface ConvertedCurrency extends Currency {
 
 export const convertCurrency = createAppAsyncThunk(
   'converter/convertCurrency',
-  async (_, { rejectWithValue, getState }) => {
+  async (_, { rejectWithValue, getState, dispatch }) => {
     try {
+      dispatch(revalidateConverted());
+
       const { toCurrency: to, fromCurrency: from, converted: convertedList } = getState().converter;
 
       const convertedItem = convertedList.find((item) => item.code === `${from.code}-${to.code}`);
@@ -91,6 +93,9 @@ export const converterSlice = createSlice({
     setToCurrencyRate: (state, action: PayloadAction<number>) => {
       state.toCurrency.rate = action.payload;
     },
+    revalidateConverted: (state) => {
+      state.converted = state.converted.filter((item) => item.cachedDate >= getDate());
+    },
   },
   extraReducers(builder) {
     builder
@@ -124,5 +129,6 @@ export const {
   setFromCurrency,
   setToCurrencyCode,
   setToCurrencyRate,
+  revalidateConverted,
 } = converterSlice.actions;
 export default converterSlice.reducer;

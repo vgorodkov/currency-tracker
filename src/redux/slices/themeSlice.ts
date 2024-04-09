@@ -2,27 +2,34 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
 
-const getInitialTheme = () => {
-  if (typeof window === 'undefined') {
-    return 'light';
-  }
-  const userMedia = window.matchMedia('(prefers-color-scheme: light)');
-  const storedTheme = localStorage.getItem('theme');
+import { THEME_KEY, ThemeVariant } from '@/constants/theme';
 
-  if (storedTheme && (storedTheme === 'light' || storedTheme === 'dark')) {
-    return storedTheme;
-  }
+const getInitialTheme = (): ThemeVariant => {
+  try {
+    if (typeof window === 'undefined') {
+      return ThemeVariant.LIGHT;
+    }
 
-  if (userMedia.matches) {
-    return 'light';
-  }
+    const userMedia = window.matchMedia('(prefers-color-scheme: light)');
+    const storedTheme = localStorage.getItem(THEME_KEY);
 
-  localStorage.setItem('theme', 'dark');
-  return 'dark';
+    if (storedTheme && (storedTheme === ThemeVariant.DARK || storedTheme === ThemeVariant.LIGHT)) {
+      return storedTheme;
+    }
+
+    if (userMedia.matches) {
+      return ThemeVariant.LIGHT;
+    }
+
+    localStorage.setItem(THEME_KEY, ThemeVariant.DARK);
+    return ThemeVariant.DARK;
+  } catch {
+    return ThemeVariant.LIGHT;
+  }
 };
 
 export interface ThemeState {
-  theme: 'light' | 'dark';
+  theme: ThemeVariant;
 }
 
 const initialState: ThemeState = {
@@ -33,9 +40,9 @@ export const themeSlice = createSlice({
   name: 'theme',
   initialState,
   reducers: {
-    setTheme: (state, action: PayloadAction<'light' | 'dark'>) => {
+    setTheme: (state, action: PayloadAction<ThemeVariant>) => {
       state.theme = action.payload;
-      localStorage.setItem('theme', action.payload);
+      localStorage.setItem(THEME_KEY, action.payload);
     },
   },
 });

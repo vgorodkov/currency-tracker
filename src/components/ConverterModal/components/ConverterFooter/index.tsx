@@ -27,6 +27,9 @@ export const ConverterFooter = () => {
   };
 
   const selectToCurrencyCode = (targetToCurrency: string) => {
+    if (targetToCurrency === toCurrency.code) {
+      return;
+    }
     dispatch(setToCurrencyRate(-1));
     dispatch(setToCurrencyCode(targetToCurrency));
   };
