@@ -16,6 +16,7 @@ export default (env: EnvVariables) => {
     entry: resolve(__dirname, 'src', 'index.tsx'),
     src: resolve(__dirname, 'src'),
     config: resolve(__dirname, 'config'),
+    favicon: resolve(__dirname, 'public', 'favicon.ico'),
   };
   const config: webpack.Configuration = buildWebpack({
     port: env.port ?? 3000,
