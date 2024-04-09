@@ -28,6 +28,6 @@
 
   @include breakpoint-s {
     @include label;
-    padding: $spacing-s;
+    padding: $spacing-xs;
   }
 }
