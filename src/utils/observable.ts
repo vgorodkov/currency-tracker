@@ -1,17 +1,15 @@
-class Observable {
-  constructor() {
-    this.observers = [];
-  }
+class Observable<T> {
+  private observers: ((data: T) => void)[] = [];
 
-  subscribe(func) {
+  subscribe(func: (data: T) => void): void {
     this.observers.push(func);
   }
 
-  unsubscribe(func) {
+  unsubscribe(func: (data: T) => void): void {
     this.observers = this.observers.filter((observer) => observer !== func);
   }
 
-  notify(data) {
+  notify(data: T): void {
     this.observers.forEach((observer) => observer(data));
   }
 }
