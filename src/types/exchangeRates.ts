@@ -1,9 +1,3 @@
-export interface ConverterCurrency {
-  fromCurrency: string;
-  toCurrency: string;
-  rate: number;
-}
-
 export interface ExchangeAsset {
   asset_id?: string;
   name?: string;
@@ -25,32 +19,4 @@ export interface ExchangeAsset {
   supply_max?: number;
   data_start?: string;
   data_end?: string;
-}
-
-export enum Pricetype {
-  o = 'o',
-  h = 'h',
-  l = 'l',
-  c = 'c',
-}
-
-export interface SetPriceArgs {
-  priceType: Pricetype;
-  price: number;
-}
-
-export interface OHLC {
-  o: number;
-  h: number;
-  l: number;
-  c: number;
-}
-
-export interface CandlestickData extends OHLC {
-  x: number;
-  s: [number, number];
-}
-
-export interface ChartDayData extends OHLC {
-  date: string;
 }
