@@ -2,7 +2,7 @@ import { Chart } from 'chart.js/auto';
 import { Component, createRef, RefObject } from 'react';
 
 import { ChartDummy } from '@/components/ChartDummy';
-import { CandlestickData } from '@/types';
+import { CandlestickContext, CandlestickData, ICandlestickChart } from '@/types/candlestickChart';
 
 import { chartOptions } from './chartOptions';
 import { candlestickPlugin } from './plugins/candlestickPlugin';
@@ -15,7 +15,7 @@ interface CandlestickChartProps {
 class CandlestickChart extends Component<CandlestickChartProps> {
   private canvasRef: RefObject<HTMLCanvasElement | null>;
 
-  private chartRef: Chart<'bar'> | null;
+  private chartRef: ICandlestickChart | null;
 
   constructor(props: CandlestickChartProps) {
     super(props);
@@ -57,13 +57,13 @@ class CandlestickChart extends Component<CandlestickChartProps> {
           datasets: [
             {
               data: candleSticksData,
-              backgroundColor: (ctx) => {
+              backgroundColor: (ctx: CandlestickContext) => {
                 const {
-                  raw: { o, c },
+                  raw: { openPrice, closePrice },
                 } = ctx;
 
                 let color;
-                if (c >= o) {
+                if (closePrice >= openPrice) {
                   color = '#16C782';
                 } else {
                   color = '#EA3943';

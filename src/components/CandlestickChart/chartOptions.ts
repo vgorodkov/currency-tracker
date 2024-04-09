@@ -1,6 +1,8 @@
 import 'chartjs-adapter-date-fns';
 
-import { ChartOptions } from 'chart.js';
+import { ChartOptions, TooltipItem } from 'chart.js';
+
+import { OHLC } from '@/types/candlestickChart';
 
 export const chartOptions: ChartOptions<'bar'> = {
   layout: {
@@ -10,8 +12,8 @@ export const chartOptions: ChartOptions<'bar'> = {
     },
   },
   parsing: {
-    xAxisKey: 'x',
-    yAxisKey: 's',
+    xAxisKey: 'timestamp',
+    yAxisKey: 'settlementPrice',
   },
   scales: {
     x: {
@@ -38,9 +40,14 @@ export const chartOptions: ChartOptions<'bar'> = {
     },
     tooltip: {
       callbacks: {
-        beforeBody: (ctx) => {
-          const { o, h, l, c } = ctx[0].raw;
-          const bodyArr = [`O: ${o}`, `H: ${h}`, `L: ${l}`, `C: ${c}`];
+        beforeBody: (tooltipItem: TooltipItem<'bar'>[]) => {
+          const { openPrice, highPrice, lowPrice, closePrice } = tooltipItem[0].raw as OHLC;
+          const bodyArr = [
+            `O: ${openPrice}`,
+            `H: ${highPrice}`,
+            `L: ${lowPrice}`,
+            `C: ${closePrice}`,
+          ];
           return bodyArr;
         },
         label: () => {
