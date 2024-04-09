@@ -41,13 +41,13 @@
 }
 
 .priceContainer {
-  min-width: 100px;
+  min-width: 110px;
   display: flex;
   justify-content: flex-end;
 
   @include breakpoint-s {
     font-size: 12px;
     gap: $spacing-xs;
-    min-width: 80px;
+    min-width: 90px;
   }
 }
