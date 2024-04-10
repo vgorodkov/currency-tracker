@@ -5,8 +5,8 @@ import { ChartDummy } from '@/components/ChartDummy';
 import { CandlestickContext, CandlestickData, ICandlestickChart } from '@/types/candlestickChart';
 
 import { chartOptions } from './chartOptions';
-import { candlestickPlugin } from './plugins/candlestickPlugin';
-import { crosshairPlugin } from './plugins/crosshairPlugin';
+import { candlestickPlugin, crosshairPlugin } from './plugins';
+import { getBackgroundColor } from './utils/getBackgroundColor';
 
 interface CandlestickChartProps {
   candleSticksData: CandlestickData[];
@@ -57,20 +57,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
           datasets: [
             {
               data: candleSticksData,
-              backgroundColor: (ctx: CandlestickContext) => {
-                const {
-                  raw: { openPrice, closePrice },
-                } = ctx;
-
-                let color;
-                if (closePrice >= openPrice) {
-                  color = '#16C782';
-                } else {
-                  color = '#EA3943';
-                }
-                return color;
-              },
-
+              backgroundColor: (ctx: CandlestickContext) => getBackgroundColor(ctx),
               borderSkipped: false,
             },
           ],
