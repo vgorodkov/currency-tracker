@@ -4,12 +4,10 @@ import { useSelector } from 'react-redux';
 import { LoadingFallback } from '@/components/UI/LoadingFallback';
 import { useAppDispatch } from '@/store/hooks';
 import {
-  cachedDateSelector,
   exchangeRatesSelector,
   isLoadingSelector,
 } from '@/store/slices/exchangeRatesSlice/exchangeRatesSelectors';
 import { fetchExchangeRates } from '@/store/slices/exchangeRatesSlice/exchangeRatesThunk';
-import { getDate } from '@/utils/getDate';
 
 import { CurrencyCard } from './components/CurrencyCard';
 import styles from './styles.module.scss';
@@ -17,15 +15,14 @@ import styles from './styles.module.scss';
 export const CurrencyExchangeList = () => {
   const dispatch = useAppDispatch();
 
-  const cachedDate = useSelector(cachedDateSelector);
   const exchangeRates = useSelector(exchangeRatesSelector);
   const isLoading = useSelector(isLoadingSelector);
 
   useEffect(() => {
-    if (cachedDate < getDate()) {
+    if (exchangeRates.length < 1) {
       dispatch(fetchExchangeRates());
     }
-  }, [dispatch, cachedDate]);
+  }, [dispatch, exchangeRates]);
 
   return (
     <section className={styles.currencySection}>

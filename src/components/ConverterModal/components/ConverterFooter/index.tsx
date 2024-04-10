@@ -3,11 +3,7 @@ import { useSelector } from 'react-redux';
 import { Button, Dropdown } from '@/components/UI';
 import { currencies } from '@/constants/currencies';
 import { useAppDispatch } from '@/store/hooks';
-import {
-  revalidateConverted,
-  setToCurrencyCode,
-  setToCurrencyRate,
-} from '@/store/slices/converterSlice';
+import { setToCurrencyCode, setToCurrencyRate } from '@/store/slices/converterSlice';
 import {
   convertedListSelector,
   fromCurrencySelector,
@@ -39,8 +35,6 @@ export const ConverterFooter = () => {
         dispatch(setToCurrencyRate(convertedItem.rate));
         return;
       }
-
-      dispatch(revalidateConverted());
     }
 
     dispatch(convertCurrency());
