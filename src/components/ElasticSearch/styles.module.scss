@@ -1,4 +1,5 @@
 @import '@/scss/fonts';
+@import '@/scss/spacing';
 
 .searchContainer {
   position: relative;
@@ -8,7 +9,7 @@
     color: var(--primary-text-color);
     border: 0;
     border-radius: 8px;
-    padding: 24px 16px;
+    padding: $spacing-sm $spacing-s;
     height: 40px;
     outline: none;
     @include label-large;
@@ -34,7 +35,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: $spacing-xs;
   margin-top: 5px;
   background-color: var(--search-color);
   color: var(--tertiary-text-color);
@@ -50,7 +51,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 8px;
+    padding: $spacing-xs;
     &:hover {
       background-color: var(--active-card-color);
     }

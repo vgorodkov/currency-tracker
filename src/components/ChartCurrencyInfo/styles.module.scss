@@ -1,12 +1,10 @@
 @import '@/scss/fonts';
+@import '@/scss/spacing';
 
 .chartCurrencyInfoContainer {
   display: flex;
-  gap: 24px;
-  margin-left: 40px;
-}
-
-.chartCurrencyInfoImg {
+  gap: $spacing-sm;
+  margin-left: $spacing-sm;
 }
 
 .chartCurrencyInfo {

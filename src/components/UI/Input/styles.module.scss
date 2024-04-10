@@ -1,4 +1,5 @@
 @import '@/scss/fonts';
+@import '@/scss/spacing';
 
 .inputField {
   box-shadow: var(--box-shadow-color) 0px 5px 15px;
@@ -6,7 +7,7 @@
   color: var(--primary-text-color);
   border: 0;
   border-radius: 8px;
-  padding: 24px 16px;
+  padding: $spacing-sm $spacing-s;
   height: 40px;
   outline: none;
   @include label-large;
