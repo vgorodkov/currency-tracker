@@ -14,18 +14,17 @@ export interface OHLC {
   closePrice: number;
 }
 
-export interface SetPriceArgs {
-  priceType: Pricetype;
-  price: number;
+export interface ChartDayData extends OHLC {
+  timestamp: number;
 }
 
-export interface CandlestickData extends OHLC {
-  timestamp: number;
+export interface CandlestickData extends ChartDayData {
   settlementPrice: [number, number];
 }
 
-export interface ChartDayData extends OHLC {
-  date: string;
+export interface SetPriceArgs {
+  priceType: Pricetype;
+  price: number;
 }
 
 export interface CandlestickContext extends ScriptableContext<'bar'> {
