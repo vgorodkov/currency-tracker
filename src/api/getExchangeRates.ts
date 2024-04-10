@@ -19,10 +19,6 @@ const axiosConfig = {
 };
 
 export const getExchangeRates = async () => {
-  try {
-    const response = await axios(axiosConfig);
-    return response;
-  } catch {
-    throw new Error('Error while fetching');
-  }
+  const response = await axios(axiosConfig);
+  return response;
 };
