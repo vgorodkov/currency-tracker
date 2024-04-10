@@ -1,28 +1,48 @@
 import { useSelector } from 'react-redux';
 
-import { Button } from '@/components/UI/Button';
-import { Dropdown } from '@/components/UI/Dropdown';
+import { Button, Dropdown } from '@/components/UI';
 import { currencies } from '@/constants/currencies';
+import { useAppDispatch } from '@/store/hooks';
 import {
-  convertCurrency,
+  revalidateConverted,
   setToCurrencyCode,
   setToCurrencyRate,
-} from '@/redux/slices/converterSlice';
-import { RootState, useAppDispatch } from '@/redux/store';
+} from '@/store/slices/converterSlice';
+import {
+  convertedListSelector,
+  fromCurrencySelector,
+  isLoadingSelector,
+  toCurrencySelector,
+} from '@/store/slices/converterSlice/converterSelectors';
+import { convertCurrency } from '@/store/slices/converterSlice/converterThunk';
+import { getDate } from '@/utils/getDate';
 
 import styles from './styles.module.scss';
 
 export const ConverterFooter = () => {
   const dispatch = useAppDispatch();
 
-  const toCurrency = useSelector((state: RootState) => state.converter.toCurrency);
-  const fromCurrencyCode = useSelector((state: RootState) => state.converter.fromCurrency.code);
-  const isLoading = useSelector((state: RootState) => state.converter.isLoading);
+  const convertedList = useSelector(convertedListSelector);
+  const toCurrency = useSelector(toCurrencySelector);
+  const fromCurrencyCode = useSelector(fromCurrencySelector).code;
+  const isLoading = useSelector(isLoadingSelector);
 
   const isBtnDisabled = !toCurrency || isLoading;
   const avaibleCurrencies = currencies.filter((currency) => currency !== fromCurrencyCode);
 
   const onConverterBtnClick = () => {
+    const convertedItem = convertedList.find(
+      (item) => item.code === `${fromCurrencyCode}-${toCurrency.code}`
+    );
+    if (convertedItem) {
+      if (convertedItem.cachedDate <= getDate()) {
+        dispatch(setToCurrencyRate(convertedItem.rate));
+        return;
+      }
+
+      dispatch(revalidateConverted());
+    }
+
     dispatch(convertCurrency());
   };
 
