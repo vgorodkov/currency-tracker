@@ -2,7 +2,7 @@ import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { currenciesInfo } from '@/constants/currencies';
-import { RootState } from '@/redux/store';
+import { RootState } from '@/store/types';
 
 import styles from './styles.module.scss';
 

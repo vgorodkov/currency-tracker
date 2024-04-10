@@ -5,8 +5,8 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { LoadingFallback } from '@/components/LoadingFallback';
 import { useInitTheme } from '@/hooks/useInitTheme';
-import { persistor, store } from '@/redux/store';
 import { AppRouter } from '@/routers/AppRouter';
+import { persistor, store } from '@/store';
 
 export const App = () => {
   useInitTheme();
