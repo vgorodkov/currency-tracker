@@ -1,8 +1,10 @@
-import { ICandlestickChart, OHLC } from '@/types/candlestickChart';
+import { Chart, Plugin } from 'chart.js';
 
-export const crosshairPlugin = {
+import { OHLC } from '@/types/candlestickChart';
+
+export const crosshairPlugin: Plugin<'bar'> = {
   id: 'crosshair',
-  afterDatasetsDraw(chart: ICandlestickChart) {
+  afterDatasetsDraw(chart: Chart<'bar'>) {
     const updatedChart = { ...chart };
 
     const {

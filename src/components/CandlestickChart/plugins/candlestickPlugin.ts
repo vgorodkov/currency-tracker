@@ -1,6 +1,8 @@
-import { ICandlestickChart } from '@/types/candlestickChart';
+import { Plugin } from 'chart.js';
 
-export const candlestickPlugin = {
+import { CandlestickData, ICandlestickChart } from '@/types/candlestickChart';
+
+export const candlestickPlugin: Plugin<'bar', CandlestickData[]> = {
   id: 'candlestickPlugin',
   beforeDatasetsDraw(chart: ICandlestickChart) {
     const {
