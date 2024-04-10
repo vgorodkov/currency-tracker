@@ -1,30 +1,34 @@
-/* eslint-disable @typescript-eslint/no-shadow */
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import { Button, Dropdown } from '@/components/UI/';
 import { currencies } from '@/constants/currencies';
-import { setInputModalOpen, setTargetCurrency } from '@/redux/slices/candlestickChartSlice';
-import { AppDispatch, RootState } from '@/redux/store';
+import { setInputModalOpen, setTargetCurrency } from '@/store/slices/candlestickChartSlice';
+import { AppDispatch, RootState } from '@/store/types';
 
 import styles from './styles.module.scss';
-
-interface ChartCurrencySelectionProps {
-  targetCurrency: string;
-  openModal: () => void;
-  setTargetCurrency: (currency: string) => void;
-}
+import { ChartCurrencySelectionProps } from './types';
 
 class ChartCurrencySelection extends PureComponent<ChartCurrencySelectionProps> {
   render() {
-    const { targetCurrency, openModal, setTargetCurrency } = this.props;
+    const { targetCurrency, openModalConnect, setTargetCurrencyConnect } = this.props;
+
+    const handleOptionSelect = (option: string) => {
+      if (targetCurrency !== option) {
+        setTargetCurrencyConnect(option);
+      }
+    };
 
     return (
       <div className={styles.chartCurrencySelection}>
-        <Dropdown options={currencies} selected={targetCurrency} handleSelect={setTargetCurrency} />
+        <Dropdown
+          options={currencies}
+          selected={targetCurrency}
+          handleSelect={handleOptionSelect}
+        />
         <div>
-          <Button title="Enter data" onClick={openModal} />
+          <Button title="Enter data" onClick={openModalConnect} />
         </div>
       </div>
     );
@@ -34,8 +38,8 @@ class ChartCurrencySelection extends PureComponent<ChartCurrencySelectionProps> 
 const mapDispatchToProps = (dispatch: AppDispatch) =>
   bindActionCreators(
     {
-      openModal: () => setInputModalOpen(true),
-      setTargetCurrency: (currency) => setTargetCurrency(currency),
+      openModalConnect: () => setInputModalOpen(true),
+      setTargetCurrencyConnect: (currency) => setTargetCurrency(currency),
     },
     dispatch
   );
