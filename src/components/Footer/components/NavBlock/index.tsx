@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import ArrowDown from '@/assets/icons/chevron_down.svg';
-import { RootState } from '@/redux/store';
+import { themeSelector } from '@/store/slices/themeSlice/themeSelectors';
 
 import { Accordion } from '../Accordion';
 import styles from './styles.module.scss';
@@ -13,7 +13,7 @@ interface NavBlockProps {
 }
 
 export const NavBlock = ({ title, links }: NavBlockProps) => {
-  const { theme } = useSelector((state: RootState) => state.theme.theme);
+  const theme = useSelector(themeSelector);
   const [isAccordionActive, setIsAccordionActive] = useState(false);
 
   const isDark = theme === 'dark';
