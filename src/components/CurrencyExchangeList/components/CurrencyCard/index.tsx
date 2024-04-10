@@ -11,12 +11,7 @@ import {
 import { formatRate } from '@/utils/formatRate';
 
 import styles from './styles.module.scss';
-
-interface CurrencyCardProps {
-  rate: number;
-  assetId: string;
-  assetName: string;
-}
+import { CurrencyCardProps } from './types';
 
 export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) => {
   const dispatch = useAppDispatch();

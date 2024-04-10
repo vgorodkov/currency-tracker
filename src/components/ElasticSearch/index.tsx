@@ -3,14 +3,7 @@ import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 import searchSvg from '@/assets/icons/search.svg?url';
 
 import styles from './styles.module.scss';
-import { Option } from './types';
-
-interface ElasticSearchProps {
-  label: keyof Option;
-  selectedVal: string;
-  handleChange: (val: string) => void;
-  options: Option[];
-}
+import { ElasticSearchProps, Option } from './types';
 
 export const ElasticSearch = ({
   options,
@@ -23,7 +16,7 @@ export const ElasticSearch = ({
   const inputRef = useRef<HTMLInputElement>(null);
 
   const filteredOptions = useMemo((): Option[] => {
-    return options.filter((option) =>
+    return options.filter((option: Option) =>
       option[label].toString().toLowerCase().includes(query.toLowerCase())
     );
   }, [label, options, query]);
@@ -80,7 +73,7 @@ export const ElasticSearch = ({
       </div>
       {isOpen && (
         <div className={styles.dataResult}>
-          {filteredOptions.map((option) => (
+          {filteredOptions.map((option: Option) => (
             <option
               onClick={onOptionClick(option)}
               tabIndex={0}

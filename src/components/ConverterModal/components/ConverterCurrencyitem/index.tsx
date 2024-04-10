@@ -1,9 +1,5 @@
 import styles from './styles.module.scss';
-
-interface ConverterCurrencyItemProps {
-  iconPath: string;
-  name: string;
-}
+import { ConverterCurrencyItemProps } from './types';
 
 export const ConverterCurrencyItem = ({ iconPath, name }: ConverterCurrencyItemProps) => {
   return (

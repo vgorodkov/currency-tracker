@@ -2,14 +2,7 @@ import React, { ErrorInfo } from 'react';
 
 import { ErrorFallback } from '@/components/ErrorFallback';
 
-interface ErrorBoundaryState {
-  error: Error | null;
-  errorInfo?: ErrorInfo;
-}
-
-interface ErrorBoundaryProps {
-  children: React.ReactNode;
-}
+import { ErrorBoundaryProps, ErrorBoundaryState } from './types';
 
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {

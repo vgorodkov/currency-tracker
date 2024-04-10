@@ -3,13 +3,7 @@ import { KeyboardEvent, useState } from 'react';
 import Arrow from '@/assets/icons/chevron_down.svg';
 
 import styles from './styles.module.scss';
-
-interface DropdownProps {
-  selected: string;
-  handleSelect: (toCurrency: string) => void;
-  options: string[];
-  pos?: 'above' | 'below';
-}
+import { DropdownProps } from './types';
 
 export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: DropdownProps) => {
   const [isActive, setIsActive] = useState(false);

@@ -1,11 +1,7 @@
-import { ErrorInfo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import styles from './styles.module.scss';
-
-interface ErrorFallbackProps {
-  errorInfo: ErrorInfo;
-}
+import { ErrorFallbackProps } from './types';
 
 export const ErrorFallback = ({ errorInfo }: ErrorFallbackProps) => {
   return (

@@ -1,12 +1,7 @@
 import { useState } from 'react';
 
 import styles from './styles.module.scss';
-
-interface TooltipProps {
-  content: string;
-  children: React.ReactNode;
-  shouldShow: boolean;
-}
+import { TooltipProps } from './types';
 
 export const Tooltip = ({ content, children, shouldShow }: TooltipProps) => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);

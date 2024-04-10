@@ -1,35 +1,17 @@
-/* eslint-disable @typescript-eslint/no-shadow */
-
 import { bindActionCreators } from '@reduxjs/toolkit';
 import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { Button, Modal, Tooltip } from '@/components/UI';
-import {
-  setChartData,
-  setDate,
-  setInputModalOpen,
-  setPrice,
-} from '@/redux/slices/candlestickChartSlice';
-import { AppDispatch, RootState } from '@/redux/store';
-import { ChartDayData, Pricetype, SetPriceArgs } from '@/types/candlestickChart';
+import { setChartData, setInputModalOpen } from '@/store/slices/candlestickChartSlice';
+import { AppDispatch, RootState } from '@/store/types';
+import { Pricetype } from '@/types/candlestickChart';
 
-import { DateInput } from './components/DateInput';
-import { PriceInputField } from './components/PriceInput';
+import DateInput from './components/DateInput';
+import PriceInputField from './components/PriceInput';
+import { RULES } from './constants';
 import styles from './styles.module.scss';
-
-const RULES =
-  'Price values should be greater than 0. Open and Close cannot be equal. High must be greater than Low';
-
-interface ChartInputModalProps {
-  chartDayData: ChartDayData;
-  isInpuModalOpen: boolean;
-  closeModal: () => void;
-  setDate: (date: string) => void;
-  setPrice: ({ priceType, price }: SetPriceArgs) => void;
-  setChartData: () => void;
-  isFirstDateSelected: boolean;
-}
+import { ChartInputModalProps } from './types';
 
 export class ChartInputModal extends Component<ChartInputModalProps> {
   arePricesValid = (): boolean => {
@@ -46,7 +28,7 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
   };
 
   renderPriceInputFields = () => {
-    const { isFirstDateSelected, chartDayData, setPrice } = this.props;
+    const { isFirstDateSelected, chartDayData } = this.props;
 
     const priceInputs = [
       {
@@ -68,7 +50,6 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
     return priceInputs.map((input) => (
       <PriceInputField
         key={input.priceType}
-        setPrice={setPrice}
         priceType={input.priceType}
         title={input.title}
         price={input.price}
@@ -80,25 +61,27 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
   render() {
     const {
       isInpuModalOpen,
-      closeModal,
+      closeModalConnect,
       chartDayData,
-      setDate,
-      setChartData,
       isFirstDateSelected,
+      setChartDataConnect,
     } = this.props;
 
     return (
-      <Modal isActive={isInpuModalOpen} closeModal={closeModal}>
+      <Modal isActive={isInpuModalOpen} closeModal={closeModalConnect}>
         <form className={styles.inputsContainer}>
           <DateInput
             isFirstDateSelected={isFirstDateSelected}
-            chartDayData={chartDayData}
-            setDate={setDate}
+            chartDayDataTimestamp={chartDayData.timestamp}
           />
           {this.renderPriceInputFields()}
         </form>
         <Tooltip content={RULES} shouldShow={!this.arePricesValid()}>
-          <Button disabled={!this.arePricesValid()} title="Enter data" onClick={setChartData} />
+          <Button
+            disabled={!this.arePricesValid()}
+            title="Enter data"
+            onClick={setChartDataConnect}
+          />
         </Tooltip>
       </Modal>
     );
@@ -114,10 +97,8 @@ const mapStateToProps = (state: RootState) => ({
 const mapDispatchToProps = (dispatch: AppDispatch) =>
   bindActionCreators(
     {
-      closeModal: () => setInputModalOpen(false),
-      setDate,
-      setPrice,
-      setChartData,
+      closeModalConnect: () => setInputModalOpen(false),
+      setChartDataConnect: setChartData,
     },
     dispatch
   );

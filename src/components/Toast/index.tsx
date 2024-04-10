@@ -4,13 +4,7 @@ import closeSvg from '@/assets/icons/close.svg?url';
 import observable from '@/utils/observable';
 
 import styles from './styles.module.scss';
-
-interface ToastProps {}
-
-interface ToastState {
-  isActive: boolean;
-  toastTextContent: string;
-}
+import { ToastProps, ToastState } from './types';
 
 export class Toast extends Component<ToastProps, ToastState> {
   constructor(props: ToastProps) {

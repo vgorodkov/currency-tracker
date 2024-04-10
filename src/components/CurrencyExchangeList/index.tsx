@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { LoadingFallback } from '@/components/LoadingFallback';
+import { LoadingFallback } from '@/components/UI/LoadingFallback';
 import { useAppDispatch } from '@/store/hooks';
 import {
   cachedDateSelector,

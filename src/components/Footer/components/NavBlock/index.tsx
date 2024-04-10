@@ -6,11 +6,7 @@ import { themeSelector } from '@/store/slices/themeSlice/themeSelectors';
 
 import { Accordion } from '../Accordion';
 import styles from './styles.module.scss';
-
-interface NavBlockProps {
-  title: string;
-  links: string[];
-}
+import { NavBlockProps } from './types';
 
 export const NavBlock = ({ title, links }: NavBlockProps) => {
   const theme = useSelector(themeSelector);

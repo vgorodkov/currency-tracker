@@ -1,9 +1,5 @@
 import styles from './styles.module.scss';
-
-interface AccordionProps {
-  links: string[];
-  isAccordionActive: boolean;
-}
+import { AccordionProps } from './types';
 
 export const Accordion = ({ links, isAccordionActive }: AccordionProps) => {
   return (

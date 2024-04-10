@@ -5,10 +5,7 @@ import { currenciesInfo } from '@/constants/currencies';
 import { RootState } from '@/store/types';
 
 import styles from './styles.module.scss';
-
-interface ChartCurrencyInfoProps {
-  targetCurrency: string;
-}
+import { ChartCurrencyInfoProps } from './types';
 
 class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
   render() {

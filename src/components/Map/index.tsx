@@ -6,17 +6,9 @@ import React, { Component } from 'react';
 import { getAtmsGeoByCurrency } from '@/api/getAtmsGeoByCurrency';
 
 import styles from './styles.module.scss';
+import { MapProps } from './types';
 
 mapboxgl.accessToken = process.env.MAPBOX_TOKEN;
-
-interface MapProps {
-  startPos: {
-    lng: number;
-    lat: number;
-  };
-  zoom: number;
-  currency: string;
-}
 
 export class Map extends Component<MapProps> {
   private mapContainer: React.RefObject<HTMLDivElement>;

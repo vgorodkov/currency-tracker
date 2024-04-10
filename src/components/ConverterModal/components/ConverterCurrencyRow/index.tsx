@@ -3,15 +3,11 @@ import { useSelector } from 'react-redux';
 import { LoaderSpinner } from '@/components/UI/LoaderSpinner';
 import { currenciesInfo } from '@/constants/currencies';
 import { isLoadingSelector } from '@/store/slices/converterSlice/converterSelectors';
-import { ConversionInfo } from '@/types/converter';
 import { formatRate } from '@/utils/formatRate';
 
 import { ConverterCurrencyItem } from '../ConverterCurrencyitem';
 import styles from './styles.module.scss';
-
-interface ConverterCurrencyRowProps extends ConversionInfo {
-  isConvertedCurrency?: boolean;
-}
+import { ConverterCurrencyRowProps } from './types';
 
 export const ConverterCurrencyRow = ({
   fromCurrency,
