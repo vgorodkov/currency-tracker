@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Footer } from '@/components/Footer';
 import { Header } from '@/components/Header';
-import { LoadingFallback } from '@/components/LoadingFallback';
+import { LoadingFallback } from '@/components/UI/LoadingFallback';
 
 export const MainLayout = () => {
   return (
