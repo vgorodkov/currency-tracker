@@ -14,7 +14,7 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
     setIsActive(!isActive);
   };
 
-  const onDropdownOptionClick = (option: string) => {
+  const onDropdownOptionClick = (option: string) => () => {
     handleSelect(option);
     setIsActive(false);
   };
@@ -48,7 +48,7 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
             <option
               tabIndex={0}
               key={option}
-              onClick={() => onDropdownOptionClick(option)}
+              onClick={onDropdownOptionClick(option)}
               className={styles.dropdownItem}
             >
               {option}
