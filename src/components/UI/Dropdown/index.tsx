@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 
 import Arrow from '@/assets/icons/chevron_down.svg';
 
@@ -21,9 +20,27 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
     setIsActive(!isActive);
   };
 
+  const onDropdownOptionClick = (option: string) => {
+    handleSelect(option);
+    setIsActive(false);
+  };
+
+  const onDropdownBtnKeyDown = (e: KeyboardEvent) => {
+    e.stopPropagation();
+    if (e.code === 'Escape') {
+      setIsActive(!isActive);
+    }
+  };
+
   return (
     <div className={styles.dropdown}>
-      <div role="button" tabIndex={0} className={styles.dropdownBtn} onClick={onDropdownBtnClick}>
+      <div
+        onKeyDown={onDropdownBtnKeyDown}
+        role="button"
+        tabIndex={0}
+        className={styles.dropdownBtn}
+        onClick={onDropdownBtnClick}
+      >
         {selected === '' ? options[0] : selected}
         <div className={styles.btnArrowContainer}>
           <Arrow
@@ -33,19 +50,15 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
       </div>
       {isActive && (
         <div className={styles.dropdownContent} data-pos={isAbove ? 'above' : 'below'}>
-          {options.map((item) => (
-            <div
-              role="button"
+          {options.map((option) => (
+            <option
               tabIndex={0}
-              key={item}
-              onClick={() => {
-                handleSelect(item);
-                setIsActive(false);
-              }}
+              key={option}
+              onClick={() => onDropdownOptionClick(option)}
               className={styles.dropdownItem}
             >
-              {item}
-            </div>
+              {option}
+            </option>
           ))}
         </div>
       )}
