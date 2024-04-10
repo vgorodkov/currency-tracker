@@ -1,5 +1,6 @@
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
 import { ConvertedCurrency, Currency } from '@/types/converter';
 import { getDate } from '@/utils/getDate';
@@ -75,6 +76,11 @@ export const converterSlice = createSlice({
       .addCase(convertCurrency.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+      .addCase(PURGE, (state) => {
+        state.convertedList = state.convertedList.filter(
+          (item: ConvertedCurrency) => item.cachedDate >= getDate()
+        );
       });
   },
 });

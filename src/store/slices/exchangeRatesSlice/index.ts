@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
 import { ExchangeAsset } from '@/types/exchangeRates';
 import { getDate } from '@/utils/getDate';
@@ -35,6 +36,11 @@ export const exchangeRatesSlice = createSlice({
       })
       .addCase(fetchExchangeRates.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(PURGE, (state) => {
+        if (state.cachedDate < getDate()) {
+          state.exchangeRates = [];
+        }
       });
   },
 });
