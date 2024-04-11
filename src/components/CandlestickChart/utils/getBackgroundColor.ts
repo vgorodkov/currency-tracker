@@ -1,5 +1,7 @@
 import { CandlestickContext } from '@/types/candlestickChart';
 
+import { colors } from '../constants';
+
 export const getBackgroundColor = (ctx: CandlestickContext) => {
   const {
     raw: { openPrice, closePrice },
@@ -7,9 +9,9 @@ export const getBackgroundColor = (ctx: CandlestickContext) => {
 
   let color;
   if (closePrice >= openPrice) {
-    color = '#16C782';
+    color = colors.upPrice;
   } else {
-    color = '#EA3943';
+    color = colors.downPrice;
   }
   return color;
 };
