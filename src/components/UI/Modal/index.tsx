@@ -1,12 +1,7 @@
-import { useEffect, useRef } from 'react';
+import { MouseEvent, useEffect, useRef } from 'react';
 
 import styles from './styles.module.scss';
-
-interface ModalProps {
-  isActive: boolean;
-  closeModal: () => void;
-  children: React.ReactNode;
-}
+import { ModalProps } from './types';
 
 export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
@@ -15,6 +10,10 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
     if (e.key === 'Escape') {
       closeModal();
     }
+  };
+
+  const onModalClick = (e: MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
   };
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
         className={
           isActive ? `${styles.modalContent} ${styles.activeContent}` : styles.modalContent
         }
-        onClick={(e) => e.stopPropagation()}
+        onClick={onModalClick}
       >
         {children}
       </div>

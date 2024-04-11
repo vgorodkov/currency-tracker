@@ -1,21 +1,9 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 import searchSvg from '@/assets/icons/search.svg?url';
 
 import styles from './styles.module.scss';
-
-interface Option {
-  id: number;
-  name: string;
-}
-
-interface ElasticSearchProps {
-  label: keyof Option;
-  selectedVal: string;
-  handleChange: (val: string) => void;
-  options: Option[];
-}
+import { ElasticSearchProps, Option } from './types';
 
 export const ElasticSearch = ({
   options,
@@ -27,14 +15,24 @@ export const ElasticSearch = ({
   const [isOpen, setIsOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const filteredOptions = useMemo((): Option[] => {
+    return options.filter((option: Option) =>
+      option[label].toString().toLowerCase().includes(query.toLowerCase())
+    );
+  }, [label, options, query]);
+
   const selectOption = (option: Option): void => {
     setQuery(() => '');
     handleChange(option[label].toString());
     setIsOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const toggle = (e: MouseEvent) => {
+  const toggleDropdownVisibility = (e: MouseEvent) => {
     setIsOpen(e && e.target === inputRef.current);
+  };
+
+  const onInputClick = () => {
+    setIsOpen(true);
   };
 
   const getDisplayValue = () => {
@@ -44,30 +42,30 @@ export const ElasticSearch = ({
     return '';
   };
 
-  const filterOptions = (): Option[] => {
-    return options.filter((option) =>
-      option[label].toString().toLowerCase().includes(query.toLowerCase())
-    );
+  const onOptionClick = (option: Option) => () => {
+    selectOption(option);
+  };
+
+  const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    handleChange(null);
   };
 
   useEffect(() => {
-    document.addEventListener('click', toggle);
-    return () => document.removeEventListener('click', toggle);
+    document.addEventListener('click', toggleDropdownVisibility);
+    return () => document.removeEventListener('click', toggleDropdownVisibility);
   }, []);
 
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchInputContainer}>
         <input
-          onClick={toggle}
+          onClick={onInputClick}
           ref={inputRef}
           value={getDisplayValue()}
           type="text"
           placeholder="Select currency..."
-          onChange={(e) => {
-            setQuery(e.target.value);
-            handleChange(null);
-          }}
+          onChange={onInputChange}
         />
         <div className={styles.searchInputIconContainer}>
           <img src={searchSvg} alt="search" />
@@ -75,16 +73,16 @@ export const ElasticSearch = ({
       </div>
       {isOpen && (
         <div className={styles.dataResult}>
-          {filterOptions().map((option) => (
-            <div
+          {filteredOptions.map((option: Option) => (
+            <option
+              onClick={onOptionClick(option)}
               tabIndex={0}
               role="button"
               key={option.id}
-              onClick={() => selectOption(option)}
               className={styles.dataItem}
             >
               {option[label]}
-            </div>
+            </option>
           ))}
         </div>
       )}

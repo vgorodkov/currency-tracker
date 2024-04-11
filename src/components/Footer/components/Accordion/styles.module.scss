@@ -1,3 +1,5 @@
+@import '@/scss/spacing';
+
 .accordion {
   display: none;
 
@@ -14,5 +16,5 @@
   transition: 0.3s;
   align-self: flex-end;
   flex-direction: column;
-  gap: 8px;
+  gap: $spacing-xs;
 }

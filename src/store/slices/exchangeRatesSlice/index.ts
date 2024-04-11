@@ -1,38 +1,10 @@
-/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
-import { getExchangeRates } from '@/api/getExchangeRates';
-import { ExchangeAsset } from '@/types';
+import { ExchangeAsset } from '@/types/exchangeRates';
 import { getDate } from '@/utils/getDate';
 
-import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
-
-export const fetchExchangeRates = createAppAsyncThunk(
-  'exchangeRates/fetchExchangeRates',
-  async (_, { rejectWithValue }) => {
-    try {
-      const response = await getExchangeRates();
-      return response.data;
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  },
-  {
-    condition: (_, { getState }) => {
-      const state = getState();
-
-      if (state.exchangeRates.cachedDate < getDate()) {
-        return true;
-      }
-
-      if (state.exchangeRates.exchangeRates) {
-        return false;
-      }
-
-      return true;
-    },
-  }
-);
+import { fetchExchangeRates } from './exchangeRatesThunk';
 
 export interface ExchangeRatesState {
   exchangeRates: ExchangeAsset[] | null;
@@ -51,11 +23,7 @@ const initialState: ExchangeRatesState = {
 export const exchangeRatesSlice = createSlice({
   name: 'exchangeRates',
   initialState,
-  reducers: {
-    setCachedDate: (state, action) => {
-      state.cachedDate = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchExchangeRates.fulfilled, (state, action) => {
@@ -68,6 +36,11 @@ export const exchangeRatesSlice = createSlice({
       })
       .addCase(fetchExchangeRates.rejected, (state, action) => {
         state.error = action.payload;
+      })
+      .addCase(PURGE, (state) => {
+        if (state.cachedDate < getDate()) {
+          state.exchangeRates = [];
+        }
       });
   },
 });

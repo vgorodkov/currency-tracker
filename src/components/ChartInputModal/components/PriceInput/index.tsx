@@ -1,26 +1,26 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
 import { ChangeEvent, PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import { Tooltip } from '@/components/UI/Tooltip';
-import { Pricetype, SetPriceArgs } from '@/types';
+import { setPrice } from '@/store/slices/candlestickChartSlice';
+import { AppDispatch } from '@/store/types';
 
+import { RULE } from './constants';
 import styles from './styles.module.scss';
+import { PriceInputFieldProps } from './types';
 
-const RULE = 'Open value is always based on close value from previous day';
-
-interface PriceInputFieldProps {
-  setPrice: ({ priceType, price }: SetPriceArgs) => void;
-  priceType: Pricetype;
-  price: number;
-  title: string;
-  disabled?: boolean;
-}
-
-export class PriceInputField extends PureComponent<PriceInputFieldProps> {
+class PriceInputField extends PureComponent<PriceInputFieldProps> {
   onPriceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { priceType, setPrice } = this.props;
+    const { priceType, setPriceConnect } = this.props;
     const value = e.target.valueAsNumber;
 
-    setPrice({ priceType, price: value });
+    if (Number.isNaN(value)) {
+      setPriceConnect({ priceType, price: 0 });
+      return;
+    }
+
+    setPriceConnect({ priceType, price: Math.max(0, value) });
   };
 
   render() {
@@ -43,4 +43,12 @@ export class PriceInputField extends PureComponent<PriceInputFieldProps> {
   }
 }
 
-export default PriceInputField;
+const mapDispatchToProps = (dispatch: AppDispatch) =>
+  bindActionCreators(
+    {
+      setPriceConnect: setPrice,
+    },
+    dispatch
+  );
+
+export default connect(null, mapDispatchToProps)(PriceInputField);

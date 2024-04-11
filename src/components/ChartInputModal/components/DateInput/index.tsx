@@ -1,24 +1,26 @@
+import { bindActionCreators } from '@reduxjs/toolkit';
 import { ChangeEvent, PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import { Tooltip } from '@/components/UI/Tooltip';
+import { setDayTimestamp } from '@/store/slices/candlestickChartSlice';
+import { AppDispatch } from '@/store/types';
+import { formatDate } from '@/utils/formatDate';
 
+import { RULE } from './constants';
 import styles from './styles.module.scss';
+import { DateInputProps } from './types';
 
-const RULE = 'Once you have selected date, please fill in data one by one';
-
-interface DateInputProps {
-  isFirstDateSelected: boolean;
-  chartDayData: { date: string };
-  setDate: (date: string) => void;
-}
-
-interface DateInputState {
-  isTooltipVisible: boolean;
-}
-
-export class DateInput extends PureComponent<DateInputProps, DateInputState> {
+class DateInput extends PureComponent<DateInputProps> {
   render() {
-    const { isFirstDateSelected, chartDayData, setDate } = this.props;
+    const { isFirstDateSelected, chartDayDataTimestamp, setDayTimestampConnect } = this.props;
+
+    const onDateInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const date = new Date(e.target.value);
+      const newTimestamp = date.getTime();
+
+      setDayTimestampConnect(newTimestamp);
+    };
 
     return (
       <Tooltip content={RULE} shouldShow={isFirstDateSelected}>
@@ -27,11 +29,21 @@ export class DateInput extends PureComponent<DateInputProps, DateInputState> {
             className={styles.dateInputField}
             readOnly={isFirstDateSelected}
             type="date"
-            value={chartDayData.date}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setDate(e.target.value)}
+            value={formatDate(new Date(chartDayDataTimestamp))}
+            onChange={onDateInputChange}
           />
         </div>
       </Tooltip>
     );
   }
 }
+
+const mapDispatchToProps = (dispatch: AppDispatch) =>
+  bindActionCreators(
+    {
+      setDayTimestampConnect: setDayTimestamp,
+    },
+    dispatch
+  );
+
+export default connect(null, mapDispatchToProps)(DateInput);

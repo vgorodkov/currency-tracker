@@ -1,9 +1,13 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { LoadingFallback } from '@/components/LoadingFallback';
-import { fetchExchangeRates } from '@/redux/slices/exchangeRatesSlice';
-import { RootState, useAppDispatch } from '@/redux/store';
+import { LoadingFallback } from '@/components/UI/LoadingFallback';
+import { useAppDispatch } from '@/store/hooks';
+import {
+  exchangeRatesSelector,
+  isRatesLoadingSelector,
+} from '@/store/slices/exchangeRatesSlice/exchangeRatesSelectors';
+import { fetchExchangeRates } from '@/store/slices/exchangeRatesSlice/exchangeRatesThunk';
 
 import { CurrencyCard } from './components/CurrencyCard';
 import styles from './styles.module.scss';
@@ -11,25 +15,22 @@ import styles from './styles.module.scss';
 export const CurrencyExchangeList = () => {
   const dispatch = useAppDispatch();
 
-  const { exchangeRates, isLoading } = useSelector((state: RootState) => state.exchangeRates);
+  const exchangeRates = useSelector(exchangeRatesSelector);
+  const isLoading = useSelector(isRatesLoadingSelector);
 
   useEffect(() => {
-    dispatch(fetchExchangeRates());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    if (exchangeRates.length < 1) {
+      dispatch(fetchExchangeRates());
+    }
+  }, [dispatch, exchangeRates]);
 
   return (
     <section className={styles.currencySection}>
       <h1 className={styles.currencySectionTitle}>Quotes</h1>
       {!isLoading ? (
         <ul className={styles.currencyList}>
-          {exchangeRates.map((item) => (
-            <CurrencyCard
-              key={item.asset_id}
-              rate={item.price_usd}
-              assetId={item.asset_id}
-              assetName={item.name}
-            />
+          {exchangeRates.map(({ asset_id, price_usd, name }) => (
+            <CurrencyCard key={asset_id} rate={price_usd} assetId={asset_id} assetName={name} />
           ))}
         </ul>
       ) : (

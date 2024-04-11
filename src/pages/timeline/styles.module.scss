@@ -1,13 +1,15 @@
 @import '@/scss/fonts';
+@import '@/scss/spacing';
+
 .container {
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: $spacing-m;
 }
 
 .notification {
   position: absolute;
   top: 0;
   left: 0;
-  padding: 16px;
+  padding: $spacing-s;
 }

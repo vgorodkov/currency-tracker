@@ -11,6 +11,7 @@ export const buildPlugins = ({ mode, paths }: BuildOptions): Configuration['plug
   const plugins: Configuration['plugins'] = [
     new HtmlWebpackPlugin({
       template: paths.html,
+      favicon: paths.favicon,
     }),
     new Dotenv({ systemvars: true }),
   ];

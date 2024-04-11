@@ -1,40 +1,38 @@
 import { Component } from 'react';
 
 import closeSvg from '@/assets/icons/close.svg?url';
-import observable from '@/observable';
+import observable from '@/utils/observable';
 
 import styles from './styles.module.scss';
+import { ToastProps, ToastState } from './types';
 
-interface ChartNotificationProps {}
-
-interface ChartNotificationState {
-  isActive: boolean;
-}
-
-export class ChartNotification extends Component<ChartNotificationProps, ChartNotificationState> {
-  constructor(props: ChartNotificationProps) {
+export class Toast extends Component<ToastProps, ToastState> {
+  constructor(props: ToastProps) {
     super(props);
     this.state = {
       isActive: false,
+      toastTextContent: '',
     };
   }
 
   componentDidMount() {
-    observable.subscribe(() => {
-      this.setState({ isActive: true });
-    });
+    observable.subscribe(this.showToast);
   }
 
   componentWillUnmount() {
-    observable.unsubscribe();
+    observable.unsubscribe(this.showToast);
   }
+
+  showToast = (toastTextContent: string) => {
+    this.setState({ isActive: true, toastTextContent });
+  };
 
   onCloseIconClick = () => {
     this.setState({ isActive: false });
   };
 
   render() {
-    const { isActive } = this.state;
+    const { isActive, toastTextContent } = this.state;
     if (!isActive) {
       return null;
     }
@@ -43,7 +41,7 @@ export class ChartNotification extends Component<ChartNotificationProps, ChartNo
         <button type="button" onClick={this.onCloseIconClick}>
           <img className={styles.closeIcon} src={closeSvg} alt="close" />
         </button>
-        <p>The chart was successfully built for month</p>
+        <p>{toastTextContent}</p>
       </div>
     );
   }

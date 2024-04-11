@@ -1,6 +1,8 @@
+@import '@/scss/spacing';
+
 .chartCurrencySelection {
   display: flex;
   align-items: center;
-  gap: 24px;
-  margin: 40px;
+  gap: $spacing-sm;
+  margin: $spacing-sm;
 }

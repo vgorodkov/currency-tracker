@@ -43,6 +43,13 @@
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
       }
+    ],
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
+    "react/jsx-props-no-spreading": [
+      "error",
+      {
+        "exceptions": ["button", "input"]
+      }
     ]
   }
 }

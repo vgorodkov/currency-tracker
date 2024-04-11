@@ -1,27 +1,25 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { currencies, currenciesInfo } from '@/constants/currencies';
+import { useAppDispatch } from '@/store/hooks';
 import {
   openConverter,
   setFromCurrency,
   setToCurrencyCode,
   setToCurrencyRate,
-} from '@/redux/slices/converterSlice';
-import { useAppDispatch } from '@/redux/store';
+} from '@/store/slices/converterSlice';
 import { formatRate } from '@/utils/formatRate';
 
 import styles from './styles.module.scss';
-
-interface CurrencyCardProps {
-  rate: number;
-  assetId: string;
-  assetName: string;
-}
+import { CurrencyCardProps } from './types';
 
 export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) => {
   const dispatch = useAppDispatch();
 
-  const avaibleCurrencies = currencies.filter((currency) => currency !== assetId);
+  const avaibleCurrencies = useMemo(
+    () => currencies.filter((currency) => currency !== assetId),
+    [assetId]
+  );
 
   const handleCurrencyCardClick = () => {
     dispatch(setToCurrencyCode(avaibleCurrencies[0]));

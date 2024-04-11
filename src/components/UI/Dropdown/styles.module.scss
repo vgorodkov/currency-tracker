@@ -30,7 +30,7 @@ $dropdown-width: 108px;
 
 .dropdownContent {
   position: absolute;
-  padding: 4px;
+  padding: calc($spacing-xs/2);
   color: var(--tertiary-text-color);
   background-color: var(--bg-color);
   border: 1px solid var(--border-color);
@@ -66,7 +66,7 @@ $dropdown-width: 108px;
 .btnArrowContainer {
   display: flex;
   background-color: var(--btn-arrow-color);
-  padding: 2px;
+  padding: calc($spacing-xs/4);
   border-radius: 8px;
 }
 

@@ -1,12 +1,13 @@
 @import '@/scss/fonts';
 @import '@/scss/breakpoints';
+@import '@/scss/spacing';
 
 .contactsContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 32px;
+  gap: $spacing-m;
   min-height: 600px;
   text-align: center;
   h1 {
@@ -19,7 +20,7 @@
   }
 
   @include breakpoint-m {
-    gap: 16px;
+    gap: $spacing-s;
     min-height: 300px;
     h1 {
       @include subheading-1;
@@ -34,5 +35,5 @@
   width: 300px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: $spacing-sm;
 }

@@ -62,10 +62,10 @@ interface ATM {
   };
 }
 
-interface Data {
+interface ATMData {
   ATM: ATM[];
 }
 
-export interface ApiResponse {
-  Data: Data;
+export interface BelarusbankGeoApiResponse {
+  Data: ATMData;
 }

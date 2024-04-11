@@ -1,55 +1,64 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
-export const crosshairPlugin = {
+import { Chart, Plugin } from 'chart.js';
+
+import { OHLC } from '@/types/candlestickChart';
+
+export const crosshairPlugin: Plugin<'bar'> = {
   id: 'crosshair',
-  afterDatasetsDraw(chart) {
+  afterDatasetsDraw(chart: Chart<'bar'>) {
+    const updatedChart = { ...chart };
+
     const {
       ctx,
-
       tooltip,
       chartArea: { top, bottom, left, right },
       scales: { y },
     } = chart;
-    if (tooltip._active && tooltip._active.length) {
-      const activePoint = tooltip._active[0];
+
+    const activeElements = tooltip.getActiveElements();
+
+    if (activeElements && activeElements.length) {
+      const activePoint = activeElements[0];
+      const tooltipDataRaw = tooltip.dataPoints[0].raw as OHLC;
+
       ctx.setLineDash([3, 3]);
       ctx.lineWidth = 2;
       ctx.strokeStyle = '#9EFF00';
 
-      const lines = (startX, startY, endX, endY) => {
+      const lines = (startX: number, startY: number, endX: number, endY: number) => {
         ctx.beginPath();
         ctx.moveTo(startX, startY);
         ctx.lineTo(endX, endY);
         ctx.stroke();
         ctx.closePath();
       };
+
       lines(activePoint.element.x, top, activePoint.element.x, bottom);
       lines(
         left,
-        y.getPixelForValue(tooltip.dataPoints[0].raw.c),
+        y.getPixelForValue(tooltipDataRaw.closePrice),
         right,
-        y.getPixelForValue(tooltip.dataPoints[0].raw.c)
+        y.getPixelForValue(tooltipDataRaw.closePrice)
       );
       ctx.setLineDash([]);
 
       // crosshair label
       ctx.beginPath();
       ctx.fillStyle = '#FF971D';
-      ctx.fillRect(0, y.getPixelForValue(tooltip.dataPoints[0].raw.c) - 12, left, 24);
+      ctx.fillRect(0, y.getPixelForValue(tooltipDataRaw.closePrice) - 12, left, 24);
 
       ctx.fillStyle = 'white';
       ctx.font = 'bold 12px';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText(
-        tooltip.dataPoints[0].raw.c,
+        tooltipDataRaw.closePrice.toString(),
         left / 2,
-        y.getPixelForValue(tooltip.dataPoints[0].raw.c)
+        y.getPixelForValue(tooltipDataRaw.closePrice)
       );
 
-      chart.canvas.style.cursor = 'crosshair';
+      updatedChart.canvas.style.cursor = 'crosshair';
     } else {
-      chart.canvas.style.cursor = 'default';
+      updatedChart.canvas.style.cursor = 'default';
     }
   },
 };

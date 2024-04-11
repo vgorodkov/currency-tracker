@@ -2,11 +2,11 @@ import { Chart } from 'chart.js/auto';
 import { Component, createRef, RefObject } from 'react';
 
 import { ChartDummy } from '@/components/ChartDummy';
-import { CandlestickData } from '@/types';
+import { CandlestickContext, CandlestickData, ICandlestickChart } from '@/types/candlestickChart';
 
 import { chartOptions } from './chartOptions';
-import { candlestickPlugin } from './plugins/candlestickPlugin';
-import { crosshairPlugin } from './plugins/crosshairPlugin';
+import { candlestickPlugin, crosshairPlugin } from './plugins';
+import { getBackgroundColor } from './utils/getBackgroundColor';
 
 interface CandlestickChartProps {
   candleSticksData: CandlestickData[];
@@ -15,7 +15,7 @@ interface CandlestickChartProps {
 class CandlestickChart extends Component<CandlestickChartProps> {
   private canvasRef: RefObject<HTMLCanvasElement | null>;
 
-  private chartRef: Chart<'bar'> | null;
+  private chartRef: ICandlestickChart | null;
 
   constructor(props: CandlestickChartProps) {
     super(props);
@@ -57,20 +57,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
           datasets: [
             {
               data: candleSticksData,
-              backgroundColor: (ctx) => {
-                const {
-                  raw: { o, c },
-                } = ctx;
-
-                let color;
-                if (c >= o) {
-                  color = '#16C782';
-                } else {
-                  color = '#EA3943';
-                }
-                return color;
-              },
-
+              backgroundColor: (ctx: CandlestickContext) => getBackgroundColor(ctx),
               borderSkipped: false,
             },
           ],

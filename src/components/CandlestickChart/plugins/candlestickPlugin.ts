@@ -1,6 +1,10 @@
-export const candlestickPlugin = {
+import { Plugin } from 'chart.js';
+
+import { CandlestickData, ICandlestickChart } from '@/types/candlestickChart';
+
+export const candlestickPlugin: Plugin<'bar', CandlestickData[]> = {
   id: 'candlestickPlugin',
-  beforeDatasetsDraw(chart) {
+  beforeDatasetsDraw(chart: ICandlestickChart) {
     const {
       ctx,
       data,
@@ -12,18 +16,19 @@ export const candlestickPlugin = {
     ctx.lineWidth = 2;
     ctx.strokeStyle = '#9EFF00';
     data.datasets[0].data.forEach((dataset, index) => {
-      const { o, c } = dataset;
-      if (c >= o) {
+      const { openPrice, closePrice } = dataset;
+
+      if (closePrice >= openPrice) {
         ctx.strokeStyle = '#16C782';
       } else {
         ctx.strokeStyle = '#EA3943';
       }
-
       ctx.beginPath();
+
       ctx.moveTo(chart.getDatasetMeta(0).data[index].x, chart.getDatasetMeta(0).data[index].y);
       ctx.lineTo(
         chart.getDatasetMeta(0).data[index].x,
-        y.getPixelForValue(data.datasets[0].data[index].h)
+        y.getPixelForValue(data.datasets[0].data[index].highPrice)
       );
       ctx.stroke();
 
@@ -31,7 +36,7 @@ export const candlestickPlugin = {
       ctx.moveTo(chart.getDatasetMeta(0).data[index].x, chart.getDatasetMeta(0).data[index].y);
       ctx.lineTo(
         chart.getDatasetMeta(0).data[index].x,
-        y.getPixelForValue(data.datasets[0].data[index].l)
+        y.getPixelForValue(data.datasets[0].data[index].lowPrice)
       );
       ctx.stroke();
     });

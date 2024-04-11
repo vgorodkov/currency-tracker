@@ -1,19 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useSelector } from 'react-redux';
 
-import { setTheme } from '@/redux/slices/themeSlice';
-import { RootState, useAppDispatch } from '@/redux/store';
+import { ThemeVariant } from '@/constants/theme';
+import { useAppDispatch } from '@/store/hooks';
+import { setTheme } from '@/store/slices/themeSlice';
+import { themeSelector } from '@/store/slices/themeSlice/themeSelectors';
 
 import styles from './styles.module.scss';
 
 export const ToggleThemeBtn = () => {
-  const theme = useSelector((state: RootState) => state.theme.theme);
+  const theme = useSelector(themeSelector);
   const dispatch = useAppDispatch();
 
-  const isDark = theme === 'dark';
+  const isDark = theme === ThemeVariant.DARK;
 
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
+    const newTheme = theme === ThemeVariant.DARK ? ThemeVariant.LIGHT : ThemeVariant.DARK;
     document.documentElement.setAttribute('data-theme', newTheme);
     dispatch(setTheme(newTheme));
   };

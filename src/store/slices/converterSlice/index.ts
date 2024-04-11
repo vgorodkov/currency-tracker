@@ -1,63 +1,18 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-/* eslint-disable no-param-reassign */
-
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
+import { PURGE } from 'redux-persist';
 
-import { getConvertedCurrency } from '@/api/convertCurrency';
+import { ConvertedCurrency, Currency } from '@/types/converter';
 import { getDate } from '@/utils/getDate';
 
-import { createAppAsyncThunk } from '../helpers/createAppAsyncThunk';
-
-interface Currency {
-  code: string;
-  rate: number;
-}
-
-interface ConvertedCurrency extends Currency {
-  cachedDate: number | null;
-}
-
-export const convertCurrency = createAppAsyncThunk(
-  'converter/convertCurrency',
-  async (_, { rejectWithValue, getState, dispatch }) => {
-    try {
-      dispatch(revalidateConverted());
-
-      const { toCurrency: to, fromCurrency: from, converted: convertedList } = getState().converter;
-
-      const convertedItem = convertedList.find((item) => item.code === `${from.code}-${to.code}`);
-
-      if (convertedItem) {
-        if (convertedItem.cachedDate >= getDate()) {
-          return {
-            fromCode: from.code,
-            toCode: to.code,
-            rate: convertedItem.rate,
-          };
-        }
-      }
-
-      const response = await getConvertedCurrency(from.code, to.code);
-      const { rate, asset_id_base: fromCode, asset_id_quote: toCode } = response.data;
-
-      return {
-        fromCode,
-        toCode,
-        rate,
-      };
-    } catch (err) {
-      return rejectWithValue(err.message);
-    }
-  }
-);
+import { convertCurrency } from './converterThunk';
 
 export interface ConverterState {
   isConverterOpen: boolean;
   toCurrency: Currency;
   fromCurrency: Currency | null;
   isLoading: boolean;
-  converted: ConvertedCurrency[];
+  convertedList: ConvertedCurrency[];
   error: string | null;
 }
 
@@ -69,7 +24,7 @@ const initialState: ConverterState = {
   },
   fromCurrency: null,
   isLoading: false,
-  converted: [],
+  convertedList: [],
   error: null,
 };
 
@@ -94,7 +49,9 @@ export const converterSlice = createSlice({
       state.toCurrency.rate = action.payload;
     },
     revalidateConverted: (state) => {
-      state.converted = state.converted.filter((item) => item.cachedDate >= getDate());
+      state.convertedList = state.convertedList.filter(
+        (item: ConvertedCurrency) => item.cachedDate >= getDate()
+      );
     },
   },
   extraReducers(builder) {
@@ -109,7 +66,7 @@ export const converterSlice = createSlice({
           rate,
           cachedDate: getDate(),
         };
-        state.converted.push(newConverted);
+        state.convertedList.push(newConverted);
 
         state.isLoading = false;
       })
@@ -119,6 +76,11 @@ export const converterSlice = createSlice({
       .addCase(convertCurrency.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+      .addCase(PURGE, (state) => {
+        state.convertedList = state.convertedList.filter(
+          (item: ConvertedCurrency) => item.cachedDate >= getDate()
+        );
       });
   },
 });

@@ -2,15 +2,9 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '@/assets/icons/logo.svg?url';
 import { ToggleThemeBtn } from '@/components/ToggleThemeBtn';
+import { ROUTES } from '@/constants/routes';
 
 import styles from './styles.module.scss';
-
-const ROUTES = [
-  { path: '/', name: 'Home' },
-  { path: '/timeline', name: 'Timeline' },
-  { path: '/bankcard', name: 'Bank card' },
-  { path: '/contacts', name: 'Contacts' },
-];
 
 export const NavBar = () => {
   return (
