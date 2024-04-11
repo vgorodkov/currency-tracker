@@ -3,6 +3,7 @@ import { Component } from 'react';
 import { ElasticSearch } from '@/components/ElasticSearch';
 import { Map } from '@/components/Map';
 
+import { MINSK_GEO, options } from './constants';
 import styles from './styles.module.scss';
 
 interface BankCardProps {}
@@ -10,16 +11,6 @@ interface BankCardProps {}
 interface BankCardState {
   currencyQuery: string;
 }
-
-const MINSK_GEO = {
-  lng: 27.567444,
-  lat: 53.893009,
-};
-
-const options = [
-  { id: 1, name: 'USD' },
-  { id: 2, name: 'BYN' },
-];
 
 class BankCard extends Component<BankCardProps, BankCardState> {
   constructor(props: BankCardProps) {
