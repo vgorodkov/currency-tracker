@@ -3,7 +3,7 @@ import axios from 'axios';
 import { EXCHANGES_API_URL } from '@/constants/api';
 import { currencies } from '@/constants/currencies';
 
-const axiosConfig = {
+export const axiosConfig = {
   method: 'get',
   maxBodyLength: Infinity,
   url: EXCHANGES_API_URL,
