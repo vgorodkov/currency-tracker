@@ -5,7 +5,7 @@ import { LoadingFallback } from '@/components/UI/LoadingFallback';
 import { useAppDispatch } from '@/store/hooks';
 import {
   exchangeRatesSelector,
-  isLoadingSelector,
+  isRatesLoadingSelector,
 } from '@/store/slices/exchangeRatesSlice/exchangeRatesSelectors';
 import { fetchExchangeRates } from '@/store/slices/exchangeRatesSlice/exchangeRatesThunk';
 
@@ -16,7 +16,7 @@ export const CurrencyExchangeList = () => {
   const dispatch = useAppDispatch();
 
   const exchangeRates = useSelector(exchangeRatesSelector);
-  const isLoading = useSelector(isLoadingSelector);
+  const isLoading = useSelector(isRatesLoadingSelector);
 
   useEffect(() => {
     if (exchangeRates.length < 1) {

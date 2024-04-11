@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Modal } from '@/components/UI/Modal';
 import { useAppDispatch } from '@/store/hooks';
 import { closeConverter } from '@/store/slices/converterSlice';
-import { isOpenSelector } from '@/store/slices/converterSlice/converterSelectors';
+import { isConverterOpenSelector } from '@/store/slices/converterSlice/converterSelectors';
 
 import { ConverterCurrencies } from './components/ConverterCurrencies';
 import { ConverterFooter } from './components/ConverterFooter';
@@ -12,7 +12,7 @@ import styles from './styles.module.scss';
 export const ConverterModal = () => {
   const dispatch = useAppDispatch();
 
-  const isConverterOpen = useSelector(isOpenSelector);
+  const isConverterOpen = useSelector(isConverterOpenSelector);
 
   const closeModal = () => {
     dispatch(closeConverter());

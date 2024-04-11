@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 import { LoaderSpinner } from '@/components/UI/LoaderSpinner';
 import { currenciesInfo } from '@/constants/currencies';
-import { isLoadingSelector } from '@/store/slices/converterSlice/converterSelectors';
+import { isConverterLoadingSelector } from '@/store/slices/converterSlice/converterSelectors';
 import { formatRate } from '@/utils/formatRate';
 
 import { ConverterCurrencyItem } from '../ConverterCurrencyitem';
@@ -15,7 +15,7 @@ export const ConverterCurrencyRow = ({
   rate,
   isConvertedCurrency = false,
 }: ConverterCurrencyRowProps) => {
-  const isLoading = useSelector(isLoadingSelector);
+  const isLoading = useSelector(isConverterLoadingSelector);
 
   const showLoader = isLoading && isConvertedCurrency;
 

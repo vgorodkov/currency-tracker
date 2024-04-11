@@ -7,7 +7,7 @@ import { setToCurrencyCode, setToCurrencyRate } from '@/store/slices/converterSl
 import {
   convertedListSelector,
   fromCurrencySelector,
-  isLoadingSelector,
+  isConverterLoadingSelector,
   toCurrencySelector,
 } from '@/store/slices/converterSlice/converterSelectors';
 import { convertCurrency } from '@/store/slices/converterSlice/converterThunk';
@@ -21,7 +21,7 @@ export const ConverterFooter = () => {
   const convertedList = useSelector(convertedListSelector);
   const toCurrency = useSelector(toCurrencySelector);
   const fromCurrencyCode = useSelector(fromCurrencySelector).code;
-  const isLoading = useSelector(isLoadingSelector);
+  const isLoading = useSelector(isConverterLoadingSelector);
 
   const isBtnDisabled = !toCurrency || isLoading;
   const avaibleCurrencies = currencies.filter((currency) => currency !== fromCurrencyCode);
