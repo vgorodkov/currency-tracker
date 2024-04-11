@@ -5,12 +5,7 @@ import { Map } from '@/components/Map';
 
 import { MINSK_GEO, options } from './constants';
 import styles from './styles.module.scss';
-
-interface BankCardProps {}
-
-interface BankCardState {
-  currencyQuery: string;
-}
+import { BankCardProps, BankCardState } from './types';
 
 class BankCard extends Component<BankCardProps, BankCardState> {
   constructor(props: BankCardProps) {

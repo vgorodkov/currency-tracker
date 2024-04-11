@@ -6,17 +6,12 @@ import ChartCurrencyInfo from '@/components/ChartCurrencyInfo';
 import ChartCurrencySelection from '@/components/ChartCurrencySelection';
 import ChartInputModal from '@/components/ChartInputModal';
 import { Toast } from '@/components/Toast';
-import { RootState } from '@/redux/store';
-import { CandlestickData } from '@/types';
+import { RootState } from '@/store/types';
 import observable from '@/utils/observable';
 
+import { CHART_NOTIFICATION, MONTH_LENGTH } from './constants';
 import styles from './styles.module.scss';
-
-const MONTH_LENGTH = 30;
-
-interface TimelineProps {
-  chartData: CandlestickData[];
-}
+import { TimelineProps } from './types';
 
 class Timeline extends PureComponent<TimelineProps> {
   componentDidMount(): void {}
@@ -24,7 +19,7 @@ class Timeline extends PureComponent<TimelineProps> {
   componentDidUpdate() {
     const { chartData } = this.props;
     if (chartData.length === MONTH_LENGTH) {
-      observable.notify('The chart was successfully built for one month');
+      observable.notify(CHART_NOTIFICATION);
     }
   }
 
