@@ -1,10 +1,10 @@
 import { OHLC } from '@/types/candlestickChart';
 
-function getRandomNumber(min: number, max: number) {
+const getRandomNumber = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
-export function getMockPriceData(period: number) {
+export const getMockPriceData = (period: number) => {
   const prices: OHLC[] = [];
 
   for (let i = 0; i < period; i += 1) {
@@ -30,8 +30,4 @@ export function getMockPriceData(period: number) {
   }
 
   return prices;
-}
-
-// Example usage:
-const priceData = getMockPriceData(10);
-console.log(priceData);
+};
