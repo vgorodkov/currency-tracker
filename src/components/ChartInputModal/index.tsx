@@ -78,6 +78,7 @@ export class ChartInputModal extends Component<ChartInputModalProps> {
         </form>
         <Tooltip content={RULES} shouldShow={!this.arePricesValid()}>
           <Button
+            data-test="chart-build-btn"
             disabled={!this.arePricesValid()}
             title="Enter data"
             onClick={setChartDataConnect}

@@ -75,7 +75,7 @@ class CandlestickChart extends Component<CandlestickChartProps> {
       return <ChartDummy />;
     }
 
-    return <canvas ref={this.canvasRef} />;
+    return <canvas data-test="chart-canvas" ref={this.canvasRef} />;
   }
 }
 

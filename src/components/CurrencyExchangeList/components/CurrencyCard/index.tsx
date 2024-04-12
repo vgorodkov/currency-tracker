@@ -41,6 +41,7 @@ export const CurrencyCard = ({ rate, assetId, assetName }: CurrencyCardProps) =>
       onKeyDown={onCurrencyCardKeyDown}
       className={styles.cardContainer}
       onClick={handleCurrencyCardClick}
+      data-test={`currency-card-${assetId}`}
     >
       <img className={styles.icon} src={currenciesInfo[assetId].img} alt={assetId} />
       <div className={styles.infoContainer}>

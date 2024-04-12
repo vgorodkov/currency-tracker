@@ -50,8 +50,14 @@ export const ConverterFooter = () => {
 
   return (
     <div className={styles.converterFooter}>
-      <Button title="Convert" onClick={onConverterBtnClick} disabled={isBtnDisabled} />
+      <Button
+        data-test="convert-btn"
+        title="Convert"
+        onClick={onConverterBtnClick}
+        disabled={isBtnDisabled}
+      />
       <Dropdown
+        data-test="converter-dropdown"
         options={avaibleCurrencies}
         selected={toCurrency.code}
         handleSelect={selectToCurrencyCode}

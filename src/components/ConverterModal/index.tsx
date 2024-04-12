@@ -24,7 +24,7 @@ export const ConverterModal = () => {
 
   return (
     <Modal isActive={isConverterOpen} closeModal={closeModal}>
-      <div className={styles.converterModal}>
+      <div className={styles.converterModal} data-test="converter-modal">
         <h3 className={styles.modalTitle}>Exchange Rates</h3>
         <ConverterCurrencies />
         <ConverterFooter />

@@ -25,7 +25,7 @@ export const CurrencyExchangeList = () => {
   }, [dispatch, exchangeRates]);
 
   return (
-    <section className={styles.currencySection}>
+    <section className={styles.currencySection} data-test="rates-list">
       <h1 className={styles.currencySectionTitle}>Quotes</h1>
       {!isLoading ? (
         <ul className={styles.currencyList}>

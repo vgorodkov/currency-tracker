@@ -37,7 +37,7 @@ export class Toast extends Component<ToastProps, ToastState> {
       return null;
     }
     return (
-      <div className={styles.chartNotification}>
+      <div className={styles.chartNotification} data-test="chart-toast">
         <button type="button" onClick={this.onCloseIconClick}>
           <img className={styles.closeIcon} src={closeSvg} alt="close" />
         </button>

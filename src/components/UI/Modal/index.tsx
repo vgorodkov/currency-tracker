@@ -24,6 +24,7 @@ export const Modal = ({ isActive, closeModal, children }: ModalProps) => {
 
   return (
     <div
+      data-test="modalBackdrop"
       ref={modalRef}
       className={isActive ? `${styles.modalContainer} ${styles.active}` : styles.modalContainer}
       onClick={closeModal}

@@ -29,7 +29,7 @@ export const ToggleThemeBtn = () => {
         id="darkmode-toggle"
         onClick={toggleTheme}
       />
-      <label className={styles.label} htmlFor="darkmode-toggle" />
+      <label data-test="theme-toggle-btn" className={styles.label} htmlFor="darkmode-toggle" />
     </>
   );
 };

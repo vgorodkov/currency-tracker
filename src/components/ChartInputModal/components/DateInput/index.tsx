@@ -26,6 +26,7 @@ class DateInput extends PureComponent<DateInputProps> {
       <Tooltip content={RULE} shouldShow={isFirstDateSelected}>
         <div className={styles.dateInputWrapper}>
           <input
+            data-test="chart-date-input"
             className={styles.dateInputField}
             readOnly={isFirstDateSelected}
             type="date"
