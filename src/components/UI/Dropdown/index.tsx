@@ -34,6 +34,7 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
         tabIndex={0}
         className={styles.dropdownBtn}
         onClick={onDropdownBtnClick}
+        data-test="dropdown-btn"
       >
         {selected === '' ? options[0] : selected}
         <div className={styles.btnArrowContainer}>
@@ -43,9 +44,14 @@ export const Dropdown = ({ selected, handleSelect, options, pos = 'below' }: Dro
         </div>
       </div>
       {isActive && (
-        <div className={styles.dropdownContent} data-pos={isAbove ? 'above' : 'below'}>
+        <div
+          data-test="dropdown-content"
+          className={styles.dropdownContent}
+          data-pos={isAbove ? 'above' : 'below'}
+        >
           {options.map((option) => (
             <option
+              data-test="dropdown-option"
               tabIndex={0}
               key={option}
               onClick={onDropdownOptionClick(option)}

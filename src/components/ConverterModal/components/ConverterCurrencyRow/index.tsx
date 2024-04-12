@@ -27,7 +27,11 @@ export const ConverterCurrencyRow = ({
         <ConverterCurrencyItem iconPath={currenciesInfo[toCurrency].img} name={toCurrency} />
       </div>
       <div className={styles.priceContainer}>
-        {showLoader ? <LoaderSpinner /> : <p>{formatRate(rate)}</p>}
+        {showLoader ? (
+          <LoaderSpinner />
+        ) : (
+          <p data-test={`${toCurrency}-price`}>{formatRate(rate)}</p>
+        )}
       </div>
     </li>
   );

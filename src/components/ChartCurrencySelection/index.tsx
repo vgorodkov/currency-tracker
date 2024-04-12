@@ -27,7 +27,7 @@ class ChartCurrencySelection extends PureComponent<ChartCurrencySelectionProps> 
           selected={targetCurrency}
           handleSelect={handleOptionSelect}
         />
-        <div>
+        <div data-test="chart-selection-btn">
           <Button title="Enter data" onClick={openModalConnect} />
         </div>
       </div>

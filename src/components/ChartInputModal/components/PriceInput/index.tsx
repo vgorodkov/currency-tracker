@@ -31,6 +31,7 @@ class PriceInputField extends PureComponent<PriceInputFieldProps> {
         <label htmlFor={priceType}>{title}: </label>
         <Tooltip shouldShow={disabled} content={RULE}>
           <input
+            data-test={`input-${priceType}`}
             readOnly={disabled}
             id={priceType}
             type="number"

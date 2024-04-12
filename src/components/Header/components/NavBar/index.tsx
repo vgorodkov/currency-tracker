@@ -13,6 +13,7 @@ export const NavBar = () => {
       <nav className={styles.headerNav}>
         {ROUTES.map((item) => (
           <NavLink
+            data-test={`navlink-${item.name.toLowerCase()}`}
             key={item.name}
             className={({ isActive }) =>
               isActive
