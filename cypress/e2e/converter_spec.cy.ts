@@ -13,6 +13,8 @@ describe('Converter module', () => {
   });
 
   it('should open currency converter modal  and convert  currencies', () => {
+    cy.getDataTest('rates-list').should('exist');
+    cy.getDataTest('rates-list').find('ul').children().should('have.length.above', 0);
     cy.getDataTest('currency-card-BTC').should('exist').click();
     cy.getDataTest('converter-modal').should('be.visible');
     cy.getDataTest('convert-btn').click();
