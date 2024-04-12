@@ -4,6 +4,7 @@
     "noImplicitAny": true,
     "module": "ESNext",
     "target": "es5",
+    "lib": ["es5", "dom"],
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
@@ -13,7 +14,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@config/*": ["./config/*"]
-    }
+    },
+    "types": ["cypress", "node"]
   },
   "ts-node": {
     "compilerOptions": {
