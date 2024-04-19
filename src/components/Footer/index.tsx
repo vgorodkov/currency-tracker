@@ -5,10 +5,10 @@ import styles from './styles.module.scss';
 export const Footer = () => {
   return (
     <footer>
-      <div className={styles.mainFooterContent}>
+      <section className={styles.mainFooterContent}>
         <CompanyInfo />
         <HorizontalNav />
-      </div>
+      </section>
       <p className={styles.copyrightText}>Startsup © 2023-2024, All Rights Reserved</p>
     </footer>
   );
