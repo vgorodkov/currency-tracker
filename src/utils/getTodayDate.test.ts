@@ -1,11 +1,11 @@
-import { getDate } from '../getDate';
+import { getTodayDate } from './getTodayDate';
 
-describe('getDate', () => {
+describe('getTodayDate', () => {
   test('should return current date', () => {
     const currentDate = new Date();
 
     const expected = currentDate.getDate();
 
-    expect(getDate()).toBe(expected);
+    expect(getTodayDate()).toBe(expected);
   });
 });
