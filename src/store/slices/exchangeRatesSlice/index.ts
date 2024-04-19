@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PURGE } from 'redux-persist';
 
 import { ExchangeAsset } from '@/types/exchangeRates';
-import { getDate } from '@/utils/getDate';
+import { getTodayDate } from '@/utils/getTodayDate';
 
 import { fetchExchangeRates } from './exchangeRatesThunk';
 
@@ -27,7 +27,7 @@ export const exchangeRatesSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchExchangeRates.fulfilled, (state, action) => {
-        state.cachedDate = getDate();
+        state.cachedDate = getTodayDate();
         state.exchangeRates = action.payload;
         state.isLoading = false;
       })
@@ -38,7 +38,7 @@ export const exchangeRatesSlice = createSlice({
         state.error = action.payload;
       })
       .addCase(PURGE, (state) => {
-        if (state.cachedDate < getDate()) {
+        if (state.cachedDate < getTodayDate()) {
           state.exchangeRates = [];
         }
       });

@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { PURGE } from 'redux-persist';
 
 import { ConvertedCurrency, Currency } from '@/types/converter';
-import { getDate } from '@/utils/getDate';
+import { getTodayDate } from '@/utils/getTodayDate';
 
 import { convertCurrency } from './converterThunk';
 
@@ -50,7 +50,7 @@ export const converterSlice = createSlice({
     },
     revalidateConverted: (state) => {
       state.convertedList = state.convertedList.filter(
-        (item: ConvertedCurrency) => item.cachedDate >= getDate()
+        (item: ConvertedCurrency) => item.cachedDate >= getTodayDate()
       );
     },
   },
@@ -64,7 +64,7 @@ export const converterSlice = createSlice({
         const newConverted: ConvertedCurrency = {
           code: `${fromCode}-${toCode}`,
           rate,
-          cachedDate: getDate(),
+          cachedDate: getTodayDate(),
         };
         state.convertedList.push(newConverted);
 
@@ -79,7 +79,7 @@ export const converterSlice = createSlice({
       })
       .addCase(PURGE, (state) => {
         state.convertedList = state.convertedList.filter(
-          (item: ConvertedCurrency) => item.cachedDate >= getDate()
+          (item: ConvertedCurrency) => item.cachedDate >= getTodayDate()
         );
       });
   },
