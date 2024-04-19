@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { ATMS_API_URL } from '@/constants/api';
 
-import { getAtmsGeoByCurrency } from '../getAtmsGeoByCurrency';
+import { getAtmsGeoByCurrency } from './getAtmsGeoByCurrency';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;
