@@ -68,7 +68,7 @@ export const ElasticSearch = ({
           onChange={onInputChange}
         />
         <div className={styles.searchInputIconContainer}>
-          <img src={searchSvg} alt="search" />
+          <img title="search currency" src={searchSvg} alt="search" />
         </div>
       </div>
       {isOpen && (
