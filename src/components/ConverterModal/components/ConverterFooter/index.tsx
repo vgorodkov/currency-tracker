@@ -11,7 +11,7 @@ import {
   toCurrencySelector,
 } from '@/store/slices/converterSlice/converterSelectors';
 import { convertCurrency } from '@/store/slices/converterSlice/converterThunk';
-import { getDate } from '@/utils/getDate';
+import { getTodayDate } from '@/utils/getTodayDate';
 
 import styles from './styles.module.scss';
 
@@ -31,7 +31,7 @@ export const ConverterFooter = () => {
       (item) => item.code === `${fromCurrencyCode}-${toCurrency.code}`
     );
     if (convertedItem) {
-      if (convertedItem.cachedDate <= getDate()) {
+      if (convertedItem.cachedDate <= getTodayDate()) {
         dispatch(setToCurrencyRate(convertedItem.rate));
         return;
       }

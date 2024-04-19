@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 
 export const Hero = () => {
   return (
-    <div className={styles.heroContainer}>
+    <article className={styles.heroContainer}>
       <div className={styles.heroText}>
         <h2>Modsen Currency</h2>
         <h1>Tracker</h1>
@@ -12,7 +12,7 @@ export const Hero = () => {
           Quotes for the dollar and other <br /> international currencies.
         </h4>
       </div>
-      <img src={logo} className={styles.heroLogo} alt="logo" />
-    </div>
+      <img title="company logo" src={logo} className={styles.heroLogo} alt="logo" />
+    </article>
   );
 };

@@ -1,5 +1,4 @@
 {
-  "include": ["src/**/*.ts"],
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
@@ -23,5 +22,5 @@
       "module": "CommonJS"
     }
   },
-  "exclude": ["cypress"]
+  "exclude": ["cypress", "./cypress.config.ts", "node_modules", "**/*.cy.tsx"]
 }

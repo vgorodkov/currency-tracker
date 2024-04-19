@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { CONVERTER_API_URL } from '@/constants/api';
 
-import { getConvertedCurrency } from '../convertCurrency';
+import { getConvertedCurrency } from './convertCurrency';
 
 jest.mock('axios');
 const mockedAxios = axios as jest.Mocked<typeof axios>;

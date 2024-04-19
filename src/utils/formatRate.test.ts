@@ -1,4 +1,4 @@
-import { formatRate } from '../formatRate';
+import { formatRate } from './formatRate';
 
 describe('formatRate', () => {
   test('should format positive rate correctly', () => {

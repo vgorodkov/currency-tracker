@@ -1,15 +1,16 @@
 import { MONTH_LENGTH } from '@/pages/timeline/constants';
-import { getMockPriceData } from '@/utils/getMockPriceData';
-import { handlePriceInputForTest } from '@/utils/handlePriceInputForTest';
 
-describe('Chart dummy', () => {
-  it('succesfully loads with chartDummy', () => {
+import { getMockPriceData } from 'cypress/mock/getMockPriceData';
+import { testChartPriceInput } from 'cypress/support/utils';
+
+describe('Chart Dummy', () => {
+  it('should succesfully load with ChartDummy', () => {
     cy.visit('/timeline');
     cy.getDataTest('chart-dummy').should('exist');
   });
 });
 
-describe('Chart modal for data input', () => {
+describe('Chart Modal for data input', () => {
   const prices = getMockPriceData(1);
 
   beforeEach(() => {
@@ -18,7 +19,7 @@ describe('Chart modal for data input', () => {
   });
 
   it('should build chart based on valid data input', () => {
-    handlePriceInputForTest(prices);
+    testChartPriceInput(prices);
     cy.getDataTest('chart-canvas').should('exist');
   });
 
@@ -37,7 +38,7 @@ describe('Chart modal for data input', () => {
   });
 
   it('should not be able to change open because it basis on prev day close', () => {
-    handlePriceInputForTest(prices);
+    testChartPriceInput(prices);
     cy.getDataTest('input-openPrice').should('have.attr', 'readonly', 'readonly');
   });
 });
@@ -48,7 +49,7 @@ describe('Candlestick chart with month data', () => {
   it('should be able to build chart for month', () => {
     cy.visit('/timeline');
     cy.getDataTest('chart-selection-btn').should('exist').click();
-    handlePriceInputForTest(prices);
+    testChartPriceInput(prices);
     cy.getDataTest('chart-toast')
       .should('exist')
       .contains(/The chart was successfully built for one month/i);

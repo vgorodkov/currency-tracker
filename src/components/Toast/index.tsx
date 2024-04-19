@@ -39,7 +39,7 @@ export class Toast extends Component<ToastProps, ToastState> {
     return (
       <div className={styles.chartNotification} data-test="chart-toast">
         <button type="button" onClick={this.onCloseIconClick}>
-          <img className={styles.closeIcon} src={closeSvg} alt="close" />
+          <img title="close notification" className={styles.closeIcon} src={closeSvg} alt="close" />
         </button>
         <p>{toastTextContent}</p>
       </div>

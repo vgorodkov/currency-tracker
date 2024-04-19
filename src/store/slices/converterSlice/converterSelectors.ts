@@ -5,4 +5,4 @@ export const toCurrencySelector = (state: RootState) => state.converter.toCurren
 export const fromCurrencySelector = (state: RootState) => state.converter.fromCurrency;
 export const isConverterLoadingSelector = (state: RootState) => state.converter.isLoading;
 export const convertedListSelector = (state: RootState) => state.converter.convertedList;
-export const converterRrrorSelector = (state: RootState) => state.converter.error;
+export const converterErrorSelector = (state: RootState) => state.converter.error;

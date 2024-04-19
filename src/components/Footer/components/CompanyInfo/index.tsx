@@ -7,7 +7,7 @@ export const CompanyInfo = () => {
   return (
     <div className={styles.companyInfo}>
       <div className={styles.companyTitle}>
-        <img src={logo} className={styles.logo} alt="logo" />
+        <img title="company logo" src={logo} className={styles.logo} alt="logo" />
         <h3>{companyInfoStrings.appName}</h3>
       </div>
       <p>{companyInfoStrings.appDescription}</p>

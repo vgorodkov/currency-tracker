@@ -1,23 +1,31 @@
+import { CONVERTER_API_URL } from '@/constants/api';
+import { testConverterModalOpen } from 'cypress/support/utils';
+
 describe('Converter module', () => {
   beforeEach(() => {
     cy.visit('/');
   });
 
-  it('succesfully loads', () => {
-    cy.url().should('include', '/');
+  it('should show error UI if request fails', () => {
+    cy.intercept('GET', `${CONVERTER_API_URL}/BTC/ARS`, (req) => {
+      req.reply({
+        statusCode: 500,
+      });
+    }).as('getConvertedError');
+
+    testConverterModalOpen();
+    cy.getDataTest('converter-error').should('exist');
   });
 
-  it('should have exchange rates', () => {
-    cy.getDataTest('rates-list').should('exist');
-    cy.getDataTest('rates-list').find('ul').children().should('have.length.above', 0);
-  });
+  it('should open currency converter modal and convert currencies', () => {
+    cy.intercept('GET', `${CONVERTER_API_URL}/BTC/ARS`, {
+      fixture: 'converted.json',
+      delay: 3000,
+    }).as('getConverted');
 
-  it('should open currency converter modal  and convert  currencies', () => {
-    cy.getDataTest('rates-list').should('exist');
-    cy.getDataTest('rates-list').find('ul').children().should('have.length.above', 0);
-    cy.getDataTest('currency-card-BTC').should('exist').click();
-    cy.getDataTest('converter-modal').should('be.visible');
-    cy.getDataTest('convert-btn').click();
+    testConverterModalOpen();
+    cy.getDataTest('loader-spinner').should('exist');
+    cy.wait(['@getConverted']);
     cy.getDataTest('dropdown-btn').should('exist').click();
     cy.getDataTest('dropdown-content').should('be.visible');
     cy.getDataTest('dropdown-option').eq(1).click();

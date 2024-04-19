@@ -8,8 +8,8 @@ import styles from './styles.module.scss';
 
 export const NavBar = () => {
   return (
-    <header className={styles.headerContainer}>
-      <img src={logo} className={styles.logo} alt="logo" />
+    <section className={styles.navBarContainer}>
+      <img title="company logo" src={logo} className={styles.logo} alt="logo" />
       <nav className={styles.headerNav}>
         {ROUTES.map((item) => (
           <NavLink
@@ -27,6 +27,6 @@ export const NavBar = () => {
         ))}
       </nav>
       <ToggleThemeBtn />
-    </header>
+    </section>
   );
 };

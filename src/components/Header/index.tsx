@@ -5,10 +5,10 @@ import { LastUpdated } from './components/LastUpdated';
 
 export const Header = () => {
   return (
-    <>
+    <header>
       <NavBar />
       <Hero />
       <LastUpdated />
-    </>
+    </header>
   );
 };

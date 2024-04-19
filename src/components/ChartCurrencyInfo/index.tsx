@@ -13,6 +13,7 @@ class ChartCurrencyInfo extends PureComponent<ChartCurrencyInfoProps> {
     return (
       <div className={styles.chartCurrencyInfoContainer}>
         <img
+          title={targetCurrency}
           className={styles.chartCurrencyInfoImg}
           src={currenciesInfo[targetCurrency].img}
           alt={targetCurrency}

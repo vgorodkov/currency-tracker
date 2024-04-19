@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { axiosConfig, getExchangeRates } from '../getExchangeRates';
+import { axiosConfig, getExchangeRates } from './getExchangeRates';
 
 jest.mock('axios');
 const mockedAxios = axios as unknown as jest.Mock;
