@@ -1,0 +1,13 @@
+@import '@/scss/spacing';
+
+.errorFallbackContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-s;
+
+  h1 {
+    color: var(--primary-text-color);
+  }
+}

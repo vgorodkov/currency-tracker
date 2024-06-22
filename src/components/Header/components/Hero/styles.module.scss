@@ -1,0 +1,85 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+$hero-size: 300px;
+
+@mixin text-animation {
+  transition: 0.3s;
+}
+
+@mixin text-background($colors...) {
+  background-image: linear-gradient(to right, $colors...);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.heroContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top right, var(--hero-gradient-start), var(--hero-gradient-end));
+  margin: $spacing-l 0;
+  padding: $spacing-sm;
+  gap: $spacing-xl;
+
+  .heroText {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    text-align: end;
+
+    h2 {
+      @include heading-2;
+      @include text-background(
+        var(--title-gradient-start),
+        var(--title-gradient-middle),
+        var(--title-gradient-end)
+      );
+    }
+    h1 {
+      @include heading-1;
+      @include text-background(
+        var(--title-gradient-start),
+        var(--title-gradient-middle),
+        var(--title-gradient-end)
+      );
+    }
+    h4 {
+      @include subheading-2;
+      text-align: center;
+      color: var(--secondary-text-color);
+    }
+  }
+}
+
+.heroLogo {
+  width: $hero-size;
+  height: $hero-size;
+}
+
+@include breakpoint-l {
+  .heroLogo {
+    display: none;
+  }
+  .heroContainer {
+    padding: $spacing-s;
+    margin: $spacing-sm 0;
+    .heroText {
+      align-items: center;
+
+      h1 {
+        @include subheading-2;
+        font-weight: 600;
+      }
+      h2 {
+        @include subheading-2;
+        font-weight: 600;
+      }
+      h4 {
+        @include body;
+      }
+    }
+  }
+}

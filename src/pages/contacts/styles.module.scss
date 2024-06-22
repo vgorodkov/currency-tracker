@@ -1,0 +1,39 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+.contactsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-m;
+  min-height: 600px;
+  text-align: center;
+  h1 {
+    @include heading-2;
+    color: var(--primary-text-color);
+  }
+  h4 {
+    @include subheading-2;
+    color: var(--primary-text-color);
+  }
+
+  @include breakpoint-m {
+    gap: $spacing-s;
+    min-height: 300px;
+    h1 {
+      @include subheading-1;
+    }
+    h4 {
+      @include body;
+    }
+  }
+}
+
+.formContainer {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}

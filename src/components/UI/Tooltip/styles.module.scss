@@ -1,0 +1,21 @@
+@import '@/scss/spacing';
+
+.tooltipContainer {
+  position: relative;
+}
+
+.tooltip {
+  text-align: start;
+  width: 300px;
+  position: absolute;
+  background-color: #333;
+  color: white;
+  padding: $spacing-xs;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  bottom: calc(100% + 5px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+}

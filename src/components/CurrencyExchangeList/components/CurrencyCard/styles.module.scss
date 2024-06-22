@@ -1,0 +1,63 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+$icon-size: 80px;
+$icon-size-m: 56px;
+
+.cardContainer {
+  display: flex;
+  align-items: center;
+  flex-basis: calc(50% - $spacing-m);
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-m;
+  border-radius: 8px;
+  background-color: var(--card-color);
+  border: 1px solid var(--border-color);
+  transition: all 0.5s;
+  cursor: pointer;
+  &:hover {
+    background-color: var(--active-card-color);
+  }
+}
+
+.icon {
+  width: $icon-size;
+  height: $icon-size;
+}
+
+.infoContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  flex-grow: 1;
+  .currencyName {
+    @include subheading-1;
+    color: var(--primary-text-color);
+  }
+  .currencyValue {
+    @include subheading-2;
+    color: var(--tertiary-text-color);
+  }
+}
+
+@include breakpoint-l {
+  .cardContainer {
+    flex-basis: 100%;
+    flex-grow: 1;
+    padding: $spacing-s $spacing-s;
+  }
+  .icon {
+    width: $icon-size-m;
+    height: $icon-size-m;
+  }
+  .infoContainer {
+    .currencyName {
+      @include subheading-2;
+    }
+    .currencyValue {
+      @include body;
+    }
+  }
+}

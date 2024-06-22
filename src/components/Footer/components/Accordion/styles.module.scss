@@ -1,0 +1,20 @@
+@import '@/scss/spacing';
+
+.accordion {
+  display: none;
+
+  p {
+    color: var(--primary-text-color);
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.active {
+  display: flex;
+  transition: 0.3s;
+  align-self: flex-end;
+  flex-direction: column;
+  gap: $spacing-xs;
+}

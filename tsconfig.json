@@ -4,15 +4,23 @@
     "noImplicitAny": true,
     "module": "ESNext",
     "target": "es5",
+    "lib": ["es5", "dom"],
     "jsx": "react-jsx",
     "allowJs": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@config/*": ["./config/*"]
+    },
+    "types": ["node", "jest"]
   },
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
     }
-  }
+  },
+  "exclude": ["cypress", "./cypress.config.ts", "node_modules", "**/*.cy.tsx"]
 }

@@ -1,0 +1,7 @@
+@import '@/scss/spacing';
+
+.converterCurrencies {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}

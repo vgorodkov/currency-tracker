@@ -1,9 +1,27 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
-import { BuildOptions } from './types';
+import { BuildOptions } from '@config/build/types';
 
 export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
   const isDev = options.mode === 'development';
+
+  const assetLoader = {
+    test: /\.(png|jpg|jpeg|gif)$/i,
+    type: 'asset/resource',
+  };
+
+  const svgLoader = {
+    test: /\.svg$/i,
+    type: 'asset',
+    resourceQuery: /url/,
+  };
+
+  const svgrLoader = {
+    test: /\.svg$/i,
+    issuer: /\.[jt]sx?$/,
+    resourceQuery: { not: [/url/] },
+    use: ['@svgr/webpack'],
+  };
 
   const scssLoader = {
     test: /\.s[ac]ss$/i,
@@ -13,9 +31,7 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
         loader: 'css-loader',
         options: {
           modules: {
-            localIdentName: isDev
-              ? '[path][name]__[local]--[hash:base64:8]'
-              : '[hash:base64:8]',
+            localIdentName: isDev ? '[path][name]__[local]--[hash:base64:8]' : '[hash:base64:8]',
           },
         },
       },
@@ -23,11 +39,18 @@ export const buildLoaders = (options: BuildOptions): ModuleOptions['rules'] => {
     ],
   };
 
-  const tsLoader = {
-    test: /\.tsx?$/,
-    use: 'ts-loader',
-    exclude: /node_modules/,
+  const cssLoader = {
+    test: /\.css$/i,
+    use: ['style-loader', 'css-loader'],
   };
 
-  return [scssLoader, tsLoader];
+  const babelLoader = {
+    test: /\.tsx?$/,
+    exclude: /node_modules/,
+    use: {
+      loader: 'babel-loader',
+    },
+  };
+
+  return [assetLoader, scssLoader, babelLoader, svgrLoader, svgLoader, cssLoader];
 };

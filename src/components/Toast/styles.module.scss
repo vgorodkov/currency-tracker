@@ -1,0 +1,59 @@
+@import '@/scss/fonts';
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
+.chartNotification {
+  position: fixed;
+  bottom: $spacing-m;
+  right: $spacing-m;
+  z-index: 100;
+  padding: $spacing-l $spacing-m;
+  background-color: #b8ffc3;
+  display: flex;
+  gap: $spacing-s;
+  border-radius: 8px;
+  p {
+    color: black;
+    @include body;
+  }
+
+  @include breakpoint-s {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    margin: $spacing-s;
+    padding: $spacing-sm $spacing-s;
+  }
+}
+
+.closeIcon {
+  top: $spacing-s;
+  right: $spacing-s;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  &:hover {
+    animation: rotateAnimation 0.6s forwards;
+  }
+
+  @include breakpoint-s {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}

@@ -1,0 +1,81 @@
+@import '@/scss/spacing';
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+
+$dropdown-width: 108px;
+
+.dropdown {
+  position: relative;
+  user-select: none;
+  width: $dropdown-width;
+}
+
+.dropdownBtn {
+  padding: $spacing-xs;
+  color: var(--primary-text-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 1px 1px 10px 1px var(--box-shadow-color);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-m;
+  cursor: pointer;
+  border-radius: 4px;
+  @include breakpoint-s {
+    gap: $spacing-xs;
+    font-size: 12px;
+  }
+}
+
+.dropdownContent {
+  position: absolute;
+  padding: calc($spacing-xs/2);
+  color: var(--tertiary-text-color);
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 1px 1px 10px 1px var(--box-shadow-color);
+  border-radius: 4px;
+  font-weight: 500;
+  width: 95%;
+  z-index: 20;
+  @include breakpoint-s {
+    gap: $spacing-xs;
+    font-size: 12px;
+  }
+}
+
+.dropdownContent[data-pos='above'] {
+  bottom: 110%;
+}
+
+.dropdownContent[data-pos='below'] {
+  top: 110%;
+}
+
+.dropdownItem {
+  padding: $spacing-xs;
+  transition: all 0.2s;
+
+  cursor: pointer;
+  &:hover {
+    background: var(--active-card-color);
+  }
+}
+
+.btnArrowContainer {
+  display: flex;
+  background-color: var(--btn-arrow-color);
+  padding: calc($spacing-xs/4);
+  border-radius: 8px;
+}
+
+.btnArrow {
+  stroke: var(--primary-text-color);
+  transition: 0.3s;
+}
+
+.btnArrowActive {
+  transition: 0.3s;
+  transform: rotateZ(180deg);
+}

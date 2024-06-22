@@ -1,0 +1,15 @@
+@import '@/scss/spacing';
+@import '@/scss/breakpoints';
+
+.inputsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-s;
+  margin-bottom: $spacing-m;
+  min-width: 300px;
+  width: 100%;
+
+  @include breakpoint-s {
+    min-width: 240px;
+  }
+}

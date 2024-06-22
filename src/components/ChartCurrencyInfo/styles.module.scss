@@ -1,0 +1,20 @@
+@import '@/scss/fonts';
+@import '@/scss/spacing';
+
+.chartCurrencyInfoContainer {
+  display: flex;
+  gap: $spacing-sm;
+  margin-left: $spacing-sm;
+}
+
+.chartCurrencyInfo {
+  h2 {
+    @include subheading-1;
+    color: var(--primary-text-color);
+    font-weight: 600;
+  }
+  h4 {
+    @include subheading-2;
+    color: var(--tertiary-text-color);
+  }
+}

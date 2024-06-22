@@ -1,0 +1,16 @@
+@import '@/scss/fonts';
+@import '@/scss/breakpoints';
+@import '@/scss/spacing';
+
+.converterModal {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-m;
+}
+
+.modalTitle {
+  @include body;
+  font-weight: 600;
+  color: var(--primary-text-color);
+  align-self: center;
+}
