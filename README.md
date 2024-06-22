@@ -30,13 +30,14 @@ npm install # or any other installation command
 npm run dev
 ```
 
-## Other
-1. **Build:**
+2. **Build:**
+
 ```bash
 npm run build:prod
 npm run build:dev
 ```
-2. **Testing:**
+3. **Testing:**
+
 ```bash
 npm run test
 npm run cypress:open
