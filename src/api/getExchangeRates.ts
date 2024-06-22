@@ -9,7 +9,6 @@ export const axiosConfig = {
   url: EXCHANGES_API_URL,
   params: {
     filter_asset_id: currencies.join(';'),
-    invert: true,
   },
   headers: {
     Accept: 'application/json',
